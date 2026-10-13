@@ -1,0 +1,2635 @@
+/* =====================================================
+   QUICKFIX CUSTOMER DASHBOARD
+   CUSTOMER SIDEBAR
+   Matches Provider Dashboard Style
+===================================================== */
+
+
+/* =====================================================
+   CUSTOMER LAYOUT
+===================================================== */
+
+.customer-layout {
+    min-height: 100vh;
+    background: var(--light-bg);
+}
+
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+
+.customer-sidebar {
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 260px;
+    height: 100vh;
+
+    background: var(--white);
+
+    border-right: 1px solid var(--border);
+
+    display: flex;
+    flex-direction: column;
+
+    z-index: 1100;
+
+    transition:
+        width 0.25s ease,
+        transform 0.25s ease;
+}
+
+
+/* =====================================================
+   SIDEBAR HEADER
+===================================================== */
+
+.customer-sidebar-header {
+
+    height: 76px;
+
+    padding: 0 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 8px;
+
+    border-bottom: 1px solid var(--border);
+
+    flex-shrink: 0;
+}
+
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+.customer-logo {
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    flex: 1;
+
+    min-width: 0;
+
+    text-decoration: none;
+}
+
+
+.customer-logo:hover {
+    text-decoration: none;
+}
+
+
+.customer-logo-icon {
+
+    width: 42px;
+    height: 42px;
+
+    min-width: 42px;
+
+    border-radius: 12px;
+
+    background: var(--primary);
+
+    color: var(--white);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 19px;
+
+    box-shadow:
+        0 6px 16px rgba(20, 108, 255, 0.18);
+}
+
+
+.customer-logo-text {
+
+    font-size: 21px;
+
+    font-weight: 700;
+
+    color: var(--navy);
+
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   SIDEBAR TOGGLE
+===================================================== */
+
+.customer-sidebar-toggle {
+
+    width: 40px;
+    height: 40px;
+
+    min-width: 40px;
+
+    border: 0;
+
+    background: transparent;
+
+    color: var(--navy);
+
+    font-size: 19px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+}
+
+
+.customer-sidebar-toggle:hover {
+
+    background: var(--light-bg);
+
+    color: var(--primary);
+}
+
+
+/* =====================================================
+   CUSTOMER PROFILE
+===================================================== */
+
+.customer-profile {
+
+    padding: 20px 18px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+
+.customer-avatar {
+
+    width: 44px;
+    height: 44px;
+
+    min-width: 44px;
+
+    border-radius: 50%;
+
+    background: #eaf2ff;
+
+    color: var(--primary);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 18px;
+}
+.customer-avatar img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+
+.customer-profile-info {
+
+    min-width: 0;
+}
+
+
+.customer-profile-info h4 {
+
+    margin: 0 0 4px;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    color: var(--navy);
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+.customer-profile-info span {
+
+    font-size: 12px;
+
+    color: var(--text);
+}
+/* =====================================================
+   SIDEBAR NOTIFICATION BADGE
+===================================================== */
+
+
+/* =====================================================
+   SIDEBAR MENU
+===================================================== */
+
+.customer-sidebar-menu {
+
+    padding: 18px 14px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 6px;
+
+    flex: 1;
+
+    overflow-y: auto;
+}
+
+
+/* =====================================================
+   MENU LINK
+===================================================== */
+
+.customer-menu-link {
+
+    height: 46px;
+
+    padding: 0 14px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+
+    border-radius: 10px;
+
+    color: var(--text);
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+
+    border: 0;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    width: 100%;
+
+    text-align: left;
+
+    font-family: inherit;
+}
+
+
+.customer-menu-link i {
+
+    width: 20px;
+
+    min-width: 20px;
+
+    text-align: center;
+
+    font-size: 16px;
+}
+
+
+.customer-menu-link:hover {
+
+    background: var(--light-bg);
+
+    color: var(--primary);
+
+    text-decoration: none;
+}
+
+
+.customer-menu-link.active {
+
+    background: #eaf2ff;
+
+    color: var(--primary);
+}
+
+
+.customer-menu-text {
+
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   CHAT BADGE
+===================================================== */
+
+/* =====================================================
+   CHAT UNREAD BADGE
+===================================================== */
+
+.customer-chat-badge {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+
+    margin-left: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #dc3545;
+    color: #ffffff;
+
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+
+/* =====================================================
+   COLLAPSED SIDEBAR
+===================================================== */
+
+.customer-layout.sidebar-collapsed
+.customer-chat-badge {
+    display: none;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 767px) {
+
+    .customer-layout.sidebar-collapsed
+    .customer-chat-badge {
+        display: flex;
+    }
+
+}
+
+/* =====================================================
+   SIDEBAR BOTTOM
+===================================================== */
+
+.customer-sidebar-bottom {
+
+    padding: 12px 14px;
+
+    border-top: 1px solid var(--border);
+
+    flex-shrink: 0;
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+.customer-logout {
+
+    color: var(--danger);
+}
+
+
+.customer-logout:hover {
+
+    background: #fff1f2;
+
+    color: var(--danger);
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.customer-main {
+
+    margin-left: 260px;
+
+    min-height: 100vh;
+
+    transition: margin-left 0.25s ease;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.customer-header {
+
+    min-height: 86px;
+
+    padding: 20px 30px;
+
+    background: var(--white);
+
+    border-bottom: 1px solid var(--border);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+
+.customer-header-left {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    min-width: 0;
+}
+
+
+.customer-header-title h1 {
+
+    margin: 0 0 5px;
+
+    color: var(--navy);
+
+    font-size: 25px;
+
+    font-weight: 700;
+}
+
+
+.customer-header-title p {
+
+    margin: 0;
+
+    color: var(--text);
+
+    font-size: 14px;
+}
+
+
+.customer-header-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+
+/* =====================================================
+   MOBILE MENU
+===================================================== */
+
+.customer-mobile-menu {
+
+    display: none;
+
+    width: 40px;
+    height: 40px;
+
+    min-width: 40px;
+
+    border: 1px solid var(--border);
+
+    background: var(--white);
+
+    color: var(--navy);
+
+    border-radius: 10px;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 17px;
+
+    cursor: pointer;
+}
+
+
+.customer-mobile-menu:hover {
+
+    background: var(--light-bg);
+
+    color: var(--primary);
+}
+
+
+/* =====================================================
+   CUSTOMER CONTENT
+===================================================== */
+
+.customer-content {
+
+    padding: 50px 30px;
+}
+
+
+/* =====================================================
+   SEARCH CARD
+===================================================== */
+
+.customer-search-card {
+
+    background: var(--white);
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    padding: 25px;
+
+    box-shadow: var(--shadow-sm);
+}
+
+
+.customer-search-card h4 {
+
+    color: var(--navy);
+
+    font-weight: 700;
+}
+/* =====================================================
+   CUSTOMER SERVICE SEARCH
+   SEARCH + CITY + AREA
+===================================================== */
+
+.customer-search-row {
+
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+.customer-search-field {
+
+    flex: 1;
+
+    min-width: 0;
+}
+
+
+.customer-search-main {
+
+    flex: 2;
+}
+
+
+.customer-search-input-wrapper {
+
+    position: relative;
+
+    width: 100%;
+}
+
+
+.customer-search-input-wrapper i {
+
+    position: absolute;
+
+    top: 50%;
+
+    left: 14px;
+
+    transform: translateY(-50%);
+
+    color: var(--text);
+
+    font-size: 14px;
+
+    pointer-events: none;
+
+}
+
+
+.customer-search-input-wrapper .form-control {
+
+    width: 100%;
+
+    min-height: 42px;
+
+    padding: 9px 14px 9px 40px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 9px;
+
+    background: var(--white);
+
+    color: var(--navy);
+
+    font-size: 13px;
+
+}
+
+
+.customer-search-input-wrapper .form-control:focus {
+
+    border-color: var(--primary);
+
+    box-shadow: 0 0 0 3px rgba(20, 108, 255, 0.10);
+
+    outline: none;
+
+}
+
+
+.customer-search-field .form-select {
+
+    width: 100%;
+
+    min-height: 42px;
+
+    padding: 9px 35px 9px 12px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 9px;
+
+    background-color: var(--white);
+
+    color: var(--navy);
+
+    font-size: 13px;
+
+    cursor: pointer;
+
+}
+
+
+.customer-search-field .form-select:focus {
+
+    border-color: var(--primary);
+
+    box-shadow: 0 0 0 3px rgba(20, 108, 255, 0.10);
+
+    outline: none;
+
+}
+
+
+.customer-search-field .form-select:disabled {
+
+    background-color: var(--light-bg);
+
+    color: var(--text);
+
+    cursor: not-allowed;
+
+    opacity: 0.75;
+
+}
+
+
+/* =====================================================
+   SEARCH RESULTS
+===================================================== */
+
+.customer-search-results {
+
+    width: 100%;
+
+    margin-top: 15px;
+
+}
+
+
+.customer-search-result-item {
+
+    width: 100%;
+
+    padding: 14px 16px;
+
+    margin-bottom: 8px;
+
+    background: var(--white);
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+
+}
+
+
+.customer-search-result-item:hover {
+
+    background: var(--light-bg);
+
+    border-color: var(--primary);
+
+    transform: translateY(-1px);
+
+}
+
+
+/* =====================================================
+   DARK MODE
+===================================================== */
+
+body.dark-mode .customer-search-input-wrapper .form-control,
+body.dark-mode .customer-search-field .form-select {
+
+    background: #111827;
+
+    border-color: #263244;
+
+    color: #f8fafc;
+
+}
+
+
+body.dark-mode .customer-search-field .form-select:disabled {
+
+    background: #0b1220;
+
+    color: #94a3b8;
+
+}
+
+
+body.dark-mode .customer-search-result-item {
+
+    background: #111827;
+
+    border-color: #263244;
+
+}
+
+
+body.dark-mode .customer-search-result-item:hover {
+
+    background: rgba(255, 255, 255, 0.04);
+
+    border-color: #60a5fa;
+
+}
+
+
+/* =====================================================
+   RESPONSIVE SEARCH
+===================================================== */
+
+@media (max-width: 767px) {
+
+    .customer-search-row {
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 10px;
+
+    }
+
+
+    .customer-search-field,
+    .customer-search-main {
+
+        width: 100%;
+
+        flex: none;
+
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .customer-search-card {
+
+        padding: 16px;
+
+    }
+
+
+    .customer-search-input-wrapper .form-control,
+    .customer-search-field .form-select {
+
+        min-height: 40px;
+
+        font-size: 12px;
+
+    }
+
+
+    .customer-search-result-item {
+
+        padding: 12px 13px;
+
+    }
+
+}
+
+/* =====================================================
+   BOOKING CARD
+===================================================== */
+
+.customer-booking-card {
+
+    background: var(--white);
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    overflow: hidden;
+
+    box-shadow: var(--shadow-sm);
+}
+
+
+/* =====================================================
+   COLLAPSED SIDEBAR
+===================================================== */
+
+.customer-layout.sidebar-collapsed
+.customer-sidebar {
+
+    width: 76px;
+}
+
+
+.customer-layout.sidebar-collapsed
+.customer-main {
+
+    margin-left: 76px;
+}
+
+
+.customer-layout.sidebar-collapsed
+.customer-logo-text {
+
+    display: none;
+}
+
+
+.customer-layout.sidebar-collapsed
+.customer-sidebar-header {
+
+    justify-content: center;
+
+    padding: 0 10px;
+}
+
+
+.customer-layout.sidebar-collapsed
+.customer-logo {
+
+    flex: none;
+
+    width: 42px;
+
+    justify-content: center;
+}
+
+
+.customer-layout.sidebar-collapsed
+.customer-sidebar-toggle {
+
+    display: none;
+}
+
+
+.customer-layout.sidebar-collapsed
+.customer-profile {
+
+    justify-content: center;
+
+    padding: 18px 10px;
+}
+
+
+.customer-layout.sidebar-collapsed
+.customer-profile-info {
+
+    display: none;
+}
+
+
+.customer-layout.sidebar-collapsed
+.customer-sidebar-menu {
+
+    padding: 18px 10px;
+}
+
+
+.customer-layout.sidebar-collapsed
+.customer-menu-link {
+
+    justify-content: center;
+
+    padding: 0;
+
+    gap: 0;
+}
+
+
+.customer-layout.sidebar-collapsed
+.customer-menu-text {
+
+    display: none;
+}
+
+
+.customer-layout.sidebar-collapsed
+.customer-chat-badge {
+
+    display: none;
+}
+
+
+.customer-layout.sidebar-collapsed
+.customer-sidebar-bottom {
+
+    padding: 12px 10px;
+}
+
+
+/* =====================================================
+   MOBILE OVERLAY
+===================================================== */
+
+.customer-overlay {
+
+    display: none;
+}
+
+
+/* =====================================================
+   DARK MODE
+===================================================== */
+
+body.dark-mode
+.customer-sidebar {
+
+    background: #111827;
+
+    border-color: #263244;
+}
+
+
+body.dark-mode
+.customer-main {
+
+    background: #0b1220;
+}
+
+
+body.dark-mode
+.customer-header {
+
+    background: #111827;
+
+    border-color: #263244;
+}
+
+
+body.dark-mode
+.customer-menu-link {
+
+    color: #cbd5e1;
+}
+
+
+body.dark-mode
+.customer-menu-link:hover,
+body.dark-mode
+.customer-menu-link.active {
+
+    background: rgba(20, 108, 255, 0.15);
+
+    color: #60a5fa;
+}
+
+
+body.dark-mode
+.customer-logo-text {
+
+    color: #f8fafc;
+}
+
+
+body.dark-mode
+.customer-profile {
+
+    border-color: #263244;
+}
+
+
+body.dark-mode
+.customer-search-card,
+body.dark-mode
+.customer-booking-card {
+
+    background: #111827;
+
+    border-color: #263244;
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 991px) {
+
+    .customer-content {
+
+        padding: 35px 25px;
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 767px) {
+
+
+    /* Sidebar */
+
+    .customer-sidebar {
+
+        width: 260px;
+
+        transform: translateX(-100%);
+
+        transition: transform 0.25s ease;
+    }
+
+
+    /* Main */
+
+    .customer-main {
+
+        margin-left: 0;
+    }
+
+
+    /* Open sidebar */
+
+    .customer-layout.mobile-sidebar-open
+    .customer-sidebar {
+
+        transform: translateX(0);
+    }
+
+
+    /* Overlay */
+
+    .customer-layout.mobile-sidebar-open
+    .customer-overlay {
+
+        display: block;
+
+        position: fixed;
+
+        inset: 0;
+
+        background: rgba(7, 27, 65, 0.35);
+
+        z-index: 1050;
+    }
+
+
+    /* Mobile collapsed state behaves normally */
+
+    .customer-layout.sidebar-collapsed
+    .customer-sidebar {
+
+        width: 260px;
+    }
+
+
+    .customer-layout.sidebar-collapsed
+    .customer-main {
+
+        margin-left: 0;
+    }
+
+
+    .customer-layout.sidebar-collapsed
+    .customer-logo-text {
+
+        display: inline;
+    }
+
+
+    .customer-layout.sidebar-collapsed
+    .customer-sidebar-header {
+
+        justify-content: space-between;
+
+        padding: 0 16px;
+    }
+
+
+    .customer-layout.sidebar-collapsed
+    .customer-logo {
+
+        width: auto;
+
+        justify-content: flex-start;
+    }
+
+
+    .customer-layout.sidebar-collapsed
+    .customer-sidebar-toggle {
+
+        display: flex;
+    }
+
+
+    .customer-layout.sidebar-collapsed
+    .customer-profile {
+
+        justify-content: flex-start;
+
+        padding: 20px 18px;
+    }
+
+
+    .customer-layout.sidebar-collapsed
+    .customer-profile-info {
+
+        display: block;
+    }
+
+
+    .customer-layout.sidebar-collapsed
+    .customer-sidebar-menu {
+
+        padding: 18px 14px;
+    }
+
+
+    .customer-layout.sidebar-collapsed
+    .customer-menu-link {
+
+        justify-content: flex-start;
+
+        padding: 0 14px;
+
+        gap: 13px;
+    }
+
+
+    .customer-layout.sidebar-collapsed
+    .customer-menu-text {
+
+        display: inline;
+    }
+
+
+    .customer-layout.sidebar-collapsed
+    .customer-chat-badge {
+
+        display: flex;
+    }
+
+
+    .customer-layout.sidebar-collapsed
+    .customer-sidebar-bottom {
+
+        padding: 12px 14px;
+    }
+
+
+    /* Header */
+
+    .customer-header {
+
+        padding: 18px 20px;
+    }
+
+
+    .customer-mobile-menu {
+
+        display: flex;
+    }
+
+
+    .customer-header-title h1 {
+
+        font-size: 21px;
+    }
+
+
+    .customer-header-title p {
+
+        font-size: 13px;
+    }
+
+
+    /* Content */
+
+    .customer-content {
+
+        padding: 25px 20px;
+    }
+
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 480px) {
+
+    .customer-header {
+
+        padding: 16px;
+    }
+
+
+    .customer-header-title h1 {
+
+        font-size: 19px;
+    }
+
+
+    .customer-header-title p {
+
+        font-size: 12px;
+    }
+
+
+    .customer-content {
+
+        padding: 20px 16px;
+    }
+
+
+    .customer-search-card {
+
+        padding: 20px;
+    }
+
+}
+/* =====================================================
+   CUSTOMER LOGOUT
+===================================================== */
+
+.customer-logout,
+.customer-logout i,
+.customer-logout .customer-menu-text {
+    color: #dc3545 !important;
+}
+
+/* Hover */
+.customer-logout:hover,
+.customer-logout:hover i,
+.customer-logout:hover .customer-menu-text {
+    color: #dc3545 !important;
+    background: rgba(220, 53, 69, 0.08);
+}
+/* =====================================================
+   CUSTOMER NOTIFICATION
+===================================================== */
+
+.customer-notification-wrapper {
+    position: relative;
+}
+
+
+/* =====================================================
+   NOTIFICATION BUTTON
+===================================================== */
+
+.customer-notification-button {
+    position: relative;
+    width: 42px;
+    height: 42px;
+    min-height: 42px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--text);
+    cursor: pointer;
+    border-radius: 8px;
+    box-shadow: none;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.customer-notification-button:hover {
+    background: var(--light-bg);
+    color: var(--primary);
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
+.customer-notification-button:focus,
+.customer-notification-button:active {
+    background: transparent;
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
+.customer-notification-button i {
+    font-size: 18px;
+}
+
+
+/* =====================================================
+   NOTIFICATION BADGE
+===================================================== */
+
+.customer-notification-badge {
+    position: absolute;
+    top: -5px;
+    right: -6px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: #dc3545;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1;
+    border: 2px solid var(--white);
+}
+
+
+/* =====================================================
+   NOTIFICATION DROPDOWN
+===================================================== */
+
+.customer-notification-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: 370px;
+    max-width: calc(100vw - 30px);
+
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+
+    box-shadow:
+        0 15px 40px rgba(7, 27, 65, 0.15);
+
+    overflow: hidden;
+    z-index: 1200;
+
+    display: none;
+}
+
+.customer-notification-dropdown.show {
+    display: block;
+}
+
+
+/* =====================================================
+   NOTIFICATION HEADER
+===================================================== */
+
+.customer-notification-header {
+    padding: 16px 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-bottom: 1px solid var(--border);
+}
+
+.customer-notification-header h6 {
+    margin: 0 0 3px;
+    color: var(--navy);
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.customer-notification-header span {
+    color: var(--text);
+    font-size: 12px;
+}
+
+.customer-notification-header a {
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.customer-notification-header a:hover {
+    text-decoration: underline;
+}
+
+
+/* =====================================================
+   NOTIFICATION LIST
+===================================================== */
+
+.customer-notification-list {
+    max-height: 360px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+
+/* Scrollbar */
+
+.customer-notification-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.customer-notification-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.customer-notification-list::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+
+.customer-notification-list::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+
+/* =====================================================
+   NOTIFICATION ITEM
+===================================================== */
+
+.customer-notification-item {
+    position: relative;
+
+    display: flex;
+    gap: 12px;
+
+    padding: 14px 16px;
+
+    border-bottom: 1px solid var(--border);
+
+    transition:
+        background-color 0.2s ease;
+}
+
+.customer-notification-item:hover {
+    background: var(--light-bg);
+}
+
+.customer-notification-item.unread {
+    background: rgba(20, 108, 255, 0.04);
+}
+
+
+/* =====================================================
+   NOTIFICATION ICON
+===================================================== */
+
+.customer-notification-item-icon {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background: #eaf2ff;
+    color: var(--primary);
+
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   NOTIFICATION CONTENT
+===================================================== */
+
+.customer-notification-item-content {
+    min-width: 0;
+    flex: 1;
+}
+
+.customer-notification-item-content strong {
+    display: block;
+    margin-bottom: 3px;
+
+    color: var(--navy);
+    font-size: 13px;
+}
+
+.customer-notification-item-content p {
+    margin: 0 0 4px;
+
+    color: var(--text);
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.customer-notification-item-content small {
+    color: var(--text);
+    font-size: 11px;
+}
+
+
+/* =====================================================
+   NOTIFICATION LINK
+===================================================== */
+
+.customer-notification-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+.customer-notification-link:hover {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/* =====================================================
+   READ BUTTON
+===================================================== */
+
+.customer-notification-read-btn {
+    flex-shrink: 0;
+
+    padding: 4px 9px;
+
+    border: 1px solid var(--primary);
+    border-radius: 6px;
+
+    background: transparent;
+    color: var(--primary);
+
+    font-size: 11px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.customer-notification-read-btn:hover {
+    background: var(--primary);
+    color: #ffffff;
+}
+
+
+/* =====================================================
+   READ LABEL
+===================================================== */
+
+.customer-notification-read-label {
+    flex-shrink: 0;
+
+    color: #94a3b8;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+
+/* =====================================================
+   UNREAD DOT
+===================================================== */
+
+.customer-notification-unread-dot {
+    width: 8px;
+    height: 8px;
+    min-width: 8px;
+
+    margin-top: 5px;
+
+    border-radius: 50%;
+    background: #dc3545;
+}
+
+
+/* =====================================================
+   EMPTY
+===================================================== */
+
+.customer-notification-empty {
+    padding: 35px 20px;
+
+    text-align: center;
+    color: var(--text);
+}
+
+.customer-notification-empty i {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.customer-notification-empty p {
+    margin: 0;
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.customer-notification-footer {
+    padding: 12px 16px;
+
+    text-align: center;
+
+    border-top: 1px solid var(--border);
+    background: var(--light-bg);
+}
+
+.customer-notification-footer a {
+    color: var(--primary);
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.customer-notification-footer a:hover {
+    text-decoration: underline;
+}
+
+
+/* =====================================================
+   DARK MODE
+===================================================== */
+
+body.dark-mode .customer-notification-dropdown {
+    background: #111827;
+    border-color: #263244;
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.35);
+}
+
+body.dark-mode .customer-notification-header {
+    border-color: #263244;
+}
+
+body.dark-mode .customer-notification-header h6 {
+    color: #f8fafc;
+}
+
+body.dark-mode .customer-notification-item {
+    border-color: #263244;
+}
+
+body.dark-mode .customer-notification-item:hover {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+body.dark-mode .customer-notification-item.unread {
+    background: rgba(20, 108, 255, 0.12);
+}
+
+body.dark-mode .customer-notification-item-content strong {
+    color: #f8fafc;
+}
+
+body.dark-mode .customer-notification-footer {
+    background: #0b1220;
+    border-color: #263244;
+}
+
+body.dark-mode .customer-notification-list::-webkit-scrollbar-thumb {
+    background: #475569;
+}
+
+body.dark-mode .customer-notification-list::-webkit-scrollbar-thumb:hover {
+    background: #64748b;
+}
+
+
+/* =====================================================
+   MOBILE NOTIFICATION
+===================================================== */
+
+@media (max-width: 480px) {
+
+    .customer-notification-dropdown {
+        position: fixed;
+
+        top: 76px;
+        right: 12px;
+        left: 12px;
+
+        width: auto;
+        max-width: none;
+    }
+
+    .customer-notification-list {
+        max-height: 55vh;
+    }
+}
+/* =====================================================
+   CUSTOMER SIDEBAR CHAT UNREAD BADGE
+===================================================== */
+
+.customer-sidebar-chat-unread {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 20px;
+    height: 20px;
+
+    padding: 0 6px;
+    margin-left: auto;
+
+    border-radius: 999px;
+
+    background: #dc3545;
+    color: #ffffff;
+
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+
+
+
+
+/* =====================================================
+   CATEGORY ICON
+===================================================== */
+
+.customer-category-icon {
+    width: 58px;
+    height: 58px;
+    margin: 0 auto 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background: rgba(13, 110, 253, 0.10);
+    color: var(--primary);
+
+    font-size: 25px;
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease;
+}
+
+
+.customer-category-card:hover .customer-category-icon {
+    transform: scale(1.08);
+    background: rgba(13, 110, 253, 0.15);
+}
+
+
+/* =====================================================
+   CATEGORY TEXT
+===================================================== */
+
+.customer-category-card h5 {
+    margin-bottom: 8px;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    color: var(--text-color);
+}
+
+
+.customer-category-card p {
+    min-height: 42px;
+    margin-bottom: 15px;
+
+    font-size: 13px;
+    line-height: 1.5;
+
+    color: var(--text-muted);
+}
+
+
+/* =====================================================
+   CATEGORY INFO
+===================================================== */
+
+.customer-category-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    margin-bottom: 18px;
+
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+
+.customer-category-info span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+
+.customer-category-info i {
+    color: var(--primary);
+}
+
+
+/* =====================================================
+   VIEW SERVICES BUTTON
+===================================================== */
+
+.customer-category-view-btn {
+    margin-top: auto;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 9px 12px;
+
+    border-radius: 8px;
+
+    background: var(--primary);
+    color: #ffffff;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.customer-category-view-btn:hover {
+    color: #ffffff;
+    transform: translateX(2px);
+}
+
+
+/* =====================================================
+   EMPTY STATE
+===================================================== */
+
+.customer-category-empty {
+    grid-column: 1 / -1;
+
+    padding: 45px 20px;
+
+    text-align: center;
+
+    border: 1px dashed var(--border-color);
+    border-radius: 14px;
+
+    color: var(--text-muted);
+}
+
+
+.customer-category-empty i {
+    margin-bottom: 12px;
+
+    font-size: 35px;
+}
+
+
+.customer-category-empty h5 {
+    margin-bottom: 6px;
+
+    color: var(--text-color);
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+/* Laptop */
+@media (max-width: 1200px) {
+
+    .customer-category-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+}
+
+
+/* Tablet */
+@media (max-width: 992px) {
+
+    .customer-category-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+}
+
+
+/* Small tablet */
+@media (max-width: 768px) {
+
+    .customer-category-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 15px;
+    }
+
+}
+
+
+/* Mobile */
+@media (max-width: 480px) {
+
+    .customer-category-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+/* =========================================================
+   CUSTOMER - ACTIVE BOOKING CARDS
+========================================================= */
+
+.customer-active-booking-card {
+    width: 100%;
+    margin-bottom: 28px;
+    padding: 24px;
+    background: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.customer-active-booking-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+    border-color: var(--primary);
+}
+
+
+/* =========================================================
+   BOOKING HEADER
+========================================================= */
+
+.customer-active-booking-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 15px;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.customer-active-booking-header h5 {
+    margin: 0 0 5px;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+/* =========================================================
+   BOOKING TYPE
+========================================================= */
+
+.customer-booking-type {
+    display: inline-block;
+    margin-top: 2px;
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.customer-booking-type i {
+    margin-right: 5px;
+    color: var(--primary);
+}
+
+
+/* =========================================================
+   STATUS BADGE
+========================================================= */
+
+.customer-booking-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    min-width: 90px;
+    padding: 6px 11px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+
+/* Pending */
+
+.customer-booking-status.status-pending {
+    background: rgba(255, 193, 7, 0.15);
+    color: #a07800;
+}
+
+
+/* Accepted */
+
+.customer-booking-status.status-accepted {
+    background: rgba(25, 135, 84, 0.12);
+    color: #198754;
+}
+
+
+/* On the way */
+
+.customer-booking-status.status-on_the_way {
+    background: rgba(13, 110, 253, 0.12);
+    color: #0d6efd;
+}
+
+
+/* Arrived */
+
+.customer-booking-status.status-arrived {
+    background: rgba(111, 66, 193, 0.12);
+    color: #6f42c1;
+}
+
+
+/* In progress */
+
+.customer-booking-status.status-in_progress {
+    background: rgba(13, 202, 240, 0.15);
+    color: #087990;
+}
+
+
+/* =========================================================
+   BOOKING CONTENT
+========================================================= */
+
+.customer-active-booking-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+}
+
+
+/* =========================================================
+   PROBLEM PHOTO
+========================================================= */
+
+.customer-booking-photo {
+    width: 70px;
+    height: 70px;
+    flex: 0 0 70px;
+    overflow: hidden;
+    border-radius: 10px;
+    background: var(--light-bg, #f5f6f8);
+    border: 1px solid var(--border-color);
+}
+
+.customer-booking-photo img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.customer-booking-no-photo {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    color: var(--text-muted);
+    font-size: 10px;
+}
+
+.customer-booking-no-photo i {
+    font-size: 18px;
+}
+
+
+/* =========================================================
+   BOOKING INFORMATION
+========================================================= */
+
+.customer-active-booking-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.customer-booking-info-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    margin-bottom: 9px;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.customer-booking-info-row:last-child {
+    margin-bottom: 0;
+}
+
+.customer-booking-info-row > i {
+    width: 17px;
+    flex: 0 0 17px;
+    margin-top: 2px;
+    color: var(--primary);
+    text-align: center;
+}
+
+.customer-booking-info-row > div {
+    min-width: 0;
+}
+
+.customer-booking-info-row strong {
+    margin-right: 4px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.customer-booking-info-row span {
+    color: var(--text-muted);
+    word-break: break-word;
+}
+
+
+/* =========================================================
+   BOOKING ACTIONS
+========================================================= */
+
+.customer-active-booking-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 18px;
+    padding-top: 15px;
+    border-top: 1px solid var(--border-color);
+}
+
+.customer-active-booking-actions .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 34px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   EMPTY ACTIVE BOOKINGS
+========================================================= */
+
+.customer-booking-card {
+    background: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .customer-active-booking-card {
+        padding: 16px;
+    }
+
+    .customer-active-booking-header {
+        gap: 10px;
+    }
+
+    .customer-active-booking-content {
+        gap: 14px;
+    }
+
+    .customer-booking-photo {
+        width: 65px;
+        height: 65px;
+        flex-basis: 65px;
+    }
+
+    .customer-booking-info-row {
+        font-size: 12px;
+    }
+
+}
+
+
+@media (max-width: 576px) {
+
+    .customer-active-booking-card {
+        padding: 14px;
+    }
+
+    .customer-active-booking-header {
+        align-items: flex-start;
+    }
+
+    .customer-active-booking-header h5 {
+        font-size: 14px;
+    }
+
+    .customer-booking-status {
+        min-width: auto;
+        padding: 5px 8px;
+        font-size: 11px;
+    }
+
+    .customer-active-booking-content {
+        gap: 12px;
+    }
+
+    .customer-booking-photo {
+        width: 60px;
+        height: 60px;
+        flex-basis: 60px;
+    }
+
+    .customer-booking-info-row {
+        margin-bottom: 7px;
+        font-size: 11px;
+    }
+
+    .customer-booking-info-row > i {
+        width: 15px;
+        flex-basis: 15px;
+    }
+
+    .customer-active-booking-actions {
+        justify-content: stretch;
+    }
+
+    .customer-active-booking-actions .btn {
+        flex: 1;
+        padding: 7px 8px;
+        font-size: 11px;
+    }
+
+}
+
+/* =========================================================
+   ACTIVE BOOKINGS SECTION HEADER
+========================================================= */
+
+.customer-active-bookings-section .customer-section-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 24px;
+}
+
+/* =========================================================
+   ACTIVE BOOKINGS SECTION SPACING
+========================================================= */
+
+.customer-active-bookings-section {
+    margin-top: 45px;
+}
+
+
+/* =========================================================
+   VIEW ALL BUTTON
+========================================================= */
+
+.customer-view-all-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 9px 17px;
+
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+
+    background: transparent;
+    color: var(--primary);
+
+    font-size: 13px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.customer-view-all-btn:hover {
+    background: var(--primary);
+    color: #ffffff;
+    transform: translateX(2px);
+}
+
+.customer-view-all-btn i {
+    font-size: 11px;
+    transition: transform 0.2s ease;
+}
+
+.customer-view-all-btn:hover i {
+    transform: translateX(3px);
+
+}
+/* =====================================================
+   POPULAR SERVICE CATEGORY GRID
+===================================================== */
+
+.customer-category-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 20px;
+    margin-top: 24px;
+}
+
+
+/* =====================================================
+   CATEGORY CARD
+===================================================== */
+
+.customer-category-card {
+    width: 100%;
+    min-width: 0;
+    height: 100%;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.customer-category-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.10);
+    border-color: var(--primary);
+}
+
+
+.customer-category-card-body {
+    width: 100%;
+    height: 100%;
+    padding: 22px 18px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+
+/* =====================================================
+   CATEGORY ICON
+===================================================== */
+
+.customer-category-icon {
+    width: 58px;
+    height: 58px;
+    margin: 0 auto 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    background: rgba(13, 110, 253, 0.10);
+    color: var(--primary);
+    font-size: 25px;
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease;
+}
+
+.customer-category-card:hover .customer-category-icon {
+    transform: scale(1.08);
+    background: rgba(13, 110, 253, 0.15);
+}
+
+
+/* =====================================================
+   CATEGORY TEXT
+===================================================== */
+
+.customer-category-card h5 {
+    margin-bottom: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--navy);
+}
+
+.customer-category-card p {
+    min-height: 42px;
+    margin-bottom: 15px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--text);
+}
+
+
+/* =====================================================
+   CATEGORY INFO
+===================================================== */
+
+.customer-category-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 18px;
+    font-size: 12px;
+    color: var(--text);
+}
+
+.customer-category-info span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.customer-category-info i {
+    color: var(--primary);
+}
+
+
+/* =====================================================
+   VIEW SERVICES BUTTON
+===================================================== */
+
+.customer-category-view-btn {
+    width: 100%;
+    margin-top: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 9px 12px;
+    border-radius: 8px;
+    background: var(--primary);
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.customer-category-view-btn:hover {
+    color: #ffffff;
+    background: var(--primary);
+    transform: translateX(2px);
+}
+
+
+/* =====================================================
+   EMPTY STATE
+===================================================== */
+
+.customer-category-empty {
+    grid-column: 1 / -1;
+    width: 100%;
+    padding: 45px 20px;
+    text-align: center;
+    border: 1px dashed var(--border);
+    border-radius: 14px;
+    color: var(--text);
+}
+
+.customer-category-empty i {
+    margin-bottom: 12px;
+    font-size: 35px;
+}
+
+.customer-category-empty h5 {
+    margin-bottom: 6px;
+    color: var(--navy);
+}
+
+
+/* =====================================================
+   RESPONSIVE CATEGORY GRID
+===================================================== */
+
+/* Large desktop */
+@media (min-width: 1201px) {
+    .customer-category-grid {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+}
+
+
+/* Laptop */
+@media (max-width: 1200px) {
+    .customer-category-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+
+/* Tablet */
+@media (max-width: 992px) {
+    .customer-category-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+
+/* Small tablet */
+@media (max-width: 768px) {
+    .customer-category-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 15px;
+    }
+
+    .customer-category-card-body {
+        padding: 20px 15px;
+    }
+}
+
+
+/* Mobile */
+@media (max-width: 480px) {
+    .customer-category-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .customer-category-card-body {
+        padding: 20px 16px;
+    }
+}

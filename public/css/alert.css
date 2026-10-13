@@ -1,0 +1,40 @@
+/* Custom Alert Box Styles */
+.custom-alert {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    position: relative;
+}
+
+/* Success Alert */
+.custom-alert-success {
+    background-color: #d1e7dd;
+    color: #0f5132;
+    border: 1px solid #badbcc;
+}
+
+/* Error / Fail Alert */
+.custom-alert-danger {
+    background-color: #f8d7da;
+    color: #842029;
+    border: 1px solid #f5c2c7;
+}
+
+/* Alert Icon */
+.custom-alert-icon {
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+/* Close Button (Optional) */
+.custom-alert .btn-close {
+    margin-left: auto;
+    background: transparent;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+}

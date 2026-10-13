@@ -1,0 +1,643 @@
+/* =========================================================
+   PROVIDER REVIEWS PAGE
+========================================================= */
+
+.provider-review-content {
+    padding-bottom: 40px;
+}
+
+
+/* =========================================================
+   PAGE HEADING
+========================================================= */
+
+.provider-review-page-heading {
+    margin-bottom: 24px;
+}
+
+.provider-review-title-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.provider-review-title-icon {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #fff7df;
+    color: #f5b301;
+
+    border-radius: 14px;
+
+    font-size: 20px;
+}
+
+.provider-review-page-heading h2 {
+    margin: 0;
+
+    color: #071b41;
+
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.provider-review-page-heading p {
+    margin: 5px 0 0;
+
+    color: #526174;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   ALERT
+========================================================= */
+
+.provider-review-alert {
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   SUMMARY CARD
+========================================================= */
+
+.review-summary-card {
+    background: #ffffff;
+
+    border: 1px solid #e9eef5;
+    border-radius: 16px;
+
+    padding: 28px;
+
+    margin-bottom: 30px;
+
+    box-shadow: 0 4px 16px rgba(7, 27, 65, 0.04);
+}
+
+
+/* =========================================================
+   OVERALL RATING
+========================================================= */
+
+.review-overall {
+    text-align: center;
+
+    padding: 10px 20px;
+}
+
+.review-summary-rating {
+    color: #071b41;
+
+    font-size: 48px;
+    line-height: 1;
+
+    font-weight: 700;
+}
+
+.review-stars {
+    color: #f5b301;
+
+    letter-spacing: 2px;
+}
+
+.review-summary-stars {
+    margin-top: 12px;
+
+    font-size: 20px;
+}
+
+.review-total {
+    color: #526174;
+
+    margin-top: 8px;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   RATING BREAKDOWN
+========================================================= */
+
+.review-rating-breakdown {
+    padding: 10px 10px 10px 30px;
+}
+
+.review-rating-row {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 10px;
+}
+
+.review-rating-row:last-child {
+    margin-bottom: 0;
+}
+
+.review-rating-label {
+    width: 42px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 5px;
+
+    color: #526174;
+
+    font-size: 14px;
+}
+
+.review-rating-label i {
+    color: #f5b301;
+    font-size: 12px;
+}
+
+.review-progress {
+    flex: 1;
+
+    height: 8px;
+
+    overflow: hidden;
+
+    background: #edf1f6;
+
+    border-radius: 20px;
+}
+
+.review-progress-bar {
+    height: 100%;
+
+    background: #f5b301;
+
+    border-radius: 20px;
+
+    transition: width 0.3s ease;
+}
+
+.review-rating-count {
+    width: 30px;
+
+    text-align: right;
+
+    color: #526174;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   REVIEW HISTORY HEADER
+========================================================= */
+
+.review-history-header {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 20px;
+
+    margin-bottom: 18px;
+}
+
+.review-history-header h3 {
+    margin: 0;
+
+    color: #071b41;
+
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.review-history-header p {
+    margin: 5px 0 0;
+
+    color: #526174;
+
+    font-size: 14px;
+}
+
+.review-history-count {
+    min-width: 48px;
+    height: 40px;
+
+    padding: 0 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    background: #f7faff;
+
+    color: #146cff;
+
+    border: 1px solid #e9eef5;
+
+    border-radius: 10px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   REVIEW CARD
+========================================================= */
+
+.provider-review-card {
+    background: #ffffff;
+
+    border: 1px solid #e9eef5;
+    border-radius: 16px;
+
+    padding: 22px;
+
+    margin-bottom: 16px;
+
+    box-shadow: 0 3px 12px rgba(7, 27, 65, 0.03);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.provider-review-card:hover {
+    transform: translateY(-1px);
+
+    box-shadow: 0 7px 20px rgba(7, 27, 65, 0.07);
+}
+
+
+/* =========================================================
+   REVIEW HEADER
+========================================================= */
+
+.review-header {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: flex-start;
+
+    gap: 20px;
+}
+
+.review-customer-section {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+.review-customer-avatar {
+    width: 46px;
+    height: 46px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    background: #eef5ff;
+
+    color: #146cff;
+
+    border-radius: 50%;
+
+    font-size: 18px;
+}
+
+.review-customer {
+    color: #071b41;
+
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.review-meta {
+    color: #526174;
+
+    font-size: 13px;
+}
+
+.review-meta-separator {
+    margin: 0 4px;
+}
+
+.review-direction {
+    color: #146cff;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   REVIEW ACTIONS
+========================================================= */
+
+.review-actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+.review-actions .review-stars {
+    font-size: 15px;
+}
+
+.review-rating-number {
+    color: #526174;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.review-delete-form {
+    margin: 0;
+}
+
+.review-delete-button {
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 0;
+    border-radius: 10px;
+
+    background: #fff1f1;
+
+    color: #dc3545;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.review-delete-button:hover {
+    background: #dc3545;
+
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   REVIEW DATE
+========================================================= */
+
+.review-date {
+    margin-top: 14px;
+
+    padding-top: 12px;
+
+    border-top: 1px solid #f0f3f7;
+}
+
+
+/* =========================================================
+   COMMENT
+========================================================= */
+
+.review-comment-box {
+    position: relative;
+
+    margin-top: 18px;
+
+    padding: 16px 18px 16px 42px;
+
+    background: #f8faff;
+
+    border: 1px solid #edf2f8;
+
+    border-radius: 12px;
+}
+
+.review-comment-box > i {
+    position: absolute;
+
+    top: 17px;
+    left: 17px;
+
+    color: #146cff;
+
+    font-size: 15px;
+}
+
+.review-comment {
+    margin: 0;
+
+    color: #26364d;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+}
+
+.review-no-comment {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-top: 18px;
+
+    padding: 14px 16px;
+
+    background: #f7f8fa;
+
+    border-radius: 10px;
+
+    color: #7a8798;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.empty-reviews {
+    background: #ffffff;
+
+    border: 1px solid #e9eef5;
+
+    border-radius: 16px;
+
+    padding: 60px 20px;
+
+    text-align: center;
+
+    color: #526174;
+}
+
+.empty-review-icon {
+    width: 70px;
+    height: 70px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 18px;
+
+    background: #fff7df;
+
+    color: #f5b301;
+
+    border-radius: 50%;
+
+    font-size: 28px;
+}
+
+.empty-reviews h3 {
+    margin-bottom: 8px;
+
+    color: #071b41;
+
+    font-size: 20px;
+}
+
+.empty-reviews p {
+    margin: 0;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   PAGINATION
+========================================================= */
+
+.provider-review-pagination {
+    margin-top: 25px;
+
+    display: flex;
+    justify-content: center;
+}
+
+.provider-review-pagination .pagination {
+    margin-bottom: 0;
+}
+
+.provider-review-pagination .page-link {
+    color: #146cff;
+
+    border-color: #e9eef5;
+}
+
+.provider-review-pagination .page-item.active .page-link {
+    background: #146cff;
+
+    border-color: #146cff;
+
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 991px) {
+
+    .review-rating-breakdown {
+        padding: 25px 0 5px;
+    }
+
+}
+
+
+@media (max-width: 767px) {
+
+    .provider-review-content {
+        padding: 20px;
+    }
+
+    .review-summary-card {
+        padding: 20px;
+    }
+
+    .review-overall {
+        padding: 5px 0 20px;
+    }
+
+    .review-rating-breakdown {
+        padding: 10px 0 0;
+    }
+
+    .review-header {
+        flex-direction: column;
+    }
+
+    .review-actions {
+        width: 100%;
+
+        justify-content: space-between;
+    }
+
+    .review-history-header {
+        align-items: flex-start;
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .provider-review-content {
+        padding: 15px;
+    }
+
+    .provider-review-title-row {
+        align-items: flex-start;
+    }
+
+    .provider-review-title-icon {
+        width: 42px;
+        height: 42px;
+
+        flex-shrink: 0;
+    }
+
+    .provider-review-page-heading h2 {
+        font-size: 20px;
+    }
+
+    .review-summary-rating {
+        font-size: 42px;
+    }
+
+    .provider-review-card {
+        padding: 18px;
+    }
+
+    .review-customer {
+        font-size: 15px;
+    }
+
+    .review-meta {
+        line-height: 1.7;
+    }
+
+}

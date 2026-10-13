@@ -1,0 +1,405 @@
+/* =========================================================
+   QUICKFIX PROVIDER EARNINGS
+   ========================================================= */
+
+
+/* =========================================================
+   FILTER
+   ========================================================= */
+
+.earnings-filter-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.earnings-search-wrapper {
+    position: relative;
+    min-width: 250px;
+}
+
+.earnings-search-wrapper > i {
+    position: absolute;
+    left: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #8995a5;
+    font-size: 13px;
+    z-index: 2;
+}
+
+.earnings-search {
+    min-width: 250px;
+    padding-left: 36px;
+}
+
+.earnings-search:focus {
+    box-shadow: none;
+    border-color: #146cff;
+}
+
+.earnings-search-button {
+    width: 42px;
+    height: 38px;
+    border: none;
+    border-radius: 8px;
+    background: #146cff;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.earnings-search-button:hover {
+    background: #0b5ed7;
+}
+
+
+/* =========================================================
+   TABLE WRAPPER
+   ========================================================= */
+
+.earnings-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    background: #fff;
+    border: 1px solid #e9eef5;
+    border-radius: 14px;
+}
+
+
+/* =========================================================
+   TABLE
+   ========================================================= */
+
+.earnings-table {
+    width: 100%;
+    min-width: 1050px;
+    border-collapse: collapse;
+}
+
+.earnings-table th {
+    padding: 14px 16px;
+    background: #f7faff;
+    color: #526174;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: left;
+    white-space: nowrap;
+    border-bottom: 1px solid #e9eef5;
+}
+
+.earnings-table td {
+    padding: 16px;
+    color: #526174;
+    font-size: 14px;
+    vertical-align: middle;
+    border-bottom: 1px solid #eef2f7;
+}
+
+.earnings-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.earnings-table tbody tr {
+    transition: background 0.15s ease;
+}
+
+.earnings-table tbody tr:hover {
+    background: #fbfdff;
+}
+
+
+/* =========================================================
+   BOOKING ID
+   ========================================================= */
+
+.earning-booking-id {
+    color: #071b41;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   CUSTOMER
+   ========================================================= */
+
+.earning-customer {
+    color: #071b41;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   SERVICE
+   ========================================================= */
+
+.earning-service {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 5px;
+    color: #526174;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.earning-service:last-child {
+    margin-bottom: 0;
+}
+
+.earning-service i {
+    color: #146cff;
+    font-size: 12px;
+}
+
+.earning-service-empty {
+    color: #8995a5;
+}
+
+
+/* =========================================================
+   VERIFIED DATE
+   ========================================================= */
+
+.earning-date {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    white-space: nowrap;
+}
+
+.earning-date strong {
+    color: #526174;
+    font-size: 13px;
+}
+
+.earning-date small {
+    color: #8995a5;
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   AMOUNT
+   ========================================================= */
+
+.earning-amount {
+    color: #146cff;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   PAYMENT METHOD
+   ========================================================= */
+
+.payment-method-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.payment-method-kbzpay {
+    background: #fff4e8;
+    color: #c66a00;
+}
+
+.payment-method-cod {
+    background: #eef7ee;
+    color: #287a35;
+}
+
+
+/* =========================================================
+   VERIFIED STATUS
+   ========================================================= */
+
+.earning-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 10px;
+    border-radius: 20px;
+    background: #eaf7ee;
+    color: #23833b;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   SLIP BUTTON
+   ========================================================= */
+
+.slip-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border: 1px solid #e1e7ef;
+    border-radius: 8px;
+    background: #fff;
+    color: #146cff;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+.slip-button:hover {
+    background: #f2f7ff;
+    color: #0b5ed7;
+    border-color: #cbdcff;
+}
+
+.slip-empty {
+    color: #a0a9b5;
+}
+
+
+/* =========================================================
+   VIEW BUTTON
+   ========================================================= */
+
+.earning-view-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 7px 12px;
+    border-radius: 8px;
+    background: #146cff;
+    color: #fff;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: 0.2s ease;
+}
+
+.earning-view-button:hover {
+    background: #0b5ed7;
+    color: #fff;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.earnings-empty {
+    padding: 60px 20px;
+    text-align: center;
+    color: #7b8797;
+}
+
+.earnings-empty-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 16px;
+    border-radius: 50%;
+    background: #f2f6fc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.earnings-empty-icon i {
+    font-size: 26px;
+    color: #9ba8b8;
+}
+
+.earnings-empty h5 {
+    margin-bottom: 7px;
+    color: #526174;
+    font-weight: 600;
+}
+
+.earnings-empty p {
+    margin: 0;
+    color: #8995a5;
+}
+
+
+/* =========================================================
+   PAGINATION
+   ========================================================= */
+
+.earnings-pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 992px) {
+
+    .provider-section-heading {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .earnings-filter-form {
+        width: 100%;
+    }
+
+}
+
+
+@media (max-width: 768px) {
+
+    .earnings-filter-form {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .earnings-search-wrapper {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .earnings-search {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .earnings-filter-form .provider-job-filter {
+        width: 100%;
+    }
+
+    .earnings-search-button {
+        width: 100%;
+    }
+
+}
+
+
+@media (max-width: 576px) {
+
+    .earnings-table {
+        min-width: 950px;
+    }
+
+    .earnings-table th,
+    .earnings-table td {
+        padding: 12px;
+    }
+
+}

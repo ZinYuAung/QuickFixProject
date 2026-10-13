@@ -1,0 +1,1473 @@
+/* =====================================================
+   QUICKFIX ADMIN - PROVIDER DETAILS
+   UNIVERSAL RESPONSIVE DESIGN
+===================================================== */
+
+
+/* =====================================================
+   PAGE
+===================================================== */
+
+.admin-provider-show-page {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+
+    overflow-x: hidden;
+}
+
+
+/* =====================================================
+   PAGE HEADER
+===================================================== */
+
+.admin-provider-show-page .admin-page-header {
+    width: 100%;
+
+    margin-bottom: 24px;
+}
+
+.admin-provider-show-page .admin-page-header-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+}
+
+
+/* =====================================================
+   PROVIDER PROFILE CARD
+===================================================== */
+
+.admin-provider-profile-card {
+    width: 100%;
+    min-width: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 24px;
+
+    padding: 24px;
+
+    margin-bottom: 24px;
+
+    background: var(--white);
+
+    border: 1px solid var(--border);
+    border-radius: 16px;
+
+    box-shadow: 0 4px 18px rgba(7, 27, 65, 0.05);
+}
+
+.admin-provider-profile-main {
+    display: flex;
+    align-items: center;
+
+    gap: 18px;
+
+    min-width: 0;
+
+    flex: 1;
+}
+
+
+/* =====================================================
+   AVATAR
+===================================================== */
+
+.admin-provider-avatar {
+    width: 76px;
+    height: 76px;
+
+    flex: 0 0 76px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: linear-gradient(
+        135deg,
+        var(--primary),
+        #4d8dff
+    );
+
+    color: var(--white);
+
+    font-size: 25px;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+
+/* =====================================================
+   PROFILE INFORMATION
+===================================================== */
+
+.admin-provider-profile-info {
+    min-width: 0;
+
+    flex: 1;
+}
+
+.admin-provider-name-row {
+    display: flex;
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+}
+
+.admin-provider-name-row h2 {
+    margin: 0;
+
+    color: var(--navy);
+
+    font-size: 24px;
+    font-weight: 700;
+
+    line-height: 1.3;
+
+    overflow-wrap: anywhere;
+}
+
+.admin-provider-profile-info > p {
+    margin: 7px 0 12px;
+
+    color: var(--text);
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+.admin-provider-meta {
+    display: flex;
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 14px;
+}
+
+.admin-provider-meta span {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 7px;
+
+    max-width: 100%;
+
+    color: var(--text);
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+    overflow-wrap: anywhere;
+}
+
+.admin-provider-meta i {
+    color: var(--primary);
+}
+
+
+/* =====================================================
+   ACCOUNT STATUS
+===================================================== */
+
+.admin-provider-account-status {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 6px 10px;
+
+    border-radius: 999px;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    line-height: 1.3;
+
+    white-space: nowrap;
+}
+
+.admin-provider-account-status .status-dot {
+    width: 6px;
+    height: 6px;
+
+    flex: 0 0 6px;
+
+    border-radius: 50%;
+
+    background: currentColor;
+}
+
+.admin-provider-account-status.active {
+    color: var(--success);
+
+    background: rgba(22, 163, 74, 0.09);
+}
+
+.admin-provider-account-status.inactive {
+    color: var(--danger);
+
+    background: rgba(220, 38, 38, 0.09);
+}
+
+
+/* =====================================================
+   APPROVAL
+===================================================== */
+
+.admin-provider-approval-box {
+    display: flex;
+    flex-direction: column;
+
+    align-items: flex-end;
+
+    gap: 8px;
+
+    flex: 0 0 auto;
+}
+
+.admin-provider-approval-label {
+    color: var(--text);
+
+    font-size: 11px;
+    font-weight: 600;
+
+    line-height: 1.4;
+}
+
+.admin-provider-approval {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 8px 13px;
+
+    border-radius: 8px;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    line-height: 1.4;
+
+    white-space: nowrap;
+}
+
+.admin-provider-approval.approved {
+    color: var(--success);
+
+    background: rgba(22, 163, 74, 0.09);
+}
+
+.admin-provider-approval.pending {
+    color: var(--warning);
+
+    background: rgba(245, 158, 11, 0.10);
+}
+
+.admin-provider-approval.rejected {
+    color: var(--danger);
+
+    background: rgba(220, 38, 38, 0.09);
+}
+
+.admin-provider-approval.suspended {
+    color: #7c3aed;
+
+    background: rgba(124, 58, 237, 0.09);
+}
+
+
+/* =====================================================
+   STATISTICS
+===================================================== */
+
+.admin-provider-detail-stat-grid {
+    margin-bottom: 24px;
+}
+
+
+/* =====================================================
+   MAIN DETAIL GRID
+===================================================== */
+
+.admin-provider-detail-grid {
+    width: 100%;
+    min-width: 0;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.7fr)
+        minmax(260px, 0.8fr);
+
+    gap: 20px;
+
+    align-items: start;
+}
+
+.admin-provider-detail-left,
+.admin-provider-detail-right {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 20px;
+}
+
+
+/* =====================================================
+   CARDS
+===================================================== */
+
+.admin-provider-detail-grid .admin-card,
+.admin-provider-bookings-card,
+.admin-provider-location-history-card {
+    width: 100%;
+    min-width: 0;
+
+    overflow: hidden;
+}
+
+
+/* =====================================================
+   CARD HEADER
+===================================================== */
+
+.admin-provider-show-page .admin-card-header {
+    padding: 20px 22px;
+}
+
+.admin-provider-show-page .admin-card-header h3 {
+    margin: 0 0 5px;
+
+    line-height: 1.4;
+}
+
+.admin-provider-show-page .admin-card-header p {
+    margin: 0;
+
+    line-height: 1.5;
+}
+
+
+/* =====================================================
+   PROVIDER INFORMATION
+===================================================== */
+
+.admin-provider-info-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    border-top: 1px solid var(--border);
+}
+
+.admin-provider-info-item {
+    min-width: 0;
+
+    min-height: 84px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    padding: 20px 22px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+.admin-provider-info-item:nth-child(odd) {
+    border-right: 1px solid var(--border);
+}
+
+.admin-provider-info-item span {
+    display: block;
+
+    margin: 0 0 8px;
+
+    color: var(--text);
+
+    font-size: 11px;
+    font-weight: 600;
+
+    line-height: 1.4;
+
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.admin-provider-info-item strong {
+    display: block;
+
+    min-width: 0;
+
+    color: var(--navy);
+
+    font-size: 14px;
+    font-weight: 600;
+
+    line-height: 1.5;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* =====================================================
+   AVAILABILITY
+===================================================== */
+
+.admin-provider-info-item strong.availability-online {
+    color: var(--success);
+}
+
+.admin-provider-info-item strong.availability-busy {
+    color: var(--warning);
+}
+
+.admin-provider-info-item strong.availability-offline {
+    color: var(--text);
+}
+
+.admin-provider-info-item strong i {
+    margin-right: 5px;
+
+    font-size: 7px;
+}
+
+
+/* =====================================================
+   SERVICE LOCATION
+===================================================== */
+
+.admin-provider-location-detail {
+    display: flex;
+    align-items: center;
+
+    gap: 16px;
+
+    min-width: 0;
+
+    padding: 10px 4px;
+}
+
+.admin-provider-location-icon {
+    width: 46px;
+    height: 46px;
+
+    flex: 0 0 46px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: rgba(20, 108, 255, 0.09);
+
+    color: var(--primary);
+
+    font-size: 18px;
+}
+
+.admin-provider-location-detail > div:last-child {
+    min-width: 0;
+}
+
+.admin-provider-location-detail strong {
+    display: block;
+
+    margin: 0 0 6px;
+
+    color: var(--navy);
+
+    font-size: 14px;
+    font-weight: 600;
+
+    line-height: 1.5;
+
+    overflow-wrap: anywhere;
+}
+
+.admin-provider-location-detail span {
+    display: block;
+
+    color: var(--text);
+
+    font-size: 12px;
+
+    line-height: 1.5;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* =====================================================
+   SERVICES
+===================================================== */
+
+.admin-provider-services-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 10px;
+}
+
+.admin-provider-service-item {
+    min-width: 0;
+    min-height: 62px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 14px 15px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    background: var(--light-bg);
+}
+
+.admin-provider-service-icon {
+    width: 34px;
+    height: 34px;
+
+    flex: 0 0 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+
+    background: rgba(20, 108, 255, 0.09);
+
+    color: var(--primary);
+
+    font-size: 13px;
+}
+
+.admin-provider-service-item span {
+    min-width: 0;
+
+    overflow: hidden;
+
+    color: var(--navy);
+
+    font-size: 13px;
+    font-weight: 600;
+
+    line-height: 1.45;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   BIO
+===================================================== */
+
+.admin-provider-bio {
+    min-width: 0;
+
+    padding: 2px 4px;
+}
+
+.admin-provider-bio p {
+    margin: 0;
+
+    color: var(--text);
+
+    font-size: 14px;
+
+    line-height: 1.8;
+
+    white-space: pre-line;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* =====================================================
+   EMPTY STATE
+===================================================== */
+
+.admin-provider-empty-state {
+    padding: 25px 15px;
+
+    text-align: center;
+}
+
+.admin-provider-empty-state i {
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: var(--text);
+
+    font-size: 24px;
+}
+
+.admin-provider-empty-state p {
+    margin: 0;
+
+    color: var(--text);
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+
+/* =====================================================
+   STATUS LIST
+===================================================== */
+
+.admin-provider-status-list {
+    display: flex;
+    flex-direction: column;
+
+    padding: 2px 4px;
+}
+
+.admin-provider-status-row {
+    min-height: 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 14px 6px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+.admin-provider-status-row:first-child {
+    padding-top: 8px;
+}
+
+.admin-provider-status-row:last-child {
+    padding-bottom: 8px;
+
+    border-bottom: 0;
+}
+
+.admin-provider-status-row span {
+    min-width: 0;
+
+    color: var(--text);
+
+    font-size: 12px;
+
+    line-height: 1.5;
+}
+
+.admin-provider-status-row strong {
+    max-width: 65%;
+    min-width: 0;
+
+    color: var(--navy);
+
+    font-size: 13px;
+    font-weight: 600;
+
+    line-height: 1.5;
+
+    text-align: right;
+
+    overflow-wrap: anywhere;
+}
+
+.admin-provider-status-row .status-active {
+    color: var(--success);
+}
+
+.admin-provider-status-row .status-inactive {
+    color: var(--danger);
+}
+
+
+/* =====================================================
+   TIMELINE
+===================================================== */
+
+.admin-provider-timeline {
+    display: flex;
+    flex-direction: column;
+
+    padding: 3px 4px;
+}
+
+.admin-provider-timeline-item {
+    position: relative;
+
+    display: flex;
+
+    gap: 14px;
+
+    padding: 3px 4px 24px;
+}
+
+.admin-provider-timeline-item:last-child {
+    padding-bottom: 0;
+}
+
+.admin-provider-timeline-item:not(:last-child)::after {
+    content: "";
+
+    position: absolute;
+
+    top: 34px;
+    left: 19px;
+
+    width: 1px;
+    height: calc(100% - 24px);
+
+    background: var(--border);
+}
+
+.timeline-icon {
+    position: relative;
+    z-index: 1;
+
+    width: 31px;
+    height: 31px;
+
+    flex: 0 0 31px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid var(--border);
+
+    border-radius: 50%;
+
+    background: var(--white);
+
+    color: var(--primary);
+
+    font-size: 11px;
+}
+
+.admin-provider-timeline-item > div:last-child {
+    min-width: 0;
+}
+
+.admin-provider-timeline-item strong {
+    display: block;
+
+    margin: 3px 0 5px;
+
+    color: var(--navy);
+
+    font-size: 12px;
+
+    line-height: 1.5;
+}
+
+.admin-provider-timeline-item span {
+    display: block;
+
+    color: var(--text);
+
+    font-size: 11px;
+
+    line-height: 1.5;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* =====================================================
+   QUICK ACTIONS
+===================================================== */
+
+.admin-provider-quick-actions {
+    display: flex;
+    flex-direction: column;
+
+    gap: 9px;
+
+    padding: 2px 4px;
+}
+
+.admin-provider-quick-actions form {
+    width: 100%;
+
+    margin: 0;
+    padding: 0;
+}
+
+.admin-provider-quick-actions .admin-small-btn {
+    width: 100%;
+
+    min-height: 42px;
+
+    justify-content: center;
+
+    gap: 8px;
+}
+
+.admin-provider-quick-actions .admin-small-btn.danger {
+    color: var(--danger);
+
+    border-color: rgba(220, 38, 38, 0.22);
+
+    background: rgba(220, 38, 38, 0.05);
+}
+
+.admin-provider-quick-actions .admin-small-btn.danger:hover {
+    color: var(--danger);
+
+    background: rgba(220, 38, 38, 0.10);
+}
+
+.admin-provider-quick-actions .admin-small-btn.success {
+    color: var(--success);
+
+    border-color: rgba(22, 163, 74, 0.22);
+
+    background: rgba(22, 163, 74, 0.05);
+}
+
+.admin-provider-quick-actions .admin-small-btn.success:hover {
+    color: var(--success);
+
+    background: rgba(22, 163, 74, 0.10);
+}
+
+
+/* =====================================================
+   TABLE CARDS
+===================================================== */
+
+.admin-provider-bookings-card,
+.admin-provider-location-history-card {
+    margin-top: 20px;
+
+    min-width: 0;
+}
+
+
+/* =====================================================
+   TABLE RESPONSIVENESS
+===================================================== */
+
+.admin-provider-bookings-card .admin-table-wrapper,
+.admin-provider-location-history-card .admin-table-wrapper {
+    width: 100%;
+    max-width: 100%;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    -webkit-overflow-scrolling: touch;
+}
+
+.admin-provider-bookings-table,
+.admin-provider-location-table {
+    width: 100%;
+
+    min-width: 680px;
+}
+
+.admin-provider-bookings-table th,
+.admin-provider-bookings-table td,
+.admin-provider-location-table th,
+.admin-provider-location-table td {
+    padding: 14px 16px;
+
+    vertical-align: middle;
+
+    line-height: 1.5;
+
+    white-space: nowrap;
+}
+
+.admin-provider-location-table td:first-child {
+    max-width: 320px;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+/* =====================================================
+   BOOKING STATUS
+===================================================== */
+
+.admin-booking-status {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 5px;
+
+    padding: 5px 9px;
+
+    border-radius: 999px;
+
+    background: var(--light-bg);
+
+    color: var(--text);
+
+    font-size: 11px;
+    font-weight: 600;
+
+    line-height: 1.3;
+}
+
+
+/* =====================================================
+   DARK MODE
+===================================================== */
+
+body.dark-mode .admin-provider-profile-card,
+body.dark-mode .admin-provider-detail-grid .admin-card,
+body.dark-mode .admin-provider-bookings-card,
+body.dark-mode .admin-provider-location-history-card {
+    background: #0f1f3a;
+
+    border-color: rgba(255, 255, 255, 0.08);
+
+    box-shadow: none;
+}
+
+body.dark-mode .admin-provider-name-row h2,
+body.dark-mode .admin-provider-info-item strong,
+body.dark-mode .admin-provider-location-detail strong,
+body.dark-mode .admin-provider-service-item span,
+body.dark-mode .admin-provider-status-row strong,
+body.dark-mode .admin-provider-timeline-item strong {
+    color: #ffffff;
+}
+
+body.dark-mode .admin-provider-info-grid,
+body.dark-mode .admin-provider-info-item,
+body.dark-mode .admin-provider-status-row {
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+body.dark-mode .admin-provider-timeline-item:not(:last-child)::after {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+body.dark-mode .admin-provider-service-item,
+body.dark-mode .admin-booking-status {
+    background: rgba(255, 255, 255, 0.04);
+
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+body.dark-mode .timeline-icon {
+    background: #0f1f3a;
+
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+
+/* =====================================================
+   1200px
+   LAPTOP
+===================================================== */
+
+@media (max-width: 1200px) {
+
+    .admin-provider-detail-grid {
+        grid-template-columns:
+            minmax(0, 1.4fr)
+            minmax(250px, 0.8fr);
+    }
+
+    .admin-provider-profile-card {
+        gap: 18px;
+    }
+
+}
+
+
+/* =====================================================
+   992px
+   TABLET / SMALL LAPTOP
+===================================================== */
+
+@media (max-width: 992px) {
+
+    .admin-provider-detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-provider-detail-right {
+        display: grid;
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        align-items: start;
+
+        gap: 20px;
+    }
+
+}
+
+
+/* =====================================================
+   768px
+   TABLET / LARGE MOBILE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    /* =================================================
+       PAGE HEADER
+    ================================================= */
+
+    .admin-provider-show-page .admin-page-header {
+        align-items: flex-start;
+    }
+
+    .admin-provider-show-page .admin-page-header-actions {
+        justify-content: flex-start;
+    }
+
+
+    /* =================================================
+       PROFILE
+    ================================================= */
+
+    .admin-provider-profile-card {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        padding: 20px;
+
+        gap: 20px;
+    }
+
+    .admin-provider-profile-main {
+        width: 100%;
+    }
+
+    .admin-provider-approval-box {
+        width: 100%;
+
+        align-items: flex-start;
+    }
+
+
+    /* =================================================
+       RIGHT CARDS
+    ================================================= */
+
+    .admin-provider-detail-right {
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 15px;
+    }
+
+
+    /* =================================================
+       INFORMATION GRID
+    ================================================= */
+
+    .admin-provider-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-provider-info-item:nth-child(odd) {
+        border-right: 0;
+    }
+
+    .admin-provider-info-item {
+        min-height: 78px;
+
+        padding: 17px 18px;
+    }
+
+
+    /* =================================================
+       SERVICES
+    ================================================= */
+
+    .admin-provider-services-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+
+    /* =================================================
+       CARD HEADERS
+    ================================================= */
+
+    .admin-provider-show-page .admin-card-header {
+        padding: 18px 20px;
+    }
+
+
+    /* =================================================
+       STATUS
+    ================================================= */
+
+    .admin-provider-status-list {
+        padding: 2px 3px;
+    }
+
+    .admin-provider-status-row {
+        padding-left: 6px;
+        padding-right: 6px;
+    }
+
+}
+
+
+/* =====================================================
+   600px
+   MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+    /* =================================================
+       HEADER
+    ================================================= */
+
+    .admin-provider-show-page .admin-page-header {
+        margin-bottom: 18px;
+    }
+
+    .admin-provider-show-page .admin-page-header-actions {
+        width: 100%;
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 8px;
+    }
+
+    .admin-provider-show-page .admin-page-header-actions a {
+        width: 100%;
+
+        justify-content: center;
+    }
+
+
+    /* =================================================
+       PROFILE
+    ================================================= */
+
+    .admin-provider-profile-card {
+        padding: 18px;
+
+        border-radius: 13px;
+
+        gap: 18px;
+    }
+
+    .admin-provider-profile-main {
+        align-items: flex-start;
+
+        gap: 13px;
+    }
+
+    .admin-provider-avatar {
+        width: 60px;
+        height: 60px;
+
+        flex-basis: 60px;
+
+        font-size: 20px;
+    }
+
+    .admin-provider-name-row h2 {
+        font-size: 20px;
+    }
+
+    .admin-provider-profile-info > p {
+        margin-top: 6px;
+        margin-bottom: 10px;
+    }
+
+
+    /* =================================================
+       SERVICES
+    ================================================= */
+
+    .admin-provider-services-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    /* =================================================
+       SPACING
+    ================================================= */
+
+    .admin-provider-detail-left,
+    .admin-provider-detail-right {
+        gap: 15px;
+    }
+
+    .admin-provider-bookings-card,
+    .admin-provider-location-history-card {
+        margin-top: 15px;
+    }
+
+
+    /* =================================================
+       LOCATION
+    ================================================= */
+
+    .admin-provider-location-detail {
+        padding: 9px 2px;
+    }
+
+
+    /* =================================================
+       TABLES
+    ================================================= */
+
+    .admin-provider-bookings-table,
+    .admin-provider-location-table {
+        min-width: 650px;
+    }
+
+    .admin-provider-bookings-table th,
+    .admin-provider-bookings-table td,
+    .admin-provider-location-table th,
+    .admin-provider-location-table td {
+        padding: 12px 14px;
+    }
+
+
+    /* =================================================
+       STATUS
+    ================================================= */
+
+    .admin-provider-status-row {
+        min-height: 50px;
+
+        gap: 15px;
+    }
+
+}
+
+
+/* =====================================================
+   450px
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 450px) {
+
+    /* =================================================
+       PROFILE
+    ================================================= */
+
+    .admin-provider-profile-main {
+        flex-direction: column;
+    }
+
+    .admin-provider-profile-info {
+        width: 100%;
+    }
+
+    .admin-provider-avatar {
+        width: 58px;
+        height: 58px;
+
+        flex-basis: 58px;
+
+        font-size: 19px;
+    }
+
+    .admin-provider-name-row {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 7px;
+    }
+
+    .admin-provider-name-row h2 {
+        font-size: 18px;
+    }
+
+
+    /* =================================================
+       INFORMATION
+    ================================================= */
+
+    .admin-provider-info-item {
+        min-height: 72px;
+
+        padding: 15px 16px;
+    }
+
+    .admin-provider-info-item span {
+        margin-bottom: 7px;
+    }
+
+
+    /* =================================================
+       LOCATION
+    ================================================= */
+
+    .admin-provider-location-detail {
+        align-items: flex-start;
+
+        gap: 13px;
+    }
+
+    .admin-provider-location-icon {
+        width: 40px;
+        height: 40px;
+
+        flex-basis: 40px;
+
+        font-size: 16px;
+    }
+
+
+    /* =================================================
+       STATUS
+    ================================================= */
+
+    .admin-provider-status-row {
+        align-items: flex-start;
+
+        padding-top: 12px;
+        padding-bottom: 12px;
+    }
+
+    .admin-provider-status-row strong {
+        max-width: 55%;
+    }
+
+
+    /* =================================================
+       TIMELINE
+    ================================================= */
+
+    .admin-provider-timeline-item {
+        gap: 12px;
+
+        padding-bottom: 20px;
+    }
+
+}
+
+
+/* =====================================================
+   360px
+   VERY SMALL MOBILE
+===================================================== */
+
+@media (max-width: 360px) {
+
+    .admin-provider-profile-card {
+        padding: 14px;
+    }
+
+    .admin-provider-name-row h2 {
+        font-size: 17px;
+    }
+
+    .admin-provider-meta {
+        gap: 9px;
+    }
+
+    .admin-provider-meta span {
+        font-size: 11px;
+    }
+
+    .admin-provider-info-item {
+        min-height: 68px;
+
+        padding: 13px 14px;
+    }
+
+    .admin-provider-info-item span {
+        font-size: 10px;
+    }
+
+    .admin-provider-info-item strong {
+        font-size: 13px;
+    }
+
+    .admin-provider-status-row {
+        gap: 10px;
+    }
+
+    .admin-provider-status-row span,
+    .admin-provider-status-row strong {
+        font-size: 11px;
+    }
+
+}
+
+
+/* =====================================================
+   320px
+   EXTRA SMALL MOBILE
+===================================================== */
+
+@media (max-width: 320px) {
+
+    .admin-provider-profile-card {
+        padding: 12px;
+    }
+
+    .admin-provider-name-row h2 {
+        font-size: 16px;
+    }
+
+    .admin-provider-profile-info > p {
+        font-size: 11px;
+    }
+
+    .admin-provider-meta span {
+        font-size: 10px;
+    }
+
+    .admin-provider-location-detail strong {
+        font-size: 13px;
+    }
+
+    .admin-provider-location-detail span {
+        font-size: 11px;
+    }
+
+    .admin-provider-info-item {
+        padding: 12px 13px;
+    }
+
+}

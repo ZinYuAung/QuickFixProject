@@ -1,0 +1,607 @@
+/* =====================================================
+QUICKFIX ADMIN
+CUSTOMER EDIT PAGE
+===================================================== */
+
+/* =====================================================
+PAGE
+===================================================== */
+
+.customer-edit-page {
+width: 100%;
+max-width: 100%;
+}
+
+/* =====================================================
+HEADER
+===================================================== */
+
+.customer-edit-header {
+display: flex;
+align-items: flex-end;
+justify-content: space-between;
+gap: 24px;
+margin-bottom: 24px;
+}
+
+.customer-edit-header-content {
+min-width: 0;
+}
+
+.customer-edit-breadcrumb {
+display: flex;
+align-items: center;
+gap: 8px;
+margin-bottom: 12px;
+color: var(--text, #526174);
+font-size: 12px;
+}
+
+.customer-edit-breadcrumb a {
+color: var(--primary, #146cff);
+text-decoration: none;
+font-weight: 600;
+}
+
+.customer-edit-breadcrumb a:hover {
+text-decoration: underline;
+}
+
+.customer-edit-breadcrumb i {
+font-size: 9px;
+opacity: 0.6;
+}
+
+.customer-edit-title {
+display: flex;
+align-items: center;
+gap: 14px;
+}
+
+.customer-edit-title-icon {
+width: 48px;
+height: 48px;
+display: flex;
+align-items: center;
+justify-content: center;
+
+flex-shrink: 0;
+
+border-radius: 14px;
+
+background: rgba(20, 108, 255, 0.10);
+color: var(--primary, #146cff);
+font-size: 18px;
+}
+
+.customer-edit-title h1 {
+margin: 0;
+color: var(--navy, #071b41);
+
+font-size: 25px;
+font-weight: 700;
+}
+
+.customer-edit-title p {
+margin: 4px 0 0;
+color: var(--text, #526174);
+
+font-size: 13px;
+}
+
+/* =====================================================
+BUTTONS
+===================================================== */
+
+.customer-edit-header-actions {
+display: flex;
+align-items: center;
+gap: 10px;
+}
+
+.customer-edit-btn {
+min-height: 42px;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+gap: 8px;
+padding: 0 16px;
+border: 1px solid transparent;
+border-radius: 9px;
+font-size: 13px;
+font-weight: 600;
+text-decoration: none;
+cursor: pointer;
+transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.customer-edit-btn:hover {
+transform: translateY(-1px);
+}
+
+.customer-edit-btn-light {
+background: var(--white, #ffffff);
+border-color: var(--border, #e9eef5);
+color: var(--navy, #071b41);
+}
+
+.customer-edit-btn-light:hover {
+background: var(--light-bg, #f7faff);
+color: var(--primary, #146cff);
+}
+
+.customer-edit-btn-primary {
+background: var(--primary, #146cff);
+border-color: var(--primary, #146cff);
+color: #ffffff;
+}
+
+.customer-edit-btn-primary:hover {
+background: #0d5fe8;
+border-color: #0d5fe8;
+color: #ffffff;
+}
+
+/* =====================================================
+ALERT
+===================================================== */
+
+.customer-edit-alert {
+display: flex;
+align-items: flex-start;
+gap: 12px;
+margin-bottom: 20px;
+padding: 15px 17px;
+background: #fff5f5;
+border: 1px solid #f3cccc;
+border-radius: 12px;
+color: #842029;
+font-size: 13px;
+}
+
+.customer-edit-alert-icon {
+width: 30px;
+height: 30px;
+display: flex;
+align-items: center;
+justify-content: center;
+flex-shrink: 0;
+border-radius: 8px;
+background: #fce1e1;
+color: #c0392b;
+}
+
+.customer-edit-alert strong {
+display: block;
+margin-bottom: 5px;
+}
+
+.customer-edit-alert ul {
+margin: 0;
+padding-left: 18px;
+}
+
+.customer-edit-alert li {
+margin-bottom: 2px;
+}
+
+/* =====================================================
+SUCCESS
+===================================================== */
+
+.customer-edit-success {
+display: flex;
+align-items: center;
+gap: 9px;
+margin-bottom: 20px;
+padding: 13px 16px;
+background: #eaf8ef;
+border: 1px solid #c9ecd5;
+border-radius: 11px;
+color: #16803c;
+font-size: 13px;
+font-weight: 600;
+}
+
+.customer-edit-success i {
+font-size: 16px;
+}
+
+/* =====================================================
+FORM
+===================================================== */
+
+.customer-edit-form {
+width: 100%;
+}
+
+/* =====================================================
+CARD
+===================================================== */
+
+.customer-edit-card {
+width: 100%;
+margin-bottom: 20px;
+overflow: hidden;
+background: var(--white, #ffffff);
+border: 1px solid var(--border, #e9eef5);
+border-radius: 16px;
+box-shadow: 0 4px 18px rgba(7, 27, 65, 0.04);
+}
+
+.customer-edit-card-header {
+padding: 19px 21px;
+border-bottom: 1px solid var(--border, #e9eef5);
+}
+
+.customer-edit-card-title {
+display: flex;
+align-items: center;
+gap: 12px;
+}
+
+.customer-edit-card-icon {
+width: 42px;
+height: 42px;
+display: flex;
+align-items: center;
+justify-content: center;
+flex-shrink: 0;
+border-radius: 11px;
+background: rgba(20, 108, 255, 0.10);
+color: var(--primary, #146cff);
+font-size: 16px;
+}
+
+.customer-edit-card-title h2 {
+margin: 0;
+color: var(--navy, #071b41);
+font-size: 15px;
+font-weight: 700;
+}
+
+.customer-edit-card-title p {
+margin: 3px 0 0;
+color: var(--text, #526174);
+font-size: 11px;
+}
+
+.customer-edit-card-body {
+padding: 22px 21px;
+}
+
+/* =====================================================
+FORM GRID
+===================================================== */
+
+.customer-edit-form-grid {
+display: grid;
+grid-template-columns: repeat(2, minmax(0, 1fr));
+gap: 20px;
+}
+
+.customer-edit-form-group {
+min-width: 0;
+}
+
+.customer-edit-form-group-full {
+grid-column: 1 / -1;
+}
+
+/* =====================================================
+LABEL
+===================================================== */
+
+.customer-edit-form-group label {
+display: block;
+margin-bottom: 7px;
+
+color: var(--navy, #071b41);
+
+font-size: 12px;
+font-weight: 600;
+}
+
+.customer-edit-form-group label span {
+color: #d64545;
+}
+
+/* =====================================================
+INPUT WRAPPER
+===================================================== */
+
+.customer-edit-input-wrapper {
+position: relative;
+display: flex;
+align-items: center;
+width: 100%;
+}
+
+.customer-edit-input-wrapper > i {
+position: absolute;
+left: 14px;
+z-index: 2;
+width: 17px;
+color: var(--primary, #146cff);
+font-size: 13px;
+text-align: center;
+pointer-events: none;
+}
+
+/* =====================================================
+INPUT / SELECT / TEXTAREA
+===================================================== */
+
+.customer-edit-input-wrapper input,
+.customer-edit-input-wrapper select,
+.customer-edit-input-wrapper textarea {
+width: 100%;
+border: 1px solid var(--border, #e9eef5);
+border-radius: 9px;
+background: var(--white, #ffffff);
+color: var(--navy, #071b41);
+font-family: inherit;
+font-size: 13px;
+outline: none;
+transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.customer-edit-input-wrapper input,
+.customer-edit-input-wrapper select {
+height: 44px;
+padding: 0 42px;
+}
+
+.customer-edit-input-wrapper textarea {
+min-height: 105px;
+padding: 13px 14px 13px 42px;
+resize: vertical;
+line-height: 1.6;
+}
+
+.customer-edit-input-wrapper input::placeholder,
+.customer-edit-input-wrapper textarea::placeholder {
+color: #9aa7b7;
+}
+.customer-edit-input-wrapper input:focus,
+.customer-edit-input-wrapper select:focus,
+.customer-edit-input-wrapper textarea:focus {
+border-color: var(--primary, #146cff);
+box-shadow: 0 0 0 3px rgba(20, 108, 255, 0.10);
+}
+
+.customer-edit-input-wrapper select {
+cursor: pointer;
+appearance: auto;
+}
+
+/* =====================================================
+PASSWORD TOGGLE
+===================================================== */
+
+.customer-edit-password-toggle {
+position: absolute;
+right: 10px;
+width: 30px;
+height: 30px;
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+padding: 0;
+
+border: 0;
+border-radius: 7px;
+
+background: transparent;
+
+color: var(--text, #526174);
+
+cursor: pointer;
+
+transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.customer-edit-password-toggle:hover {
+background: rgba(20, 108, 255, 0.08);
+color: var(--primary, #146cff);
+}
+
+/* =====================================================
+ERROR
+===================================================== */
+
+.customer-edit-error {
+display: block;
+margin-top: 5px;
+color: #d64545;
+font-size: 11px;
+}
+
+/* =====================================================
+PASSWORD NOTE
+===================================================== */
+
+.customer-edit-password-note {
+display: flex;
+align-items: center;
+gap: 8px;
+margin-top: 18px;
+padding: 11px 13px;
+
+border-radius: 9px;
+
+background: rgba(20, 108, 255, 0.06);
+
+color: var(--text, #526174);
+
+font-size: 11px;
+}
+
+.customer-edit-password-note i {
+color: var(--primary, #146cff);
+}
+
+/* =====================================================
+FORM ACTIONS
+===================================================== */
+
+.customer-edit-actions {
+display: flex;
+align-items: center;
+justify-content: flex-end;
+gap: 10px;
+
+margin-top: 4px;
+
+}
+
+/* =====================================================
+DARK MODE
+===================================================== */
+
+body.dark-mode .customer-edit-title h1,
+body.dark-mode .customer-edit-card-title h2,
+body.dark-mode .customer-edit-form-group label {
+color: #ffffff;
+}
+
+body.dark-mode .customer-edit-card {
+background: #0f1f3a;
+border-color: rgba(255, 255, 255, 0.08);
+box-shadow: none;
+}
+
+body.dark-mode .customer-edit-card-header {
+border-color: rgba(255, 255, 255, 0.08);
+}
+
+body.dark-mode .customer-edit-input-wrapper input,
+body.dark-mode .customer-edit-input-wrapper select,
+body.dark-mode .customer-edit-input-wrapper textarea {
+background: #0b1830;
+border-color: rgba(255, 255, 255, 0.10);
+color: #ffffff;
+}
+body.dark-mode .customer-edit-input-wrapper select option {
+    background: #0b1830;
+    color: #ffffff;
+}
+
+body.dark-mode .customer-edit-input-wrapper input::placeholder,
+body.dark-mode .customer-edit-input-wrapper textarea::placeholder {
+color: #7f8da3;
+}
+
+body.dark-mode .customer-edit-btn-light {
+background: #0f1f3a;
+border-color: rgba(255, 255, 255, 0.10);
+color: #ffffff;
+}
+
+body.dark-mode .customer-edit-btn-light:hover {
+background: rgba(255, 255, 255, 0.06);
+color: #ffffff;
+}
+
+body.dark-mode .customer-edit-password-toggle {
+color: #aab6c8;
+}
+
+body.dark-mode .customer-edit-password-note {
+background: rgba(20, 108, 255, 0.08);
+}
+
+/*TABLET */
+
+@media (max-width: 900px) {
+
+.customer-edit-header {
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.customer-edit-header-actions {
+    width: 100%;
+}
+
+.customer-edit-header-actions .customer-edit-btn {
+    width: 100%;
+}
+}
+
+/* =====================================================
+MOBILE
+===================================================== */
+
+@media (max-width: 700px) {
+
+.customer-edit-form-grid {
+    grid-template-columns: 1fr;
+}
+
+.customer-edit-form-group-full {
+    grid-column: auto;
+}
+
+.customer-edit-card-header {
+    padding: 16px;
+}
+
+.customer-edit-card-body {
+    padding: 18px 16px;
+}
+
+.customer-edit-actions {
+    flex-direction: column-reverse;
+    width: 100%;
+}
+
+.customer-edit-actions .customer-edit-btn {
+    width: 100%;
+}
+
+}
+
+/* =====================================================
+SMALL MOBILE
+===================================================== */
+
+@media (max-width: 450px) {
+
+.customer-edit-title {
+    align-items: flex-start;
+}
+
+.customer-edit-title-icon {
+    width: 42px;
+    height: 42px;
+
+    border-radius: 11px;
+
+    font-size: 16px;
+}
+
+.customer-edit-title h1 {
+    font-size: 21px;
+}
+
+.customer-edit-title p {
+    font-size: 12px;
+}
+
+.customer-edit-alert {
+    font-size: 12px;
+}
+
+}

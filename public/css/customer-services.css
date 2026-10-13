@@ -1,0 +1,759 @@
+/* =====================================================
+   QUICKFIX CUSTOMER SERVICES
+   Reference: Customer Dashboard / Profile UI
+===================================================== */
+
+
+/* =====================================================
+   PAGE CONTENT
+===================================================== */
+
+.customer-services-content {
+    padding: 35px 30px 50px;
+}
+
+
+/* =====================================================
+   PAGE INTRO
+===================================================== */
+
+.services-page-intro {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 24px 26px;
+    margin-bottom: 25px;
+
+    background: var(--white);
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    box-shadow: var(--shadow-sm);
+}
+
+.services-eyebrow {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: var(--primary);
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+.services-page-intro h3 {
+    margin: 0 0 5px;
+
+    color: var(--navy);
+
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.services-page-intro p {
+    margin: 0;
+
+    color: var(--text);
+
+    font-size: 13px;
+}
+
+.services-intro-icon {
+    width: 54px;
+    height: 54px;
+    min-width: 54px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: rgba(20, 108, 255, 0.08);
+
+    color: var(--primary);
+
+    font-size: 21px;
+}
+
+
+/* =====================================================
+   SUMMARY CARDS
+===================================================== */
+
+.service-summary-card {
+    min-height: 100px;
+
+    padding: 20px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    background: var(--white);
+
+    border: 1px solid var(--border);
+
+    border-radius: 13px;
+
+    box-shadow: var(--shadow-sm);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.service-summary-card:hover {
+    transform: translateY(-2px);
+
+    box-shadow: var(--shadow-md);
+}
+
+.service-summary-icon {
+    width: 46px;
+    height: 46px;
+    min-width: 46px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 11px;
+
+    background: rgba(20, 108, 255, 0.10);
+
+    color: var(--primary);
+
+    font-size: 18px;
+}
+
+.service-summary-icon.completed {
+    background: rgba(22, 163, 74, 0.10);
+
+    color: var(--success);
+}
+
+.service-summary-icon.cancelled {
+    background: rgba(220, 38, 38, 0.10);
+
+    color: var(--danger);
+}
+
+.service-summary-card span {
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: var(--text);
+
+    font-size: 12px;
+}
+
+.service-summary-card strong {
+    color: var(--navy);
+
+    font-size: 23px;
+    font-weight: 700;
+}
+
+
+/* =====================================================
+   MAIN SERVICE CARD
+===================================================== */
+
+.customer-services-card {
+    background: var(--white);
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    box-shadow: var(--shadow-sm);
+
+    overflow: hidden;
+}
+
+
+/* =====================================================
+   CARD HEADER
+===================================================== */
+
+.services-card-header {
+    min-height: 82px;
+
+    padding: 20px 25px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+.services-card-header h4 {
+    margin: 0 0 4px;
+
+    color: var(--navy);
+
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.services-card-header p {
+    margin: 0;
+
+    color: var(--text);
+
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   FILTER
+===================================================== */
+
+.services-filter {
+    width: 170px;
+}
+
+.services-filter .form-select {
+    min-height: 40px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 9px;
+
+    background-color: var(--white);
+
+    color: var(--navy);
+
+    font-size: 12px;
+
+    box-shadow: none;
+}
+
+.services-filter .form-select:focus {
+    border-color: var(--primary);
+
+    box-shadow: 0 0 0 3px rgba(20, 108, 255, 0.10);
+}
+
+
+/* =====================================================
+   SERVICE HISTORY LIST
+===================================================== */
+
+.service-history-list {
+    width: 100%;
+}
+
+
+/* =====================================================
+   SERVICE HISTORY ITEM
+===================================================== */
+
+.service-history-item {
+    min-height: 125px;
+
+    padding: 22px 25px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 18px;
+
+    border-bottom: 1px solid var(--border);
+
+    transition: background 0.2s ease;
+}
+
+.service-history-item:last-child {
+    border-bottom: none;
+}
+
+.service-history-item:hover {
+    background: rgba(20, 108, 255, 0.025);
+}
+
+
+/* =====================================================
+   SERVICE ICON
+===================================================== */
+
+.service-history-icon {
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: rgba(20, 108, 255, 0.10);
+
+    color: var(--primary);
+
+    font-size: 19px;
+}
+
+.service-history-icon.electrical {
+    background: rgba(245, 158, 11, 0.10);
+
+    color: var(--warning);
+}
+
+.service-history-icon.cleaning {
+    background: rgba(124, 58, 237, 0.10);
+
+    color: var(--purple);
+}
+
+.service-history-icon.ac {
+    background: rgba(14, 165, 233, 0.10);
+
+    color: #0ea5e9;
+}
+
+.service-history-icon.appliance {
+    background: rgba(100, 116, 139, 0.10);
+
+    color: #64748b;
+}
+
+
+/* =====================================================
+   SERVICE INFORMATION
+===================================================== */
+
+.service-history-info {
+    flex: 1;
+
+    min-width: 0;
+}
+
+.service-history-title-row {
+    display: flex;
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 9px;
+
+    margin-bottom: 7px;
+}
+
+.service-history-title-row h5 {
+    margin: 0;
+
+    color: var(--navy);
+
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.service-provider {
+    margin: 0 0 9px;
+
+    color: var(--text);
+
+    font-size: 12px;
+}
+
+.service-provider i {
+    width: 16px;
+
+    color: var(--primary);
+}
+
+.service-meta {
+    display: flex;
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 16px;
+}
+
+.service-meta span {
+    color: var(--text);
+
+    font-size: 11px;
+}
+
+.service-meta i {
+    margin-right: 5px;
+
+    color: var(--primary);
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+.service-status {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 4px 9px;
+
+    border-radius: 50px;
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.completed-status {
+    background: #ecfdf3;
+
+    color: var(--success);
+}
+
+.cancelled-status {
+    background: #fef2f2;
+
+    color: var(--danger);
+}
+
+
+/* =====================================================
+   PRICE / DETAILS
+===================================================== */
+
+.service-history-price {
+    width: 160px;
+    min-width: 160px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    text-align: right;
+}
+
+.service-history-price span {
+    margin-bottom: 3px;
+
+    color: var(--text);
+
+    font-size: 10px;
+}
+
+.service-history-price strong {
+    margin-bottom: 8px;
+
+    color: var(--navy);
+
+    font-size: 14px;
+}
+
+.service-details-btn {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 6px;
+
+    color: var(--primary);
+
+    font-size: 11px;
+    font-weight: 600;
+
+    text-decoration: none;
+}
+
+.service-details-btn:hover {
+    color: var(--primary);
+
+    text-decoration: underline;
+}
+
+
+/* =====================================================
+   PAGINATION
+===================================================== */
+
+.services-pagination {
+    padding: 18px 25px;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 6px;
+
+    border-top: 1px solid var(--border);
+}
+
+.pagination-btn,
+.pagination-number {
+    width: 34px;
+    height: 34px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 8px;
+
+    background: var(--white);
+
+    color: var(--text);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 12px;
+
+    cursor: pointer;
+}
+
+.pagination-number.active {
+    border-color: var(--primary);
+
+    background: var(--primary);
+
+    color: #ffffff;
+}
+
+.pagination-btn:hover,
+.pagination-number:hover {
+    border-color: var(--primary);
+
+    color: var(--primary);
+}
+
+.pagination-number.active:hover {
+    color: #ffffff;
+}
+
+.pagination-btn.disabled {
+    opacity: 0.45;
+
+    cursor: not-allowed;
+}
+
+
+/* =====================================================
+   DARK MODE
+===================================================== */
+
+body.dark-mode .services-page-intro,
+body.dark-mode .service-summary-card,
+body.dark-mode .customer-services-card {
+    background: var(--white);
+
+    border-color: var(--border);
+}
+
+body.dark-mode .services-filter .form-select {
+    background-color: #111827;
+
+    border-color: #263244;
+
+    color: #f8fafc;
+}
+
+body.dark-mode .service-history-item:hover {
+    background: rgba(96, 165, 250, 0.04);
+}
+
+body.dark-mode .completed-status {
+    background: rgba(22, 163, 74, 0.12);
+
+    color: #4ade80;
+}
+
+body.dark-mode .cancelled-status {
+    background: rgba(220, 38, 38, 0.12);
+
+    color: #f87171;
+}
+
+body.dark-mode .pagination-btn,
+body.dark-mode .pagination-number {
+    background: #111827;
+
+    border-color: #263244;
+
+    color: #cbd5e1;
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 991px) {
+
+    .customer-services-content {
+        padding: 30px 25px 40px;
+    }
+
+    .service-history-price {
+        width: 135px;
+        min-width: 135px;
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 767px) {
+
+    .customer-services-content {
+        padding: 25px 20px 35px;
+    }
+
+    .services-page-intro {
+        padding: 20px;
+    }
+
+    .services-page-intro h3 {
+        font-size: 19px;
+    }
+
+    .services-intro-icon {
+        width: 46px;
+        height: 46px;
+        min-width: 46px;
+
+        font-size: 17px;
+    }
+
+    .services-card-header {
+        padding: 18px 20px;
+
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .services-filter {
+        width: 100%;
+    }
+
+    .service-history-item {
+        padding: 20px;
+
+        align-items: flex-start;
+
+        flex-wrap: wrap;
+    }
+
+    .service-history-info {
+        width: calc(100% - 70px);
+
+        flex: none;
+    }
+
+    .service-history-price {
+        width: 100%;
+        min-width: 0;
+
+        padding-left: 70px;
+
+        align-items: flex-start;
+
+        text-align: left;
+
+        margin-top: 3px;
+    }
+
+    .services-pagination {
+        justify-content: center;
+    }
+
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 480px) {
+
+    .customer-services-content {
+        padding: 20px 16px 30px;
+    }
+
+    .services-page-intro {
+        padding: 18px;
+
+        align-items: flex-start;
+    }
+
+    .services-page-intro p {
+        font-size: 12px;
+    }
+
+    .service-summary-card {
+        min-height: 85px;
+
+        padding: 16px;
+    }
+
+    .service-summary-icon {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+    }
+
+    .service-summary-card strong {
+        font-size: 20px;
+    }
+
+    .service-history-item {
+        padding: 18px;
+    }
+
+    .service-history-icon {
+        width: 46px;
+        height: 46px;
+        min-width: 46px;
+
+        font-size: 17px;
+    }
+
+    .service-history-info {
+        width: calc(100% - 64px);
+    }
+
+    .service-history-title-row h5 {
+        font-size: 14px;
+    }
+
+    .service-meta {
+        gap: 8px;
+
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .service-history-price {
+        padding-left: 64px;
+    }
+
+    .service-details-btn {
+        margin-top: 2px;
+    }
+
+    .services-pagination {
+        padding: 16px;
+    }
+
+}

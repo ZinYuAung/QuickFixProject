@@ -1,0 +1,790 @@
+/* =========================================================
+   PROVIDER BOOKING DETAIL
+========================================================= */
+
+.provider-booking-detail-page {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+.provider-booking-detail-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.provider-booking-detail-header-left {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.provider-detail-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    width: fit-content;
+
+    color: var(--text);
+
+    font-size: 12px;
+    font-weight: 600;
+
+    text-decoration: none;
+}
+
+.provider-detail-back:hover {
+    color: var(--primary);
+}
+
+
+.provider-detail-title h2 {
+    margin: 0;
+
+    color: var(--navy);
+
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.provider-detail-title p {
+    margin: 5px 0 0;
+
+    color: var(--text);
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   CURRENT STATUS
+========================================================= */
+
+.provider-detail-current-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.provider-detail-status-label {
+    color: var(--text);
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.provider-detail-grid {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        380px;
+
+    gap: 20px;
+
+    align-items: start;
+}
+
+.provider-detail-main,
+.provider-detail-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.provider-detail-card {
+    background: var(--white);
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    box-shadow:
+        0 4px 16px rgba(7, 27, 65, 0.04);
+
+    overflow: hidden;
+}
+
+
+.provider-detail-card-header {
+    padding: 17px 20px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+
+.provider-detail-card-title {
+    display: flex;
+    align-items: center;
+
+    gap: 11px;
+}
+
+
+.provider-detail-icon {
+    width: 34px;
+    height: 34px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9px;
+
+    background: rgba(20, 108, 255, 0.09);
+
+    color: var(--primary);
+
+    font-size: 13px;
+}
+
+
+.provider-detail-card-title h2 {
+    margin: 0;
+
+    color: var(--navy);
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+
+.provider-detail-card-title p {
+    margin: 3px 0 0;
+
+    color: #94a3b8;
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   CUSTOMER
+========================================================= */
+
+.provider-detail-customer {
+    display: flex;
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 20px;
+}
+
+
+.provider-detail-avatar {
+    width: 50px;
+    height: 50px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #eef4ff;
+
+    color: var(--primary);
+
+    font-size: 18px;
+}
+
+
+.provider-detail-customer-info h3 {
+    margin: 0 0 7px;
+
+    color: var(--navy);
+
+    font-size: 15px;
+    font-weight: 700;
+}
+
+
+.provider-detail-customer-info p {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 7px;
+
+    margin: 3px 16px 0 0;
+
+    color: var(--text);
+
+    font-size: 12px;
+}
+
+
+.provider-detail-customer-info p i {
+    color: var(--primary);
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   INFORMATION GRID
+========================================================= */
+
+.provider-detail-info-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+}
+
+
+.provider-detail-info-item {
+    padding: 18px 20px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+
+.provider-detail-info-item:nth-child(odd) {
+    border-right: 1px solid var(--border);
+}
+
+
+.provider-detail-info-item:nth-last-child(-n + 2) {
+    border-bottom: none;
+}
+
+
+.provider-detail-info-label {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #94a3b8;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.04em;
+}
+
+
+.provider-detail-info-item strong {
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+
+    color: var(--navy);
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+.provider-detail-info-item strong i {
+    color: var(--primary);
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   SERVICES
+========================================================= */
+
+.provider-detail-services {
+    padding: 8px 20px 20px;
+}
+
+
+.provider-detail-service {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 12px 0;
+
+    border-bottom: 1px solid var(--border);
+}
+
+
+.provider-detail-service:last-child {
+    border-bottom: none;
+}
+
+
+.provider-detail-service-icon {
+    width: 34px;
+    height: 34px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+
+    background: var(--light-bg);
+
+    color: var(--primary);
+
+    font-size: 12px;
+}
+
+
+.provider-detail-service-info {
+    display: flex;
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+
+.provider-detail-service-info strong {
+    color: var(--navy);
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+.provider-detail-service-info span {
+    color: var(--text);
+
+    font-size: 11px;
+
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   NOTES
+========================================================= */
+
+.provider-detail-notes {
+    padding: 18px 20px;
+
+    color: var(--text);
+
+    font-size: 12px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+.provider-detail-summary {
+    padding: 6px 20px 18px;
+}
+
+
+.provider-detail-summary > div {
+    display: flex;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 12px 0;
+
+    border-bottom: 1px solid var(--border);
+}
+
+
+.provider-detail-summary > div:last-child {
+    border-bottom: none;
+}
+
+
+.provider-detail-summary span {
+    color: #94a3b8;
+
+    font-size: 11px;
+}
+
+
+.provider-detail-summary strong {
+    max-width: 200px;
+
+    color: var(--navy);
+
+    font-size: 11px;
+    font-weight: 600;
+
+    text-align: right;
+}
+
+
+/* =========================================================
+   STATUS TIMELINE
+========================================================= */
+
+.provider-status-timeline {
+    padding: 18px 20px 20px;
+}
+
+
+.provider-status-history-item {
+    position: relative;
+
+    display: flex;
+
+    gap: 12px;
+
+    min-height: 72px;
+}
+
+
+.provider-status-history-item:last-child {
+    min-height: auto;
+}
+
+
+.provider-status-history-line {
+    position: relative;
+
+    width: 12px;
+
+    flex-shrink: 0;
+}
+
+
+.provider-status-history-item:not(:last-child)
+.provider-status-history-line::after {
+
+    content: "";
+
+    position: absolute;
+
+    top: 14px;
+    left: 5px;
+
+    width: 1px;
+
+    height: calc(100% + 2px);
+
+    background: var(--border);
+}
+
+
+.provider-status-history-dot {
+    position: relative;
+
+    z-index: 2;
+
+    display: block;
+
+    width: 11px;
+    height: 11px;
+
+    margin-top: 3px;
+
+    border-radius: 50%;
+
+    background: #94a3b8;
+
+    border: 2px solid var(--white);
+
+    box-shadow:
+        0 0 0 1px var(--border);
+}
+
+
+.provider-status-history-dot.pending {
+    background: var(--warning);
+}
+
+
+.provider-status-history-dot.accepted {
+    background: var(--success);
+}
+
+
+.provider-status-history-dot.ongoing {
+    background: var(--primary);
+}
+
+
+.provider-status-history-dot.completed {
+    background: var(--success);
+}
+
+
+.provider-status-history-dot.cancelled {
+    background: var(--danger);
+}
+
+
+.provider-status-history-content {
+    flex: 1;
+
+    padding-bottom: 15px;
+}
+
+
+.provider-status-history-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
+}
+
+
+.provider-status-history-top strong {
+    color: var(--navy);
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+.provider-status-history-top span {
+    color: #94a3b8;
+
+    font-size: 10px;
+}
+
+
+.provider-status-history-content p {
+    margin: 3px 0 6px;
+
+    color: var(--text);
+
+    font-size: 10px;
+}
+
+
+.provider-status-history-content small {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 5px;
+
+    color: #94a3b8;
+
+    font-size: 10px;
+}
+
+
+.provider-status-history-content small i {
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+.provider-detail-no-data {
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+
+    padding: 20px;
+
+    color: #94a3b8;
+
+    font-size: 11px;
+}
+
+
+.provider-detail-no-data i {
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   DARK MODE
+========================================================= */
+
+body.dark-mode .provider-detail-card {
+    background: #111827;
+
+    border-color: #263244;
+}
+
+
+body.dark-mode .provider-detail-card-header {
+    border-color: #263244;
+}
+
+
+body.dark-mode .provider-detail-info-item {
+    border-color: #263244;
+}
+
+
+body.dark-mode .provider-detail-service {
+    border-color: #263244;
+}
+
+
+body.dark-mode .provider-detail-summary > div {
+    border-color: #263244;
+}
+
+
+body.dark-mode .provider-status-history-item:not(:last-child)
+.provider-status-history-line::after {
+    background: #263244;
+}
+
+
+body.dark-mode .provider-detail-back {
+    color: #cbd5e1;
+}
+
+
+body.dark-mode .provider-detail-customer-info p {
+    color: #cbd5e1;
+}
+
+
+body.dark-mode .provider-detail-service-info span {
+    color: #cbd5e1;
+}
+
+
+body.dark-mode .provider-detail-notes {
+    color: #cbd5e1;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .provider-detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .provider-detail-sidebar {
+        display: grid;
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+        align-items: start;
+    }
+
+}
+
+
+@media (max-width: 767px) {
+
+    .provider-booking-detail-header {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+
+    .provider-detail-title h2 {
+        font-size: 20px;
+    }
+
+
+    .provider-detail-grid {
+        gap: 15px;
+    }
+
+
+    .provider-detail-main,
+    .provider-detail-sidebar {
+        gap: 15px;
+    }
+
+
+    .provider-detail-sidebar {
+        display: flex;
+    }
+
+
+    .provider-detail-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .provider-detail-info-item {
+        border-right: none !important;
+
+        border-bottom: 1px solid var(--border) !important;
+    }
+
+
+    .provider-detail-info-item:last-child {
+        border-bottom: none !important;
+    }
+
+
+    .provider-detail-current-status {
+        width: 100%;
+
+        justify-content: flex-start;
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .provider-detail-card-header {
+        padding: 15px;
+    }
+
+
+    .provider-detail-customer {
+        padding: 16px;
+    }
+
+
+    .provider-detail-info-item {
+        padding: 15px 16px;
+    }
+
+
+    .provider-detail-services {
+        padding: 6px 16px 16px;
+    }
+
+
+    .provider-detail-summary {
+        padding: 5px 16px 15px;
+    }
+
+
+    .provider-status-timeline {
+        padding: 16px;
+    }
+
+}

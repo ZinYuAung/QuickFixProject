@@ -1,0 +1,1309 @@
+/* =========================================================
+   QUICKFIX ADMIN - EDIT CITY
+========================================================= */
+
+
+/* =========================================================
+   ROOT VARIABLES
+========================================================= */
+
+:root {
+    --city-primary: #146cff;
+    --city-primary-dark: #0d5bd7;
+
+    --city-navy: #071b41;
+    --city-text: #526174;
+    --city-muted: #8a97a8;
+
+    --city-light-bg: #f7faff;
+    --city-white: #ffffff;
+    --city-border: #e9eef5;
+
+    --city-success: #16a34a;
+    --city-success-bg: #ecfdf3;
+
+    --city-warning: #f59e0b;
+    --city-warning-bg: #fff8e6;
+
+    --city-danger: #dc3545;
+
+    --city-shadow:
+        0 6px 20px rgba(7, 27, 65, 0.06);
+}
+
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.admin-city-edit-page {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 8px 12px 40px;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.city-edit-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.city-edit-header-content {
+    min-width: 0;
+    flex: 1;
+}
+
+
+/* =========================================================
+   BREADCRUMB
+========================================================= */
+
+.city-breadcrumb {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    margin-bottom: 12px;
+
+    font-size: 13px;
+}
+
+.city-breadcrumb a {
+    color: var(--city-primary);
+    text-decoration: none;
+    font-weight: 600;
+
+    transition:
+        color 0.2s ease;
+}
+
+.city-breadcrumb a:hover {
+    color: var(--city-primary-dark);
+    text-decoration: underline;
+}
+
+.city-breadcrumb i {
+    color: #aab4c2;
+    font-size: 10px;
+}
+
+.city-breadcrumb span {
+    color: var(--city-muted);
+}
+
+
+/* =========================================================
+   TITLE ROW
+========================================================= */
+
+.city-edit-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.city-edit-title-row h1 {
+    margin: 0 0 6px;
+
+    color: var(--city-navy);
+
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.city-edit-title-row p {
+    margin: 0;
+
+    color: var(--city-text);
+
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   CITY ID BADGE
+========================================================= */
+
+.city-id-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 7px 12px;
+
+    border: 1px solid var(--city-border);
+    border-radius: 8px;
+
+    background: var(--city-white);
+    color: var(--city-navy);
+
+    font-size: 12px;
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+.city-id-badge::before {
+    content: "";
+
+    width: 7px;
+    height: 7px;
+
+    margin-right: 7px;
+
+    border-radius: 50%;
+
+    background: var(--city-primary);
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.admin-city-edit-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    min-height: 40px;
+    padding: 0 15px;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.admin-city-edit-btn:hover {
+    text-decoration: none;
+}
+
+.admin-city-edit-btn:active {
+    transform: translateY(1px);
+}
+
+.admin-city-edit-btn:focus-visible {
+    outline: 3px solid rgba(20, 108, 255, 0.16);
+    outline-offset: 2px;
+}
+
+.admin-city-edit-btn-secondary {
+    border: 1px solid var(--city-border);
+
+    background: var(--city-white);
+    color: var(--city-navy);
+}
+
+.admin-city-edit-btn-secondary:hover {
+    border-color: #cfd9e6;
+
+    background: var(--city-light-bg);
+    color: var(--city-primary);
+}
+
+.admin-city-edit-btn-primary {
+    border: 1px solid var(--city-primary);
+
+    background: var(--city-primary);
+    color: #ffffff;
+}
+
+.admin-city-edit-btn-primary:hover {
+    border-color: var(--city-primary-dark);
+
+    background: var(--city-primary-dark);
+    color: #ffffff;
+
+    box-shadow:
+        0 5px 14px rgba(20, 108, 255, 0.18);
+}
+
+.admin-city-edit-btn-primary:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   ALERTS
+========================================================= */
+
+.city-alert {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 12px;
+
+    margin-bottom: 20px;
+    padding: 14px 16px;
+
+    border-radius: 9px;
+
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.city-alert-success {
+    border: 1px solid #ccebd8;
+
+    background: var(--city-success-bg);
+    color: #166534;
+}
+
+.city-alert-danger {
+    border: 1px solid #f3c4ca;
+
+    background: #fff5f5;
+    color: #842029;
+}
+
+.city-alert-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 20px;
+    height: 20px;
+
+    flex-shrink: 0;
+}
+
+.city-alert-content {
+    min-width: 0;
+}
+
+.city-alert-content strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.city-alert ul {
+    margin: 5px 0 0;
+    padding-left: 20px;
+}
+
+
+/* =========================================================
+   MAIN LAYOUT
+========================================================= */
+
+.city-edit-layout {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.7fr)
+        minmax(300px, 0.8fr);
+
+    gap: 28px;
+
+    align-items: start;
+}
+
+.city-edit-main,
+.city-edit-sidebar {
+    min-width: 0;
+}
+
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+.city-edit-form-card {
+    margin-bottom: 24px;
+
+    overflow: hidden;
+
+    border: 1px solid var(--city-border);
+    border-radius: 12px;
+
+    background: var(--city-white);
+
+    box-shadow: var(--city-shadow);
+}
+
+.city-edit-form-card:last-child {
+    margin-bottom: 0;
+}
+
+
+/* =========================================================
+   CARD HEADER
+========================================================= */
+
+.city-card-header {
+    padding: 22px 24px;
+
+    border-bottom: 1px solid var(--city-border);
+}
+
+.city-card-title {
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+}
+
+.city-card-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    border-radius: 9px;
+
+    background: rgba(20, 108, 255, 0.09);
+    color: var(--city-primary);
+}
+
+.city-card-icon i {
+    font-size: 17px;
+}
+
+.city-card-title h2 {
+    margin: 0 0 4px;
+
+    color: var(--city-navy);
+
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.35;
+}
+
+.city-card-title p {
+    margin: 0;
+
+    color: var(--city-muted);
+
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   CARD BODY
+========================================================= */
+
+.city-card-body {
+    padding: 24px;
+}
+
+
+/* =========================================================
+   FORM GROUP
+========================================================= */
+
+.city-form-group {
+    margin-bottom: 22px;
+}
+
+.city-form-group:last-child {
+    margin-bottom: 0;
+}
+
+.city-form-group label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: var(--city-navy);
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.city-required {
+    color: var(--city-danger);
+}
+
+
+/* =========================================================
+   INPUT
+========================================================= */
+
+.city-edit-input {
+    display: block;
+
+    width: 100%;
+    min-height: 46px;
+
+    padding: 11px 13px;
+
+    border: 1px solid var(--city-border);
+    border-radius: 8px;
+
+    background: var(--city-white);
+    color: var(--city-navy);
+
+    font-family: inherit;
+    font-size: 14px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.city-edit-input:hover {
+    border-color: #cfd9e6;
+}
+
+.city-edit-input:focus {
+    border-color: var(--city-primary);
+
+    box-shadow:
+        0 0 0 3px rgba(20, 108, 255, 0.10);
+}
+
+.city-edit-input::placeholder {
+    color: #a5afbd;
+}
+
+.city-edit-input.input-error {
+    border-color: var(--city-danger);
+}
+
+.city-edit-input.input-error:focus {
+    border-color: var(--city-danger);
+
+    box-shadow:
+        0 0 0 3px rgba(220, 53, 69, 0.10);
+}
+
+
+/* =========================================================
+   FIELD HELP
+========================================================= */
+
+.city-field-help {
+    margin-top: 7px;
+
+    color: var(--city-muted);
+
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.city-field-error {
+    display: flex;
+    align-items: center;
+
+    gap: 6px;
+
+    margin-top: 7px;
+
+    color: var(--city-danger);
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   CITY INFORMATION GRID
+========================================================= */
+
+.city-info-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 14px;
+}
+
+.city-info-item {
+    padding: 15px;
+
+    border: 1px solid var(--city-border);
+    border-radius: 9px;
+
+    background: var(--city-light-bg);
+}
+
+.city-info-label {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: var(--city-muted);
+
+    font-size: 10px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.city-info-item strong {
+    color: var(--city-navy);
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   STATUS COLORS
+========================================================= */
+
+.city-status-active {
+    color: var(--city-success) !important;
+}
+
+.city-status-inactive {
+    color: var(--city-warning) !important;
+}
+
+
+/* =========================================================
+   STATUS TOGGLE
+========================================================= */
+
+.city-status-toggle {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 16px;
+
+    border: 1px solid var(--city-border);
+    border-radius: 10px;
+
+    background: var(--city-light-bg);
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+.city-status-toggle:hover {
+    border-color: #cfd9e6;
+}
+
+.city-status-information {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    min-width: 0;
+}
+
+.city-status-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 40px;
+    height: 40px;
+
+    flex-shrink: 0;
+
+    border-radius: 9px;
+
+    background: var(--city-success-bg);
+    color: var(--city-success);
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.city-status-icon.inactive {
+    background: var(--city-warning-bg);
+    color: var(--city-warning);
+}
+
+.city-status-information > div:last-child {
+    min-width: 0;
+}
+
+.city-status-information strong {
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: var(--city-navy);
+
+    font-size: 13px;
+}
+
+.city-status-information span {
+    display: block;
+
+    color: var(--city-text);
+
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   HIDDEN CHECKBOX
+========================================================= */
+
+.city-status-toggle input[type="checkbox"] {
+    position: absolute;
+
+    width: 1px;
+    height: 1px;
+
+    opacity: 0;
+}
+
+
+/* =========================================================
+   CUSTOM TOGGLE
+========================================================= */
+
+.city-custom-toggle {
+    position: relative;
+
+    display: block;
+
+    width: 48px;
+    height: 27px;
+
+    flex-shrink: 0;
+
+    border-radius: 30px;
+
+    background: #cbd5e1;
+
+    transition:
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.city-custom-toggle::after {
+    content: "";
+
+    position: absolute;
+
+    top: 3px;
+    left: 3px;
+
+    width: 21px;
+    height: 21px;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 2px 5px rgba(0, 0, 0, 0.18);
+
+    transition:
+        transform 0.25s ease;
+}
+
+
+/* =========================================================
+   ACTIVE TOGGLE
+========================================================= */
+
+.city-status-toggle input[type="checkbox"]:checked
++ .city-custom-toggle {
+
+    background: var(--city-primary);
+
+    box-shadow:
+        0 3px 8px rgba(20, 108, 255, 0.22);
+}
+
+.city-status-toggle input[type="checkbox"]:checked
++ .city-custom-toggle::after {
+
+    transform: translateX(21px);
+}
+
+
+/* =========================================================
+   SERVICE AREA INFORMATION
+========================================================= */
+
+.city-service-area-box {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 13px;
+
+    padding: 16px;
+
+    border: 1px solid #dce8ff;
+    border-radius: 10px;
+
+    background: #f5f8ff;
+}
+
+.city-service-area-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 38px;
+    height: 38px;
+
+    flex-shrink: 0;
+
+    border-radius: 9px;
+
+    background: rgba(20, 108, 255, 0.10);
+    color: var(--city-primary);
+}
+
+.city-service-area-content {
+    min-width: 0;
+}
+
+.city-service-area-content h3 {
+    margin: 0 0 4px;
+
+    color: var(--city-navy);
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.city-service-area-content p {
+    margin: 0;
+
+    color: var(--city-text);
+
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   QUICK PREVIEW
+========================================================= */
+
+.city-preview-box {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 14px;
+
+    padding: 18px;
+
+    border: 1px solid var(--city-border);
+    border-radius: 10px;
+
+    background: var(--city-light-bg);
+}
+
+.city-preview-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 44px;
+    height: 44px;
+
+    flex-shrink: 0;
+
+    border-radius: 10px;
+
+    background: rgba(20, 108, 255, 0.09);
+    color: var(--city-primary);
+}
+
+.city-preview-content {
+    min-width: 0;
+    flex: 1;
+}
+
+.city-preview-label {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: var(--city-muted);
+
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: 0.7px;
+}
+
+.city-preview-content h3 {
+    margin: 0 0 7px;
+
+    color: var(--city-navy);
+
+    font-size: 17px;
+    font-weight: 700;
+
+    word-break: break-word;
+}
+
+.city-preview-content p {
+    margin: 0 0 13px;
+
+    color: var(--city-text);
+
+    font-size: 12px;
+    line-height: 1.6;
+
+    word-break: break-word;
+}
+
+.city-preview-status {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 7px;
+}
+
+.city-preview-status strong {
+    color: var(--city-navy);
+
+    font-size: 12px;
+}
+
+.city-preview-status-dot {
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: var(--city-success);
+}
+
+.city-preview-status-dot.inactive {
+    background: var(--city-warning);
+}
+
+
+/* =========================================================
+   UPDATE NOTICE
+========================================================= */
+
+.city-update-notice {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 12px;
+
+    margin-bottom: 24px;
+    padding: 16px;
+
+    border: 1px solid #dce8ff;
+    border-radius: 10px;
+
+    background: #f5f8ff;
+}
+
+.city-update-notice-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 36px;
+    height: 36px;
+
+    flex-shrink: 0;
+
+    border-radius: 8px;
+
+    background: rgba(20, 108, 255, 0.10);
+    color: var(--city-primary);
+}
+
+.city-update-notice h3 {
+    margin: 0 0 4px;
+
+    color: var(--city-navy);
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.city-update-notice p {
+    margin: 0;
+
+    color: var(--city-text);
+
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   FORM ACTIONS
+========================================================= */
+
+.city-edit-form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 12px;
+
+    margin-top: 28px;
+    padding: 24px 4px 8px;
+
+    border-top: 1px solid var(--city-border);
+}
+
+
+/* =========================================================
+   BUTTON SPINNER
+========================================================= */
+
+.city-edit-button-spinner {
+    width: 15px;
+    height: 15px;
+
+    border: 2px solid rgba(255, 255, 255, 0.45);
+    border-top-color: #ffffff;
+
+    border-radius: 50%;
+
+    animation:
+        cityEditSpin 0.7s linear infinite;
+}
+
+@keyframes cityEditSpin {
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* =========================================================
+   DARK MODE
+========================================================= */
+
+body.dark-mode .admin-city-edit-page {
+    --city-navy: #f1f5f9;
+    --city-text: #aeb9c8;
+    --city-muted: #8491a3;
+    --city-light-bg: #111b2e;
+    --city-white: #0d1728;
+    --city-border: #26344a;
+}
+
+
+/* =========================================================
+   DARK MODE - INPUT
+========================================================= */
+
+body.dark-mode .city-edit-input {
+    background: #0d1728;
+    color: #f1f5f9;
+}
+
+body.dark-mode .city-edit-input::placeholder {
+    color: #718096;
+}
+
+body.dark-mode .city-edit-input:hover {
+    border-color: #40516b;
+}
+
+
+/* =========================================================
+   DARK MODE - STATUS
+========================================================= */
+
+body.dark-mode .city-status-toggle {
+    background: #111b2e;
+}
+
+
+/* =========================================================
+   DARK MODE - PREVIEW
+========================================================= */
+
+body.dark-mode .city-preview-box {
+    background: #111b2e;
+}
+
+
+/* =========================================================
+   DARK MODE - SERVICE AREA
+========================================================= */
+
+body.dark-mode .city-service-area-box {
+    border-color: #263b62;
+    background: #101c32;
+}
+
+
+/* =========================================================
+   DARK MODE - UPDATE NOTICE
+========================================================= */
+
+body.dark-mode .city-update-notice {
+    border-color: #263b62;
+    background: #101c32;
+}
+
+
+/* =========================================================
+   DARK MODE - ALERTS
+========================================================= */
+
+body.dark-mode .city-alert-success {
+    border-color: #245c3b;
+    background: #10251a;
+    color: #86efac;
+}
+
+body.dark-mode .city-alert-danger {
+    border-color: #6b2c34;
+    background: #291419;
+    color: #fda4af;
+}
+
+
+/* =========================================================
+   DARK MODE - BUTTON
+========================================================= */
+
+body.dark-mode .admin-city-edit-btn-secondary {
+    background: #0d1728;
+    color: #f1f5f9;
+}
+
+
+/* =========================================================
+   DARK MODE - ID BADGE
+========================================================= */
+
+body.dark-mode .city-id-badge {
+    background: #0d1728;
+}
+
+
+/* =========================================================
+   RESPONSIVE - 1100px
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .city-edit-layout {
+        grid-template-columns:
+            minmax(0, 1.6fr)
+            minmax(280px, 0.8fr);
+
+        gap: 24px;
+    }
+
+    .city-card-header {
+        padding: 20px 22px;
+    }
+
+    .city-card-body {
+        padding: 22px;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE - 991px
+========================================================= */
+
+@media (max-width: 991px) {
+
+    .admin-city-edit-page {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .city-edit-layout {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .city-edit-sidebar {
+        display: grid;
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 20px;
+    }
+
+    .city-edit-sidebar .city-edit-form-card {
+        margin-bottom: 0;
+    }
+
+    .city-update-notice {
+        margin-bottom: 0;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE - 767px
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .admin-city-edit-page {
+        max-width: 100%;
+        padding: 4px 4px 30px;
+    }
+
+    .city-edit-header {
+        flex-direction: column;
+        gap: 16px;
+        margin-bottom: 24px;
+    }
+
+    .city-edit-header-actions {
+        width: 100%;
+    }
+
+    .city-edit-header-actions .admin-city-edit-btn {
+        width: 100%;
+    }
+
+    .city-edit-title-row {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .city-edit-title-row h1 {
+        font-size: 24px;
+    }
+
+    .city-edit-sidebar {
+        display: block;
+    }
+
+    .city-edit-sidebar .city-edit-form-card {
+        margin-bottom: 20px;
+    }
+
+    .city-edit-form-card {
+        margin-bottom: 20px;
+    }
+
+    .city-card-header {
+        padding: 18px 20px;
+    }
+
+    .city-card-body {
+        padding: 20px;
+    }
+
+    .city-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .city-edit-form-actions {
+        flex-direction: column-reverse;
+        align-items: stretch;
+
+        gap: 10px;
+
+        margin-top: 22px;
+        padding: 20px 0 4px;
+    }
+
+    .city-edit-form-actions .admin-city-edit-btn {
+        width: 100%;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE - 480px
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .admin-city-edit-page {
+        padding-left: 2px;
+        padding-right: 2px;
+    }
+
+    .city-breadcrumb {
+        font-size: 11px;
+    }
+
+    .city-edit-title-row h1 {
+        font-size: 22px;
+    }
+
+    .city-edit-title-row p {
+        font-size: 13px;
+    }
+
+    .city-id-badge {
+        font-size: 11px;
+    }
+
+    .city-status-toggle {
+        padding: 13px;
+    }
+
+    .city-status-information {
+        gap: 9px;
+    }
+
+    .city-status-icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    .city-status-information span {
+        font-size: 10px;
+    }
+
+    .city-preview-box {
+        padding: 14px;
+    }
+
+    .city-service-area-box {
+        padding: 14px;
+    }
+
+    .city-update-notice {
+        padding: 14px;
+    }
+}

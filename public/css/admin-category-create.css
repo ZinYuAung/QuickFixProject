@@ -1,0 +1,1158 @@
+/* =========================================================
+   QUICKFIX ADMIN - CREATE CATEGORY
+   admin-category-create.css
+========================================================= */
+
+
+/* =========================================================
+   ROOT VARIABLES
+========================================================= */
+
+:root {
+
+    --category-primary: #146cff;
+    --category-primary-dark: #0d5bd8;
+
+    --category-navy: #071b41;
+
+    --category-text: #526174;
+    --category-text-light: #7b8798;
+
+    --category-white: #ffffff;
+    --category-light-bg: #f7faff;
+
+    --category-border: #e9eef5;
+
+    --category-success: #16a34a;
+    --category-danger: #dc2626;
+
+    --category-shadow:
+        0 8px 25px rgba(7, 27, 65, 0.06);
+
+    --category-radius: 14px;
+}
+
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.admin-category-create-page {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-bottom: 40px;
+}
+
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+.category-create-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 25px;
+
+    margin-bottom: 25px;
+}
+
+.category-create-header-content {
+    min-width: 0;
+}
+
+
+/* =========================================================
+   BREADCRUMB
+========================================================= */
+
+.category-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    margin-bottom: 10px;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    color: var(--category-text-light);
+}
+
+.category-breadcrumb a {
+    color: var(--category-primary);
+    text-decoration: none;
+
+    transition:
+        color 0.2s ease,
+        background 0.2s ease;
+}
+
+.category-breadcrumb a:hover {
+    color: var(--category-primary-dark);
+}
+
+.category-breadcrumb i {
+    font-size: 9px;
+    color: var(--category-text-light);
+}
+
+.category-breadcrumb span {
+    color: var(--category-text-light);
+}
+
+
+/* =========================================================
+   HEADER TITLE
+========================================================= */
+
+.category-create-header h1 {
+    margin: 0 0 6px;
+
+    color: var(--category-navy);
+
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.category-create-header p {
+    margin: 0;
+
+    color: var(--category-text);
+
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   HEADER ACTION
+========================================================= */
+
+.category-create-header-action {
+    flex-shrink: 0;
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.admin-category-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    min-height: 40px;
+
+    padding: 0 17px;
+
+    border: 1px solid transparent;
+    border-radius: 8px;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.admin-category-btn i {
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   PRIMARY BUTTON
+========================================================= */
+
+.admin-category-btn-primary {
+    color: var(--category-white);
+    background: var(--category-primary);
+    border-color: var(--category-primary);
+}
+
+.admin-category-btn-primary:hover {
+    color: var(--category-white);
+
+    background: var(--category-primary-dark);
+    border-color: var(--category-primary-dark);
+
+    box-shadow:
+        0 5px 14px rgba(20, 108, 255, 0.20);
+
+    transform: translateY(-1px);
+}
+
+.admin-category-btn-primary:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   SECONDARY BUTTON
+========================================================= */
+
+.admin-category-btn-secondary {
+    color: var(--category-text);
+    background: var(--category-white);
+    border-color: var(--category-border);
+}
+
+.admin-category-btn-secondary:hover {
+    color: var(--category-navy);
+
+    background: var(--category-light-bg);
+
+    border-color: #d5deeb;
+
+    box-shadow:
+        0 4px 12px rgba(7, 27, 65, 0.06);
+}
+
+
+/* =========================================================
+   BUTTON FOCUS
+========================================================= */
+
+.admin-category-btn:focus-visible {
+    outline: none;
+
+    box-shadow:
+        0 0 0 3px rgba(20, 108, 255, 0.15);
+}
+
+
+/* =========================================================
+   ALERT
+========================================================= */
+
+.category-alert {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 13px;
+
+    margin-bottom: 22px;
+
+    padding: 15px 17px;
+
+    border-radius: 10px;
+
+    font-size: 13px;
+}
+
+.category-alert-danger {
+    color: #991b1b;
+
+    background: #fef2f2;
+
+    border: 1px solid #fecaca;
+}
+
+.category-alert-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 28px;
+    height: 28px;
+
+    flex-shrink: 0;
+
+    color: var(--category-danger);
+
+    font-size: 16px;
+}
+
+.category-alert-content {
+    min-width: 0;
+}
+
+.category-alert-content strong {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #991b1b;
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.category-alert-content ul {
+    margin: 0;
+    padding-left: 18px;
+}
+
+.category-alert-content li {
+    margin-bottom: 3px;
+
+    color: #b91c1c;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   FORM CARD
+========================================================= */
+
+.category-form-card {
+    overflow: hidden;
+
+    background: var(--category-white);
+
+    border: 1px solid var(--category-border);
+
+    border-radius: var(--category-radius);
+
+    box-shadow: var(--category-shadow);
+}
+
+
+/* =========================================================
+   CARD HEADER
+========================================================= */
+
+.category-card-header {
+    padding: 20px 24px;
+
+    border-bottom: 1px solid var(--category-border);
+}
+
+.category-card-title {
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+}
+
+.category-card-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    color: var(--category-primary);
+
+    background: rgba(20, 108, 255, 0.08);
+
+    border-radius: 10px;
+
+    font-size: 17px;
+}
+
+.category-card-title h2 {
+    margin: 0 0 3px;
+
+    color: var(--category-navy);
+
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.category-card-title p {
+    margin: 0;
+
+    color: var(--category-text-light);
+
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   CARD BODY
+========================================================= */
+
+.category-card-body {
+    padding: 25px 24px;
+}
+
+
+/* =========================================================
+   FORM GROUP
+========================================================= */
+
+.category-form-group {
+    margin-bottom: 23px;
+}
+
+.category-form-group:last-child {
+    margin-bottom: 0;
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.category-form-group > label,
+.category-label-row label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: var(--category-navy);
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.required {
+    margin-left: 2px;
+
+    color: var(--category-danger);
+}
+
+
+/* =========================================================
+   LABEL ROW
+========================================================= */
+
+.category-label-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
+}
+
+.category-label-row label {
+    margin-bottom: 8px;
+}
+
+.category-label-row span {
+    margin-bottom: 8px;
+
+    color: var(--category-text-light);
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   INPUT
+========================================================= */
+
+.category-input {
+    display: block;
+
+    width: 100%;
+
+    min-height: 42px;
+
+    padding: 9px 12px;
+
+    color: var(--category-navy);
+
+    background: var(--category-white);
+
+    border: 1px solid var(--category-border);
+
+    border-radius: 8px;
+
+    outline: none;
+
+    font-family: inherit;
+    font-size: 13px;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.category-input::placeholder {
+    color: #a2adbb;
+}
+
+.category-input:hover {
+    border-color: #d5deeb;
+}
+
+.category-input:focus {
+    border-color: var(--category-primary);
+
+    box-shadow:
+        0 0 0 3px rgba(20, 108, 255, 0.10);
+}
+
+
+/* =========================================================
+   TEXTAREA
+========================================================= */
+
+.category-textarea {
+    min-height: 145px;
+
+    resize: vertical;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   INPUT ERROR
+========================================================= */
+
+.category-input.input-error {
+    border-color: var(--category-danger);
+}
+
+.category-input.input-error:focus {
+    border-color: var(--category-danger);
+
+    box-shadow:
+        0 0 0 3px rgba(220, 38, 38, 0.10);
+}
+
+
+/* =========================================================
+   FIELD ERROR
+========================================================= */
+
+.category-field-error {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 6px;
+
+    margin-top: 7px;
+
+    color: var(--category-danger);
+
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.category-field-error i {
+    margin-top: 2px;
+
+    flex-shrink: 0;
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   FIELD HELP
+========================================================= */
+
+.category-field-help {
+    margin-top: 7px;
+
+    color: var(--category-text-light);
+
+    font-size: 11px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   STATUS GROUP
+========================================================= */
+
+.category-status-group {
+    margin-top: 5px;
+}
+
+
+/* =========================================================
+   STATUS BOX
+========================================================= */
+
+.category-status-box {
+    padding: 15px 16px;
+
+    background: var(--category-light-bg);
+
+    border: 1px solid var(--category-border);
+
+    border-radius: 10px;
+}
+
+
+/* =========================================================
+   STATUS TOGGLE
+========================================================= */
+
+.category-status-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    width: 100%;
+
+    margin: 0;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   STATUS INFORMATION
+========================================================= */
+
+.category-status-information {
+    display: flex;
+    align-items: center;
+
+    gap: 11px;
+
+    min-width: 0;
+}
+
+.category-status-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 34px;
+    height: 34px;
+
+    flex-shrink: 0;
+
+    color: var(--category-success);
+
+    background: rgba(22, 163, 74, 0.10);
+
+    border-radius: 8px;
+
+    font-size: 13px;
+}
+
+.category-status-information strong {
+    display: block;
+
+    margin-bottom: 2px;
+
+    color: var(--category-navy);
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.category-status-information span {
+    display: block;
+
+    color: var(--category-text-light);
+
+    font-size: 11px;
+
+    line-height: 1.45;
+}
+
+
+/* =========================================================
+   HIDDEN CHECKBOX
+========================================================= */
+
+.category-status-toggle input {
+    position: absolute;
+
+    width: 1px;
+    height: 1px;
+
+    opacity: 0;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   CUSTOM TOGGLE
+========================================================= */
+
+.category-custom-toggle {
+    position: relative;
+
+    display: block;
+
+    width: 46px;
+    height: 25px;
+
+    flex-shrink: 0;
+
+    background: #cbd5e1;
+
+    border-radius: 50px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+/* =========================================================
+   TOGGLE CIRCLE
+========================================================= */
+
+.category-custom-toggle::after {
+    content: "";
+
+    position: absolute;
+
+    top: 3px;
+    left: 3px;
+
+    width: 19px;
+    height: 19px;
+
+    background: var(--category-white);
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 2px 5px rgba(7, 27, 65, 0.18);
+
+    transition:
+        transform 0.2s ease;
+}
+
+
+/* =========================================================
+   ACTIVE / CHECKED TOGGLE
+   THIS FIXES THE BLUE COLOR
+========================================================= */
+
+.category-status-toggle input:checked
++ .category-custom-toggle {
+    background: var(--category-primary);
+
+    box-shadow:
+        0 3px 8px rgba(20, 108, 255, 0.22);
+}
+
+
+/* =========================================================
+   ACTIVE / CHECKED TOGGLE CIRCLE
+========================================================= */
+
+.category-status-toggle input:checked
++ .category-custom-toggle::after {
+    transform: translateX(21px);
+}
+
+
+/* =========================================================
+   KEYBOARD FOCUS
+========================================================= */
+
+.category-status-toggle input:focus-visible
++ .category-custom-toggle {
+    outline: none;
+
+    box-shadow:
+        0 0 0 3px rgba(20, 108, 255, 0.15);
+}
+
+
+/* =========================================================
+   FORM ACTIONS
+========================================================= */
+
+.category-form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    padding-top: 22px;
+
+    margin-top: 25px;
+
+    border-top: 1px solid var(--category-border);
+}
+
+
+/* =========================================================
+   LOADING BUTTON
+========================================================= */
+
+.admin-category-btn-primary.is-loading {
+    cursor: wait;
+
+    opacity: 0.85;
+
+    transform: none;
+}
+
+.admin-category-btn-primary.is-loading:hover {
+    transform: none;
+
+    box-shadow: none;
+}
+
+
+/* =========================================================
+   BUTTON SPINNER
+========================================================= */
+
+.category-button-spinner {
+    display: inline-block;
+
+    width: 13px;
+    height: 13px;
+
+    border: 2px solid rgba(255, 255, 255, 0.45);
+    border-top-color: #ffffff;
+
+    border-radius: 50%;
+
+    animation:
+        categorySpinner 0.7s linear infinite;
+}
+
+@keyframes categorySpinner {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* =========================================================
+   DARK MODE
+========================================================= */
+
+body.dark-mode {
+
+    --category-navy: #f1f5f9;
+
+    --category-text: #cbd5e1;
+    --category-text-light: #94a3b8;
+
+    --category-white: #0f172a;
+    --category-light-bg: #111c31;
+
+    --category-border: #26344d;
+
+    --category-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.20);
+}
+
+
+/* =========================================================
+   DARK MODE - PAGE
+========================================================= */
+
+body.dark-mode .category-create-header h1 {
+    color: #f1f5f9;
+}
+
+body.dark-mode .category-create-header p {
+    color: #94a3b8;
+}
+
+
+/* =========================================================
+   DARK MODE - CARD
+========================================================= */
+
+body.dark-mode .category-form-card {
+    background: #0f172a;
+
+    border-color: #26344d;
+}
+
+body.dark-mode .category-card-title h2 {
+    color: #f1f5f9;
+}
+
+body.dark-mode .category-card-title p {
+    color: #94a3b8;
+}
+
+
+/* =========================================================
+   DARK MODE - INPUT
+========================================================= */
+
+body.dark-mode .category-input {
+    color: #f1f5f9;
+
+    background: #111c31;
+
+    border-color: #26344d;
+}
+
+body.dark-mode .category-input::placeholder {
+    color: #64748b;
+}
+
+body.dark-mode .category-input:hover {
+    border-color: #3a4a65;
+}
+
+
+/* =========================================================
+   DARK MODE - SECONDARY BUTTON
+========================================================= */
+
+body.dark-mode .admin-category-btn-secondary {
+    color: #cbd5e1;
+
+    background: #111c31;
+
+    border-color: #26344d;
+}
+
+body.dark-mode .admin-category-btn-secondary:hover {
+    color: #f1f5f9;
+
+    background: #17243b;
+
+    border-color: #3a4a65;
+}
+
+
+/* =========================================================
+   DARK MODE - STATUS
+========================================================= */
+
+body.dark-mode .category-status-box {
+    background: #111c31;
+
+    border-color: #26344d;
+}
+
+body.dark-mode .category-status-information strong {
+    color: #f1f5f9;
+}
+
+
+/* =========================================================
+   DARK MODE - TOGGLE
+========================================================= */
+
+body.dark-mode .category-custom-toggle {
+    background: #475569;
+}
+
+body.dark-mode .category-status-toggle input:checked
++ .category-custom-toggle {
+    background: var(--category-primary);
+}
+
+
+/* =========================================================
+   DARK MODE - ALERT
+========================================================= */
+
+body.dark-mode .category-alert-danger {
+    color: #fecaca;
+
+    background: rgba(127, 29, 29, 0.20);
+
+    border-color: #7f1d1d;
+}
+
+body.dark-mode .category-alert-content strong {
+    color: #fca5a5;
+}
+
+body.dark-mode .category-alert-content li {
+    color: #fca5a5;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .admin-category-create-page {
+        padding-bottom: 30px;
+    }
+
+
+    /* Header */
+
+    .category-create-header {
+        align-items: flex-start;
+        flex-direction: column;
+
+        gap: 15px;
+    }
+
+    .category-create-header-action {
+        width: 100%;
+    }
+
+    .category-create-header-action .admin-category-btn {
+        width: 100%;
+    }
+
+
+    /* Title */
+
+    .category-create-header h1 {
+        font-size: 24px;
+    }
+
+
+    /* Card */
+
+    .category-card-header {
+        padding: 18px;
+    }
+
+    .category-card-body {
+        padding: 20px 18px;
+    }
+
+
+    /* Form actions */
+
+    .category-form-actions {
+        justify-content: stretch;
+    }
+
+    .category-form-actions .admin-category-btn {
+        flex: 1;
+    }
+
+
+    /* Status */
+
+    .category-status-information span {
+        max-width: 400px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .category-create-header {
+        margin-bottom: 18px;
+    }
+
+    .category-create-header h1 {
+        font-size: 22px;
+    }
+
+    .category-create-header p {
+        font-size: 13px;
+    }
+
+
+    /* Breadcrumb */
+
+    .category-breadcrumb {
+        font-size: 12px;
+    }
+
+
+    /* Alert */
+
+    .category-alert {
+        padding: 13px;
+
+        gap: 9px;
+    }
+
+
+    /* Card */
+
+    .category-card-header {
+        padding: 16px;
+    }
+
+    .category-card-body {
+        padding: 18px 16px;
+    }
+
+
+    /* Card title */
+
+    .category-card-icon {
+        width: 38px;
+        height: 38px;
+
+        font-size: 15px;
+    }
+
+    .category-card-title h2 {
+        font-size: 15px;
+    }
+
+    .category-card-title p {
+        font-size: 11px;
+    }
+
+
+    /* Status */
+
+    .category-status-box {
+        padding: 13px;
+    }
+
+    .category-status-toggle {
+        gap: 10px;
+    }
+
+    .category-status-information {
+        gap: 9px;
+    }
+
+    .category-status-icon {
+        width: 31px;
+        height: 31px;
+
+        font-size: 11px;
+    }
+
+    .category-status-information strong {
+        font-size: 12px;
+    }
+
+    .category-status-information span {
+        font-size: 10px;
+    }
+
+
+    /* Buttons */
+
+    .category-form-actions {
+        flex-direction: column;
+
+        gap: 8px;
+    }
+
+    .category-form-actions .admin-category-btn {
+        width: 100%;
+    }
+}
