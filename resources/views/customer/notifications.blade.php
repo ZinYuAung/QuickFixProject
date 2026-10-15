@@ -60,7 +60,7 @@
          CUSTOMER SIDEBAR
     ====================================================== -->
 
-    <aside class="customer-sidebar">
+    <aside class="customer-sidebar"  id="customerSidebar">
 
 
         <!-- Sidebar Header -->
@@ -68,7 +68,7 @@
         <div class="customer-sidebar-header">
 
             <a
-                href="{{ url('/') }}"
+                href="{{ route('customer.dashboard') }}"
                 class="customer-logo"
             >
 
@@ -106,7 +106,14 @@
         <div class="customer-profile">
 
             <div class="customer-avatar">
-                <i class="fa-solid fa-user"></i>
+                   @if(auth()->user()->profile_image)
+        <img
+            src="{{ asset('storage/' . auth()->user()->profile_image) }}"
+            alt="{{ auth()->user()->name ?? 'Customer' }}"
+        >
+    @else
+        <i class="fa-solid fa-user"></i>
+    @endif
             </div>
 
 
@@ -130,102 +137,53 @@
              SIDEBAR MENU
         ================================================== -->
 
-        <nav class="customer-sidebar-menu">
+        
+<nav class="customer-sidebar-menu">
 
+    <a href="{{ route('customer.dashboard') }}"
+       class="customer-menu-link">
+        <i class="fa-solid fa-house"></i>
+        <span class="customer-menu-text">Dashboard</span>
+    </a>
 
-            <!-- Dashboard -->
+    <a href="{{ route('customer.services') }}"
+       class="customer-menu-link">
+        <i class="fa-solid fa-briefcase"></i>
+        <span class="customer-menu-text">My Services</span>
+    </a>
 
-            <a
-                href="{{ url('/customer/dashboard') }}"
-                class="customer-menu-link"
-            >
+    <a href="{{ route('customer.bookings') }}"
+       class="customer-menu-link">
+        <i class="fa-solid fa-calendar-check"></i>
+        <span class="customer-menu-text">My Bookings</span>
+    </a>
 
-                <i class="fa-solid fa-house"></i>
+    <a href="{{ route('customer.payments') }}"
+       class="customer-menu-link">
+        <i class="fa-solid fa-credit-card"></i>
+        <span class="customer-menu-text">Payment</span>
+    </a>
 
-                <span class="customer-menu-text">
-                    Dashboard
-                </span>
+    <a href="{{ route('customer.chats') }}"
+       class="customer-menu-link">
+        <i class="fa-solid fa-comments"></i>
+        <span class="customer-menu-text">Chat</span>
 
-            </a>
+        <span
+            id="customerSidebarChatUnread"
+            class="customer-sidebar-chat-unread"
+            style="display: none;"
+        ></span>
+    </a>
 
+    <a href="{{ route('customer.profile') }}"
+       class="customer-menu-link">
+        <i class="fa-solid fa-user-circle"></i>
+        <span class="customer-menu-text">My Profile</span>
+    </a>
 
+</nav>
 
-            <!-- My Services -->
-
-            <a
-                href="{{ route('customer.services') }}"
-                class="customer-menu-link"
-            >
-
-                <i class="fa-solid fa-briefcase"></i>
-
-                <span class="customer-menu-text">
-                    My Services
-                </span>
-
-            </a>
-
-
-
-            <!-- My Bookings -->
-
-            <a
-                href="{{ route('customer.bookings') }}"
-                class="customer-menu-link"
-            >
-
-                <i class="fa-solid fa-calendar-check"></i>
-
-                <span class="customer-menu-text">
-                    My Bookings
-                </span>
-
-            </a>
-
-
-
-            <!-- Chat -->
-
-            <a
-                href="{{ route('customer.chats') }}"
-                class="customer-menu-link"
-            >
-
-                <i class="fa-solid fa-comments"></i>
-
-                <span class="customer-menu-text">
-                    Chat
-                </span>
-
-                <span class="customer-chat-badge">
-                    2
-                </span>
-
-            </a>
-
-
-
-           
-
-
-
-            <!-- Profile -->
-
-            <a
-                href="{{ route('customer.profile') }}"
-                class="customer-menu-link"
-            >
-
-                <i class="fa-solid fa-user-circle"></i>
-
-                <span class="customer-menu-text">
-                    My Profile
-                </span>
-
-            </a>
-
-
-        </nav>
 
 
 

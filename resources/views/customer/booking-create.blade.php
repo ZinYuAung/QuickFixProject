@@ -76,204 +76,145 @@
 >
 
 
-    <!-- =====================================================
-         SIDEBAR
-    ====================================================== -->
+    ```blade
+<!-- =====================================================
+     CUSTOMER SIDEBAR
+====================================================== -->
 
-    <aside
-        class="customer-sidebar"
-        id="customerSidebar"
-    >
+<aside class="customer-sidebar" id="customerSidebar">
 
+    <!-- Sidebar Header -->
+    <div class="customer-sidebar-header">
 
-        <!-- Sidebar Header -->
+        <a href="{{ url('/') }}" class="customer-logo">
+            <span class="customer-logo-icon">
+                <i class="fa-solid fa-wrench"></i>
+            </span>
 
-        <div class="customer-sidebar-header">
+            <span class="customer-logo-text">QuickFix</span>
+        </a>
 
-            <a
-                href="{{ url('/') }}"
-                class="customer-logo"
-            >
+        <button
+            type="button"
+            class="customer-sidebar-toggle"
+            id="customerSidebarToggle"
+            aria-label="Toggle sidebar"
+            title="Toggle sidebar"
+        >
+            <i class="fa-solid fa-bars"></i>
+        </button>
 
-                <span class="customer-logo-icon">
+    </div>
 
-                    <i class="fa-solid fa-wrench"></i>
+    <!-- Customer Profile -->
+    <div class="customer-profile">
 
-                </span>
+        <div class="customer-avatar">
 
-                <span class="customer-logo-text">
-                    QuickFix
-                </span>
+            @if(auth()->user()->profile_image)
+                <img
+                    src="{{ asset('storage/' . auth()->user()->profile_image) }}"
+                    alt="{{ auth()->user()->name ?? 'Customer' }}"
+                >
+            @else
+                <i class="fa-solid fa-user"></i>
+            @endif
 
-            </a>
+        </div>
 
+        <div class="customer-profile-info">
+            <h4>{{ auth()->user()->name ?? 'Customer' }}</h4>
+            <span>Customer</span>
+        </div>
+
+    </div>
+
+    <!-- Sidebar Menu -->
+    <nav class="customer-sidebar-menu">
+
+        <!-- Dashboard -->
+        <a
+            href="{{ route('customer.dashboard') }}"
+            class="customer-menu-link"
+        >
+            <i class="fa-solid fa-house"></i>
+            <span class="customer-menu-text">Dashboard</span>
+        </a>
+
+        <!-- My Services -->
+        <a
+            href="{{ route('customer.services') }}"
+            class="customer-menu-link active"
+        >
+            <i class="fa-solid fa-briefcase"></i>
+            <span class="customer-menu-text">My Services</span>
+        </a>
+
+        <!-- My Bookings -->
+        <a
+            href="{{ route('customer.bookings') }}"
+            class="customer-menu-link"
+        >
+            <i class="fa-solid fa-calendar-check"></i>
+            <span class="customer-menu-text">My Bookings</span>
+        </a>
+
+        <!-- Payment -->
+        <a
+            href="{{ route('customer.payments') }}"
+            class="customer-menu-link"
+        >
+            <i class="fa-solid fa-credit-card"></i>
+            <span class="customer-menu-text">Payment</span>
+        </a>
+
+        <!-- Chat -->
+        <a
+            href="{{ route('customer.chats') }}"
+            class="customer-menu-link"
+        >
+            <i class="fa-solid fa-comments"></i>
+            <span class="customer-menu-text">Chat</span>
+
+            <span
+                id="customerSidebarChatUnread"
+                class="customer-sidebar-chat-unread"
+                style="display: none;"
+            ></span>
+        </a>
+
+        <!-- My Profile -->
+        <a
+            href="{{ route('customer.profile') }}"
+            class="customer-menu-link"
+        >
+            <i class="fa-solid fa-user-circle"></i>
+            <span class="customer-menu-text">My Profile</span>
+        </a>
+
+    </nav>
+
+    <!-- Logout -->
+    <div class="customer-sidebar-bottom">
+
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
 
             <button
-                type="button"
-                class="customer-sidebar-toggle"
-                id="customerSidebarToggle"
-                aria-label="Toggle sidebar"
+                type="submit"
+                class="customer-menu-link customer-logout"
             >
-
-                <i class="fa-solid fa-bars"></i>
-
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span class="customer-menu-text">Logout</span>
             </button>
+        </form>
 
-        </div>
+    </div>
 
-
-        <!-- =================================================
-             PROFILE
-        ================================================== -->
-
-        <div class="customer-profile">
-
-            <div class="customer-avatar">
-
-                <i class="fa-solid fa-user"></i>
-
-            </div>
+</aside>
 
 
-            <div class="customer-profile-info">
 
-                <h4>
-                    {{ auth()->user()->name ?? 'Customer' }}
-                </h4>
-
-                <span>
-                    Customer
-                </span>
-
-            </div>
-
-        </div>
-
-
-        <!-- =================================================
-             MENU
-        ================================================== -->
-
-        <nav class="customer-sidebar-menu">
-
-
-            <!-- Dashboard -->
-
-            <a
-                href="{{ route('customer.dashboard') }}"
-                class="customer-menu-link"
-            >
-
-                <i class="fa-solid fa-house"></i>
-
-                <span class="customer-menu-text">
-                    Dashboard
-                </span>
-
-            </a>
-
-
-            <!-- My Services -->
-
-            <a
-                href="{{ route('customer.services') }}"
-                class="customer-menu-link"
-            >
-
-                <i class="fa-solid fa-briefcase"></i>
-
-                <span class="customer-menu-text">
-                    My Services
-                </span>
-
-            </a>
-
-
-            <!-- My Bookings -->
-
-            <a
-                href="{{ route('customer.bookings') }}"
-                class="customer-menu-link active"
-            >
-
-                <i class="fa-solid fa-calendar-check"></i>
-
-                <span class="customer-menu-text">
-                    My Bookings
-                </span>
-
-            </a>
-
-
-            <!-- Chat -->
-
-            <a
-                href="{{ route('customer.chats') }}"
-                class="customer-menu-link"
-            >
-
-                <i class="fa-solid fa-comments"></i>
-
-                <span class="customer-menu-text">
-                    Chat
-                </span>
-
-                <span class="customer-chat-badge">
-                    2
-                </span>
-
-            </a>
-
-
-            <!-- My Profile -->
-
-            <a
-                href="{{ route('customer.profile') }}"
-                class="customer-menu-link"
-            >
-
-                <i class="fa-solid fa-user-circle"></i>
-
-                <span class="customer-menu-text">
-                    My Profile
-                </span>
-
-            </a>
-
-        </nav>
-
-
-        <!-- =================================================
-             LOGOUT
-        ================================================== -->
-
-        <div class="customer-sidebar-bottom">
-
-            <form
-                action="{{ route('logout') }}"
-                method="POST"
-            >
-
-                @csrf
-
-                <button
-                    type="submit"
-                    class="customer-menu-link customer-logout"
-                >
-
-                    <i class="fa-solid fa-right-from-bracket"></i>
-
-                    <span class="customer-menu-text">
-                        Logout
-                    </span>
-
-                </button>
-
-            </form>
-
-        </div>
-
-    </aside>
 
 
     <!-- =====================================================

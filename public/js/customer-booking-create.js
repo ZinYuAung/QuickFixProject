@@ -143,8 +143,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     this.value < getCurrentDateTime()
                 ) {
 
-                    alert(
-                        'Please select a future date and time.'
+                    showAppAlert(
+                        'Please select a future date and time.',
+                        'Invalid Date and Time'
                     );
 
                     this.value =
@@ -1487,8 +1488,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     event.preventDefault();
 
 
-                    alert(
-                        'Please select at least one service.'
+                    showAppAlert(
+                        'Please select at least one service.',
+                        'No Service Selected'
                     );
 
 
@@ -1518,8 +1520,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     event.preventDefault();
 
 
-                    alert(
-                        'Please select a city.'
+                    showAppAlert(
+                        'Please select a city.',
+                        'Invalid City'
                     );
 
 
@@ -1544,8 +1547,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     event.preventDefault();
 
 
-                    alert(
-                        'Please select a service area.'
+                    showAppAlert(
+                        'Please select a service area.',
+                        'Invalid Service Area'
                     );
 
 
@@ -1575,8 +1579,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     event.preventDefault();
 
 
-                    alert(
-                        'Please select an available provider.'
+                    showAppAlert(
+                        'Please select an available provider.',
+                        'Invalid Provider'
                     );
 
 
@@ -1688,8 +1693,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     )
                 ) {
 
-                    alert(
-                        'Please select a JPG, PNG, or WebP image.'
+                    showAppAlert(
+                        'Please select a JPG, PNG, or WebP image.',
+                        'Invalid Image Type'
                     );
 
 
@@ -1719,8 +1725,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 if (file.size > maxSize) {
 
-                    alert(
-                        'The image must be smaller than 5 MB.'
+                    showAppAlert(
+                        'The image must be smaller than 5 MB.',
+                        'Invalid Image Size'
                     );
 
 

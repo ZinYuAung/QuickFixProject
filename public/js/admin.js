@@ -429,10 +429,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     this.dataset.customer || 'Customer';
 
 
-                alert(
-                    'Viewing customer: ' +
-                    customerName
-                );
+                showAppAlert('Viewing customer: ' + customerName, 'View Customer');
 
             }
         );
@@ -458,10 +455,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     this.dataset.customer || 'Customer';
 
 
-                alert(
-                    'Editing customer: ' +
-                    customerName
-                );
+                showAppAlert('Editing customer: ' + customerName, 'Edit Customer');
 
             }
         );
@@ -483,8 +477,9 @@ document.addEventListener('DOMContentLoaded', function () {
             'click',
             function () {
 
-                alert(
-                    'Add Customer form will be available here.'
+                showAppAlert(
+                    'Add Customer form will be available here.',
+                    'Add Customer'
                 );
 
             }
@@ -507,8 +502,9 @@ document.addEventListener('DOMContentLoaded', function () {
             'click',
             function () {
 
-                alert(
-                    'Customer export will be available here.'
+                showAppAlert(
+                    'Customer export will be available here.',
+                    'Export Customers'
                 );
 
             }
@@ -677,9 +673,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     const provider =
                         this.dataset.provider;
 
-                    alert(
+                    showAppAlert(
                         'View Provider: ' +
-                        provider
+                        provider,
+                        'View Provider'
                     );
 
                 }
@@ -703,9 +700,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     const provider =
                         this.dataset.provider;
 
-                    alert(
+                    showAppAlert(
                         'Edit Provider: ' +
-                        provider
+                        provider,
+                        'Edit Provider'
                     );
 
                 }
@@ -728,8 +726,9 @@ document.addEventListener('DOMContentLoaded', function () {
             'click',
             function () {
 
-                alert(
-                    'Add Provider feature will be connected later.'
+                showAppAlert(
+                    'Add Provider feature will be connected later.',
+                    'Add Provider'
                 );
 
             }
@@ -752,8 +751,9 @@ document.addEventListener('DOMContentLoaded', function () {
             'click',
             function () {
 
-                alert(
-                    'Provider export feature will be connected later.'
+                showAppAlert(
+                    'Provider export feature will be connected later.',
+                    'Export Providers'
                 );
 
             }
@@ -938,9 +938,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     const service =
                         this.dataset.service;
 
-                    alert(
+                    showAppAlert(
                         'View Service: ' +
-                        service
+                        service,
+                        'View Service'
                     );
 
                 }
@@ -964,9 +965,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     const service =
                         this.dataset.service;
 
-                    alert(
+                    showAppAlert(
                         'Edit Service: ' +
-                        service
+                        service,
+                        'Edit Service'
                     );
 
                 }
@@ -989,8 +991,9 @@ document.addEventListener('DOMContentLoaded', function () {
             'click',
             function () {
 
-                alert(
-                    'Add Service feature will be connected later.'
+                showAppAlert(
+                    'Add Service feature will be connected later.',
+                    'Add Service'
                 );
 
             }
@@ -1013,8 +1016,9 @@ document.addEventListener('DOMContentLoaded', function () {
             'click',
             function () {
 
-                alert(
-                    'Service export feature will be connected later.'
+                showAppAlert(
+                    'Service export feature will be connected later.',
+                    'Export Services'
                 );
 
             }
@@ -1230,8 +1234,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 'click',
                 function () {
 
-                    alert(
-                        'Booking details page will be connected later.'
+                    showAppAlert(
+                        'Booking details page will be connected later.',
+                        'View Booking'
                     );
 
                 }
@@ -1250,8 +1255,9 @@ document.addEventListener('DOMContentLoaded', function () {
             'click',
             function () {
 
-                alert(
-                    'Booking export will be connected later.'
+                showAppAlert(
+                    'Booking export will be connected later.',
+                    'Export Bookings'
                 );
 
             }
@@ -1405,8 +1411,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 'click',
                 function () {
 
-                    alert(
-                        'Category details page will be connected later.'
+                    showAppAlert(
+                        'Category details page will be connected later.',
+                        'View Category'
                     );
 
                 }
@@ -1427,8 +1434,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 'click',
                 function () {
 
-                    alert(
-                        'Category edit form will be connected later.'
+                    showAppAlert(
+                        'Category edit form will be connected later.',
+                        'Edit Category'
                     );
 
                 }
@@ -1447,8 +1455,9 @@ document.addEventListener('DOMContentLoaded', function () {
             'click',
             function () {
 
-                alert(
-                    'Add category form will be connected later.'
+                showAppAlert(
+                    'Add category form will be connected later.',
+                    'Add Category'
                 );
 
             }
@@ -1584,8 +1593,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 'click',
                 function () {
 
-                    alert(
-                        'City details will be connected later.'
+                    showAppAlert(
+                        'City details will be connected later.',
+                        'View City'
                     );
 
                 }
@@ -1602,8 +1612,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 'click',
                 function () {
 
-                    alert(
-                        'City edit form will be connected later.'
+                    showAppAlert(
+                        'City edit form will be connected later.',
+                        'Edit City'
                     );
 
                 }
@@ -1618,8 +1629,9 @@ document.addEventListener('DOMContentLoaded', function () {
             'click',
             function () {
 
-                alert(
-                    'Add city form will be connected later.'
+                showAppAlert(
+                    'Add city form will be connected later.',
+                    'Add City'
                 );
 
             }
@@ -1786,8 +1798,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 'click',
                 function () {
 
-                    alert(
-                        'Service area details will be connected later.'
+                    showAppAlert(
+                        'Service area details will be connected later.',
+                        'View Service Area'
                     );
 
                 }
@@ -1804,8 +1817,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 'click',
                 function () {
 
-                    alert(
-                        'Service area edit form will be connected later.'
+                    showAppAlert(
+                        'Service area edit form will be connected later.',
+                        'Edit Service Area'
                     );
 
                 }
@@ -1820,8 +1834,9 @@ document.addEventListener('DOMContentLoaded', function () {
             'click',
             function () {
 
-                alert(
-                    'Add service area form will be connected later.'
+                showAppAlert(
+                    'Add service area form will be connected later.',
+                    'Add Service Area'
                 );
 
             }
@@ -1829,4 +1844,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
     }
 
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const confirmButton = document.getElementById('confirmAdminLogout');
+    const logoutForm = document.getElementById('adminLogoutForm');
+    const logoutModalElement = document.getElementById('adminLogoutModal');
+
+    if (confirmButton && logoutForm && logoutModalElement) {
+        confirmButton.addEventListener('click', function () {
+            confirmButton.disabled = true;
+            confirmButton.innerHTML =
+                '<span class="spinner-border spinner-border-sm me-1"></span> Logging out...';
+
+            logoutForm.submit();
+        });
+    }
 });

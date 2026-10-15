@@ -6136,3 +6136,25 @@ body.dark-mode .provider-profile-availability {
     }
 
 }
+
+.provider-chat-avatar {
+    width: 45px;
+    height: 45px;
+    min-width: 45px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.provider-chat-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.provider-chat-avatar i {
+    font-size: 20px;
+}

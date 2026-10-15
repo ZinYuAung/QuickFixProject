@@ -21,6 +21,7 @@ class Payment extends Model
 
         // Final Payment
         'final_payment_status',
+        'final_payment_submitted_at',
         'final_verified_at',
         'final_slip_image',
         'final_rejection_reason',
@@ -29,6 +30,7 @@ class Payment extends Model
         'verified_by',
         'verified_at',
         'rejection_reason',
+        
 
         // Refund
         'refund_status',
@@ -55,6 +57,7 @@ class Payment extends Model
 
             'refund_submitted_at' => 'datetime',
 'refund_customer_verified_at' => 'datetime',
+'final_payment_submitted_at' => 'datetime',
         ];
     }
 

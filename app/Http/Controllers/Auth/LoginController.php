@@ -8,7 +8,7 @@ use App\Models\Customer;
 use App\Models\Provider;
 use Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Symfony\Component\HttpFoundation\Request;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {

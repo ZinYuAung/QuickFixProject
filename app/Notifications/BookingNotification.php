@@ -136,6 +136,14 @@ case 'provider_cancelled':
         'booking_id' => $this->booking->id,
     ];
 
+case 'prepayment_timeout':
+    return [
+        'type' => 'prepayment_timeout',
+        'title' => 'Booking Timed Out',
+        'message' => 'Your booking timed out because the required prepayment slip was not submitted by the scheduled service time.',
+        'booking_id' => $this->booking->id,
+    ];
+
 
             case 'timeout':
                 return [

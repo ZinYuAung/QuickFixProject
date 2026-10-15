@@ -794,7 +794,7 @@
                                     <!-- View Services -->
 
                                     <a
-                                        href="{{ route('customer.services', ['category_id' => $category->id]) }}"
+                                        href="{{ route('customer.services.browse', ['category_id' => $category->id]) }}"
                                         class="customer-category-view-btn"
                                     >
                                         View Services

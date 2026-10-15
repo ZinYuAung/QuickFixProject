@@ -1456,6 +1456,23 @@ if (status === "cancelled") {
                     "timeout"
                 );
 
+const isPrepaymentTimeout =
+    timeoutHistory?.note
+        ?.toLowerCase()
+        .includes("prepayment slip") || false;
+
+const timeoutTitle = isPrepaymentTimeout
+    ? "Prepayment Deadline Expired"
+    : "Provider Did Not Respond";
+
+const timeoutDescription = isPrepaymentTimeout
+    ? "The required prepayment slip was not submitted by the scheduled service time."
+    : "The provider did not respond within the required time.";
+
+const timeoutMessage = isPrepaymentTimeout
+    ? "Your booking timed out because the required prepayment slip was not submitted before the scheduled service time."
+    : "The response deadline has expired and this booking can no longer be accepted.";
+
 
             providerSection.innerHTML = `
 
@@ -1471,13 +1488,12 @@ if (status === "cancelled") {
                     <div class="provider-detail-info">
 
                         <h4>
-                            Provider Did Not Respond
-                        </h4>
+    ${escapeHtml(timeoutTitle)}
+</h4>
 
                         <span>
 
-                            The provider did not respond
-                            within the required time.
+                            ${escapeHtml(timeoutDescription)}
 
                         </span>
 
@@ -1513,9 +1529,7 @@ if (status === "cancelled") {
 
                     <span>
 
-                        The response deadline has expired
-                        and this booking can no longer be
-                        accepted.
+                        ${escapeHtml(timeoutMessage)}
 
                     </span>
 

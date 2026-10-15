@@ -619,7 +619,16 @@
                         </div>
 
                     </div>
+   <a
+                        href="{{ route('customer.booking.create') }}"
+                        class="booking-primary-button"
+                    >
 
+                        <i class="fa-solid fa-plus"></i>
+
+                        Book a Service
+
+                    </a>
 
                 </div>
 
@@ -638,6 +647,7 @@
                     <div class="services-card-header">
 
 
+
                         <div>
 
                             <h4>
@@ -647,8 +657,10 @@
                             <p>
                                 Your previous QuickFix services
                             </p>
+                            
 
                         </div>
+                        
 
 
                         <!-- Filter -->

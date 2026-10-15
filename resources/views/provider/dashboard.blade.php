@@ -87,7 +87,18 @@
 
                 <div class="provider-avatar">
 
-                    <i class="fa-solid fa-user"></i>
+                      @if(auth()->user()?->profile_image)
+
+            <img
+                src="{{ asset('storage/' . auth()->user()->profile_image) }}"
+                alt="{{ auth()->user()->name ?? 'Provider' }}"
+            >
+
+        @else
+
+            <i class="fa-solid fa-user"></i>
+
+        @endif
 
                 </div>
 

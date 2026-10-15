@@ -1,0 +1,72 @@
+
+.app-alert-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 99999;
+}
+
+.app-alert-box {
+    width: 100%;
+    max-width: 400px;
+    padding: 24px;
+    background: #fff;
+    color: #222;
+    border-radius: 12px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.2);
+}
+
+.app-alert-box h3 {
+    margin-top: 0;
+}
+
+.app-alert-box p {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.app-alert-box button {
+    display: block;
+    margin-left: auto;
+    padding: 9px 24px;
+    border: none;
+    border-radius: 6px;
+    background: #2563eb;
+    color: white;
+    cursor: pointer;
+}
+.app-alert-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.app-alert-actions button {
+    display: inline-block;
+    margin-left: 0;
+    min-width: 90px;
+}
+
+.app-alert-actions .app-alert-cancel {
+    background: #6b7280;
+    color: #fff;
+}
+
+.app-alert-actions .app-alert-confirm {
+    background: #2563eb;
+    color: #fff;
+}
+
+.app-alert-box {
+    border-radius: 16px;
+}
+
+.app-alert-overlay {
+    backdrop-filter: blur(3px);
+}

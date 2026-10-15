@@ -588,26 +588,7 @@
 
                 <div class="provider-status">
 
-                    <span
-                        class="status-dot {{ $isOnline ? 'online' : 'offline' }}"
-                    ></span>
-
-                    <span class="status-text">
-                        {{ $isOnline ? 'Online' : 'Offline' }}
-                    </span>
-
-                    <label class="status-switch">
-
-                        <input
-                            type="checkbox"
-                            class="status-toggle"
-                            {{ $isOnline ? 'checked' : '' }}
-                            disabled
-                        >
-
-                        <span class="status-slider"></span>
-
-                    </label>
+                    
 
                 </div>
 

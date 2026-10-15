@@ -16,7 +16,7 @@
             </div>
         </div>
 
-        <!-- STAT CARDS (Responsive CSS မှ အလိုအလျောက် ပုံစံချပေးမည်) -->
+        <!-- STAT CARDS -->
         <div class="admin-stat-grid">
             <!-- Total Customers -->
             <div class="admin-stat-card">
@@ -244,7 +244,7 @@
                     <p>Latest booking activities</p>
                 </div>
 
-                <a href="#" class="admin-view-all">
+                <a href="{{ route('admin.bookings.index') }}" class="admin-view-all">
                     View All
                     <i class="fa-solid fa-arrow-right"></i>
                 </a>
@@ -268,40 +268,69 @@
                             <tr>
                                 <!-- Booking ID -->
                                 <td>
-                                    <strong>BK-00{{ $booking->id }}</strong>
+                                    <strong>BK-{{ str_pad($booking->id, 3, '0', STR_PAD_LEFT) }}</strong>
                                 </td>
 
                                 <!-- Customer -->
                                 <td>
-                                    {{ $booking->customer->name ?? 'N/A' }}
+                                    {{ $booking->customer?->user?->name ?? 'N/A' }}
                                 </td>
 
-                                <!-- Service -->
-                                <td>
-                                    {{ $booking->service->name ?? 'N/A' }}
-                                </td>
+                               
+{{-- Selected Services --}}
+<td>
+    @php
+        $serviceNames = collect($booking->chosen_services ?? [])
+            ->map(function ($service) use ($serviceNamesMap) {
+                if (is_array($service)) {
+                    $name = $service['name'] ?? null;
+                    $serviceId = $service['service_id']
+                        ?? $service['id']
+                        ?? null;
+                } elseif (is_object($service)) {
+                    $name = $service->name ?? null;
+                    $serviceId = $service->service_id
+                        ?? $service->id
+                        ?? null;
+                } else {
+                    $name = null;
+                    $serviceId = is_numeric($service)
+                        ? $service
+                        : null;
+                }
+
+                return $name
+                    ?: ($serviceNamesMap[$serviceId] ?? null);
+            })
+            ->filter()
+            ->unique()
+            ->implode(', ');
+    @endphp
+
+    {{ $serviceNames ?: 'N/A' }}
+</td>
 
                                 <!-- Provider -->
                                 <td>
-                                    {{ $booking->provider->name ?? 'N/A' }}
+                                     {{ $booking->provider?->user?->name ?? 'N/A' }}
                                 </td>
 
                                 <!-- Date -->
                                 <td>
-                                    {{ \Carbon\Carbon::parse($booking->created_at)->format('M d, Y h:i A') }}
+                                    {{ $booking->created_at?->format('M d, Y h:i A') ?? 'N/A' }}
                                 </td>
 
-                                <!-- Amount -->
-                                <td>
-                                    MMK {{ number_format($booking->amount ?? 0) }}
-                                </td>
+                                {{-- Actual Booking Total --}}
+            <td>
+                MMK {{ number_format((float) ($booking->total_amount ?? 0)) }}
+            </td>
 
-                                <!-- Status -->
-                                <td>
-                                    <span class="booking-status {{ strtolower($booking->status) }}">
-                                        {{ ucfirst($booking->status) }}
-                                    </span>
-                                </td>
+                                {{-- Booking Status --}}
+            <td>
+                <span class="booking-status {{ strtolower($booking->status ?? '') }}">
+                    {{ ucfirst(str_replace('_', ' ', $booking->status ?? 'unknown')) }}
+                </span>
+            </td>
                             </tr>
                         @empty
                             <tr>

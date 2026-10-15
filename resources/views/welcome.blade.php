@@ -428,416 +428,155 @@
 
 
 
-        <!-- =====================================================
+<!-- =====================================================
      SERVICES
 ===================================================== -->
 
-        <section
-            class="services-section"
-            id="services"
-        >
-
-            <div class="container">
-
-
-                <!-- Section Heading -->
-
-                <div class="section-heading text-center">
-
-                    <div class="section-label">
-                        OUR SERVICES
-                    </div>
-
-                    <h2>
-                        Popular Home Services
-                    </h2>
-
-                    <p>
-                        Professional help for everything
-                        your home needs.
-                    </p>
-
-                </div>
-
-
-                <!-- Service Cards -->
-
-                <div class="row g-4 mt-3">
-
-
-                    <!-- Plumbing -->
-
-                    <div class="col-md-6 col-lg-4">
-
-                        <a
-                            href="{{ url('/services?category=plumbing') }}"
-                            class="service-card-link"
-                        >
-
-                            <div class="service-card">
-
-                                <div class="service-icon">
-
-                                    <i class="fa-solid fa-faucet-drip"></i>
-
-                                </div>
-
-                                <h5>Plumbing</h5>
-
-                                <p>
-                                    Fix leaks, pipes, taps and
-                                    other plumbing problems.
-                                </p>
-
-                                <span>
-                                    Explore Service
-                                    <i class="fa-solid fa-arrow-right"></i>
-                                </span>
-
-                            </div>
-
-                        </a>
-
-                    </div>
-
-
-                    <!-- Electrical -->
-
-                    <div class="col-md-6 col-lg-4">
-
-                        <a
-                            href="{{ url('/services?category=electrical') }}"
-                            class="service-card-link"
-                        >
-
-                            <div class="service-card">
-
-                                <div class="service-icon">
-
-                                    <i class="fa-solid fa-bolt"></i>
-
-                                </div>
-
-                                <h5>Electrical</h5>
-
-                                <p>
-                                    Professional electrical repair
-                                    and installation services.
-                                </p>
-
-                                <span>
-                                    Explore Service
-                                    <i class="fa-solid fa-arrow-right"></i>
-                                </span>
-
-                            </div>
-
-                        </a>
-
-                    </div>
-
-
-                    <!-- Aircon -->
-
-                    <div class="col-md-6 col-lg-4">
-
-                        <a
-                            href="{{ url('/services?category=aircon') }}"
-                            class="service-card-link"
-                        >
-
-                            <div class="service-card">
-
-                                <div class="service-icon">
-
-                                    <i class="fa-solid fa-snowflake"></i>
-
-                                </div>
-
-                                <h5>Aircon Service</h5>
-
-                                <p>
-                                    Cleaning, repair and maintenance
-                                    for your air conditioner.
-                                </p>
-
-                                <span>
-                                    Explore Service
-                                    <i class="fa-solid fa-arrow-right"></i>
-                                </span>
-
-                            </div>
-
-                        </a>
-
-                    </div>
-
-
-                    <!-- Cleaning -->
-
-                    <div class="col-md-6 col-lg-4">
-
-                        <a
-                            href="{{ url('/services?category=cleaning') }}"
-                            class="service-card-link"
-                        >
-
-                            <div class="service-card">
-
-                                <div class="service-icon">
-
-                                    <i class="fa-solid fa-broom"></i>
-
-                                </div>
-
-                                <h5>Home Cleaning</h5>
-
-                                <p>
-                                    Keep your home fresh and clean
-                                    with professional cleaners.
-                                </p>
-
-                                <span>
-                                    Explore Service
-                                    <i class="fa-solid fa-arrow-right"></i>
-                                </span>
-
-                            </div>
-
-                        </a>
-
-                    </div>
-
-
-                    <!-- Appliance -->
-
-                    <div class="col-md-6 col-lg-4">
-
-                        <a
-                            href="{{ url('/services?category=appliance') }}"
-                            class="service-card-link"
-                        >
-
-                            <div class="service-card">
-
-                                <div class="service-icon">
-
-                                    <i class="fa-solid fa-plug"></i>
-
-                                </div>
-
-                                <h5>Appliance Repair</h5>
-
-                                <p>
-                                    Repair washing machines,
-                                    refrigerators and more.
-                                </p>
-
-                                <span>
-                                    Explore Service
-                                    <i class="fa-solid fa-arrow-right"></i>
-                                </span>
-
-                            </div>
-
-                        </a>
-
-                    </div>
-
-
-                    <!-- Painting -->
-
-                    <div class="col-md-6 col-lg-4">
-
-                        <a
-                            href="{{ url('/services?category=painting') }}"
-                            class="service-card-link"
-                        >
-
-                            <div class="service-card">
-
-                                <div class="service-icon">
-
-                                    <i class="fa-solid fa-paint-roller"></i>
-
-                                </div>
-
-                                <h5>Painting</h5>
-
-                                <p>
-                                    Give your home a fresh and
-                                    beautiful new look.
-                                </p>
-
-                                <span>
-                                    Explore Service
-                                    <i class="fa-solid fa-arrow-right"></i>
-                                </span>
-
-                            </div>
-
-                        </a>
-
-                    </div>
-
-                </div>
-
+<section class="services-section" id="services">
+    <div class="container">
+
+        <div class="section-heading text-center">
+            <div class="section-label">
+                OUR SERVICES
             </div>
 
-        </section>
+            <h2>Popular Home Services</h2>
 
+            <p>
+                Professional help for everything
+                your home needs.
+            </p>
+        </div>
 
+        <div class="row g-4 mt-3">
 
-        <!-- =====================================================
+            @forelse ($popularServices as $service)
+                <div class="col-md-6 col-lg-4">
+                    <a
+                        href="{{ url('/login') }}"
+                        class="service-card-link"
+                    >
+                        <div class="service-card">
+
+                            <div class="service-icon">
+                                <i class="fa-solid fa-screwdriver-wrench"></i>
+                            </div>
+
+                            <h5>{{ $service->name }}</h5>
+
+                            <p>
+                                {{ $service->description
+                                    ?: 'Professional home service for your needs.' }}
+                            </p>
+
+                            <div class="service-price">
+                                {{ number_format((float) $service->base_price) }}
+                                MMK
+                            </div>
+
+                            <span>
+                                Explore Service
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </span>
+
+                        </div>
+                    </a>
+                </div>
+            @empty
+                <div class="col-12 text-center">
+                    <p>No services are available at the moment.</p>
+                </div>
+            @endforelse
+
+        </div>
+    </div>
+</section>
+
+<!-- =====================================================
      HOW IT WORKS
 ===================================================== -->
 
-        <section
-            class="how-section"
-            id="how-it-works"
-        >
+<section class="how-it-works-section" id="how-it-works">
+    <div class="container">
 
-            <div class="container">
-
-
-                <div class="section-heading text-center">
-
-                    <div class="section-label">
-                        HOW IT WORKS
-                    </div>
-
-                    <h2>
-                        Get Help in 4 Simple Steps
-                    </h2>
-
-                    <p>
-                        Booking a home service has never
-                        been easier.
-                    </p>
-
-                </div>
-
-
-                <div class="row g-4 mt-3">
-
-
-                    <!-- Step 1 -->
-
-                    <div class="col-md-6 col-lg-3">
-
-                        <div class="step-card" onclick="window.location.href='{{ url('/login') }}'">
-
-                            <div class="step-number">
-                                01
-                            </div>
-
-                            <div class="step-icon">
-
-                                <i class="fa-solid fa-magnifying-glass"></i>
-
-                            </div>
-
-                            <h5>Choose a Service</h5>
-
-                            <p>
-                                Select the service you need
-                                from our categories.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- Step 2 -->
-
-                    <div class="col-md-6 col-lg-3">
-
-                        <div class="step-card" onclick="window.location.href='{{ url('/login') }}'">
-
-                            <div class="step-number">
-                                02
-                            </div>
-
-                            <div class="step-icon">
-
-                                <i class="fa-solid fa-user-check"></i>
-
-                            </div>
-
-                            <h5>Choose a Provider</h5>
-
-                            <p>
-                                Select an available and
-                                verified professional.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- Step 3 -->
-
-                    <div class="col-md-6 col-lg-3">
-
-                        <div class="step-card" onclick="window.location.href='{{ url('/login') }}'">
-
-                            <div class="step-number">
-                                03
-                            </div>
-
-                            <div class="step-icon">
-
-                                <i class="fa-solid fa-calendar-check"></i>
-
-                            </div>
-
-                            <h5>Book Your Service</h5>
-
-                            <p>
-                                Choose your location,
-                                time and payment method.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- Step 4 -->
-
-                    <div class="col-md-6 col-lg-3">
-
-                        <div class="step-card" onclick="window.location.href='{{ url('/login') }}'">
-
-                            <div class="step-number">
-                                04
-                            </div>
-
-                            <div class="step-icon">
-
-                                <i class="fa-solid fa-house-circle-check"></i>
-
-                            </div>
-
-                            <h5>Get It Done</h5>
-
-                            <p>
-                                Track your provider and
-                                get your service completed.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
+        <div class="section-heading text-center">
+            <div class="section-label">
+              
             </div>
 
-        </section>
+            <h2>How It Works</h2>
 
+            <p>
+                Book trusted home service professionals
+                in just a few simple steps.
+            </p>
+        </div>
+
+        <div class="row g-4 mt-3">
+
+            <div class="col-md-6 col-lg-3">
+                <div class="feature-card text-center">
+                    <div class="feature-icon">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+
+                    <h5>1. Choose a Service</h5>
+
+                    <p>
+                        Browse available home services
+                        and select what you need.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="feature-card text-center">
+                    <div class="feature-icon">
+                        <i class="fa-solid fa-calendar-check"></i>
+                    </div>
+
+                    <h5>2. Book a Service</h5>
+
+                    <p>
+                        Choose your provider, location,
+                        and preferred schedule.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="feature-card text-center">
+                    <div class="feature-icon">
+                        <i class="fa-solid fa-user-check"></i>
+                    </div>
+
+                    <h5>3. Get Confirmation</h5>
+
+                    <p>
+                        Wait for the service provider
+                        to respond to your booking.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="feature-card text-center">
+                    <div class="feature-icon">
+                        <i class="fa-solid fa-house-circle-check"></i>
+                    </div>
+
+                    <h5>4. Get the Job Done</h5>
+
+                    <p>
+                        Receive your home service and
+                        complete the booking.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
 
 
         <!-- =====================================================

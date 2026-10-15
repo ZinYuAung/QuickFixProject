@@ -235,8 +235,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     this.checked = previousChecked;
 
-                    alert(
-                        "Availability settings are missing. Please check the dashboard Blade section."
+                    showAppAlert(
+                        "Availability settings are missing. Please check the dashboard Blade section.",
+                        "Settings Missing"
                     );
 
                     return;
@@ -294,9 +295,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     // Restore the previous state if saving fails.
                     statusToggle.checked = previousChecked;
 
-                    alert(
+                    showAppAlert(
                         error.message ||
-                        "Could not update availability. Please try again."
+                        "Could not update availability. Please try again.",
+                        "Update Failed"
                     );
 
                     console.error(

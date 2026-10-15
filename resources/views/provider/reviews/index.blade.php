@@ -562,24 +562,7 @@
 
                 <div class="provider-status">
 
-                    <span class="status-dot"></span>
-
-                    <span class="status-text">
-                        Online
-                    </span>
-
-                    <label class="status-switch">
-
-                        <input
-                            type="checkbox"
-                            class="status-toggle"
-                            checked
-                        >
-
-                        <span class="status-slider"></span>
-
-                    </label>
-
+                    
                 </div>
 
 

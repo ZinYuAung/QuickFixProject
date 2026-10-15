@@ -528,6 +528,19 @@
             <section class="customer-profile-content">
 
 
+@if (session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('success') }}
+
+        <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+        ></button>
+    </div>
+@endif
+
                 <!-- =====================================
                      PROFILE CARD
                 ====================================== -->
@@ -761,12 +774,16 @@
                         </div>
 
 
-                        <button
-                            type="button"
-                            class="security-button"
-                        >
-                            Change Password
-                        </button>
+                        
+<button
+    type="button"
+    class="security-button"
+    data-bs-toggle="modal"
+    data-bs-target="#changePasswordModal"
+>
+    Change Password
+</button>
+
 
                     </div>
 
@@ -804,6 +821,135 @@
     </div>
 
 
+<!-- Change Password Modal -->
+<div
+    class="modal fade"
+    id="changePasswordModal"
+    tabindex="-1"
+    aria-labelledby="changePasswordModalLabel"
+    aria-hidden="true"
+>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5
+                    class="modal-title"
+                    id="changePasswordModalLabel"
+                >
+                    Change Password
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                ></button>
+            </div>
+
+            <form
+                id="changePasswordForm"
+                action="{{ route('customer.profile.password') }}"
+                method="POST"
+            >
+                @csrf
+
+                <div class="modal-body">
+
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul class="mb-0">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+          
+                    <div class="mb-3">
+                        <label
+                            for="current_password"
+                            class="form-label"
+                        >
+                            Current Password
+                        </label>
+
+                        <input
+                            type="password"
+                            class="form-control"
+                            id="current_password"
+                            name="current_password"
+                            autocomplete="current-password"
+                            required
+                        >
+                    </div>
+
+                    <div class="mb-3">
+                        <label
+                            for="password"
+                            class="form-label"
+                        >
+                            New Password
+                        </label>
+
+                        <input
+                            type="password"
+                            class="form-control"
+                            id="password"
+                            name="password"
+                            minlength="8"
+                            autocomplete="new-password"
+                            required
+                        >
+                    </div>
+
+                    <div class="mb-3">
+                        <label
+                            for="password_confirmation"
+                            class="form-label"
+                        >
+                            Confirm New Password
+                        </label>
+
+                        <input
+                            type="password"
+                            class="form-control"
+                            id="password_confirmation"
+                            name="password_confirmation"
+                            minlength="8"
+                            autocomplete="new-password"
+                            required
+                        >
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                        id="changePasswordSubmit"
+                    >
+                        Update Password
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
     <!-- =========================================
          JAVASCRIPT
     ========================================== -->
@@ -812,6 +958,22 @@
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     ></script>
+    @if (
+    $errors->has('current_password') ||
+    $errors->has('password') ||
+    $errors->has('password_confirmation')
+)
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const modalElement = document.getElementById('changePasswordModal');
+
+            if (modalElement) {
+                const passwordModal = new bootstrap.Modal(modalElement);
+                passwordModal.show();
+            }
+        });
+    </script>
+@endif
 
     <!-- Global JS -->
     <script src="{{ asset('js/quickfix.js') }}"></script>

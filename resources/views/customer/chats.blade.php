@@ -15,7 +15,7 @@
 
 <div class="customer-layout" id="customerLayout">
     <!-- SIDEBAR -->
-    <aside class="customer-sidebar">
+    <aside class="customer-sidebar" id="customerSidebar">
         <div class="customer-sidebar-header">
             <a href="{{ route('customer.dashboard')}}" class="customer-logo">
                 <span class="customer-logo-icon"><i class="fa-solid fa-wrench"></i></span>
@@ -467,9 +467,17 @@
    data-name="{{ $provider->user->name ?? 'Provider' }}"
    data-provider-user-id="{{ $provider->user_id }}">
 
-        <div class="customer-chat-avatar">
-            <i class="fa-solid fa-user"></i>
-        </div>
+<div class="customer-chat-avatar">
+    @if($provider->user && $provider->user->profile_image)
+        <img
+            src="{{ asset('storage/' . $provider->user->profile_image) }}"
+            alt="{{ $provider->user->name ?? 'Provider' }}"
+        >
+    @else
+        <i class="fa-solid fa-user"></i>
+    @endif
+</div>
+
 
         <div class="customer-chat-user-info">
             <div>
@@ -499,7 +507,18 @@
                     <section class="customer-chat-window">
                         @if($activeProvider)
                             <div class="customer-chat-header">
-                                <div class="customer-chat-avatar"><i class="fa-solid fa-user"></i></div>
+                                
+<div class="customer-chat-avatar">
+    @if($activeProvider->user && $activeProvider->user->profile_image)
+        <img
+            src="{{ asset('storage/' . $activeProvider->user->profile_image) }}"
+            alt="{{ $activeProvider->user->name ?? 'Provider' }}"
+        >
+    @else
+        <i class="fa-solid fa-user"></i>
+    @endif
+</div>
+
                                 <div>
                                     <h4>{{ $activeProvider->user->name ?? 'Provider' }}</h4>
                                     @if($activeProvider->availability_status === 'online')

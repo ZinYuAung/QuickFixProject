@@ -213,7 +213,7 @@ class BookingController extends Controller
 
         if (
             $booking->response_deadline &&
-            now()->greaterThan(
+            now()->greaterThanOrEqualTo(
                 $booking->response_deadline
             )
         ) {
@@ -315,18 +315,7 @@ class BookingController extends Controller
                 );
 
 
-                // =================================================
-                // PAYMENT STATUS
-                //
-                // VERY IMPORTANT
-                //
-                // pending does NOT mean paid.
-                //
-                // pending = customer must pay
-                //
-                // verified = payment was actually checked
-                // and approved.
-                // =================================================
+
 
                 $paymentStatus =
                     $prepaidAmount > 0
@@ -354,17 +343,11 @@ class BookingController extends Controller
                     'remaining_amount' =>
                         $remainingAmount,
 
-                    // IMPORTANT:
-                    // This is NOT "paid amount".
-                    //
-                    // pending = customer still needs to pay
-                    // verified = no prepayment required
-                    // or payment has actually been verified
+
                     'payment_status' =>
                         $paymentStatus,
 
-                    // Final payment does not start
-                    // until service is completed.
+
                     'final_payment_status' =>
                         'not_required',
 
@@ -410,18 +393,7 @@ class BookingController extends Controller
                 'Booking accepted successfully. Prepayment is required separately if applicable.',
         ]);
     }
-    /**
-     * =====================================================
-     * PROVIDER - VERIFY PREPAYMENT
-     *
-     * Customer uploads payment slip
-     *        ↓
-     * Provider verifies
-     *
-     * payment_status:
-     *     pending → verified
-     * =====================================================
-     */
+
     public function verifyPayment(string $id)
     {
         // =====================================================
@@ -605,6 +577,54 @@ class BookingController extends Controller
                     'This booking can no longer be rejected.'
                 );
         }
+        // =====================================================
+        // CHECK RESPONSE DEADLINE BEFORE REJECTING
+        // =====================================================
+
+        if (
+            $booking->response_deadline &&
+            now()->greaterThanOrEqualTo(
+                $booking->response_deadline
+            )
+        ) {
+
+            DB::transaction(function () use ($booking) {
+
+                $booking->update([
+                    'status' => 'timeout',
+                ]);
+
+                $this->createStatusHistory(
+                    $booking,
+                    'timeout',
+                    'Provider response time expired.'
+                );
+            });
+
+            // Notify customer about timeout
+            $this->notifyCustomer(
+                $booking,
+                'timeout'
+            );
+
+            // Return JSON for AJAX requests
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'status' => 'timeout',
+                    'message' =>
+                        'The response time for this booking has expired.',
+                ], 422);
+            }
+
+            // Return redirect for normal form requests
+            return redirect()
+                ->back()
+                ->with(
+                    'error',
+                    'The response time has expired. This booking is now timed out.'
+                );
+        }
 
 
         // =====================================================
@@ -693,17 +713,7 @@ class BookingController extends Controller
     }
 
 
-    /**
-     * =====================================================
-     * PROVIDER - CANCEL BOOKING
-     *
-     * accepted / on_the_way / arrived → cancelled
-     *
-     * If verified prepayment exists:
-     *     refund_status = pending
-     *     Provider must refund customer
-     * =====================================================
-     */
+
     public function cancel(
         Request $request,
         string $id
@@ -932,23 +942,7 @@ class BookingController extends Controller
                 'Booking cancelled successfully.'
             );
     }
-    /**
-     * =====================================================
-     * PROVIDER - SUBMIT REFUND PROOF
-     *
-     * Provider cancels booking
-     *        ↓
-     * refund_status = pending
-     *        ↓
-     * Provider refunds customer
-     *        ↓
-     * Provider uploads refund proof
-     *
-     * IMPORTANT:
-     * refund_status remains "pending"
-     * until customer verifies the refund.
-     * =====================================================
-     */
+
     public function submitRefund(
         Request $request,
         Booking $booking
@@ -1223,22 +1217,44 @@ class BookingController extends Controller
                     'Only accepted bookings can be started as on the way.',
             ], 422);
         }
+
         // =====================================================
-// CHECK REQUIRED PREPAYMENT
-// =====================================================
-//
-// If prepayment is required, the provider must verify
-// the customer's payment before going to the site.
-//
+        // CHECK SCHEDULED SERVICE TIME
+        // =====================================================
+
+        if (
+            $booking->booking_type === 'scheduled' &&
+            $booking->scheduled_at &&
+            now()->lt($booking->scheduled_at)
+        ) {
+            return response()->json([
+                'success' => false,
+                'status' => $booking->status,
+                'message' =>
+                    'You cannot go on the way before the scheduled service time.',
+            ], 422);
+        }
+
+
+        // =====================================================
+        // CHECK REQUIRED PREPAYMENT
+        // =====================================================
 
         $payment = $booking->payment;
 
+        if (!$payment) {
+            return response()->json([
+                'success' => false,
+                'status' => $booking->status,
+                'message' =>
+                    'Payment information was not found.',
+            ], 422);
+        }
+
         if (
-            $payment &&
             (float) $payment->prepaid_amount > 0 &&
             $payment->payment_status !== 'verified'
         ) {
-
             return response()->json([
                 'success' => false,
                 'status' => $booking->status,

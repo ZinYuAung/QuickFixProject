@@ -117,11 +117,16 @@ arsort($categoryCounts);
         $maxServiceBookings = max(array_column($serviceOverviewData, 'count')) ?: 10;
         $serviceOverviewDateRange = 'Category booking rates from start date to ' . now()->format('M Y');
 
-        // Recent Bookings Table (Latest 5 with relationships)
-        $recentBookings = Booking::with(['customer', 'provider'])
+       $serviceNamesMap = Service::pluck('name', 'id')->toArray();
+        // Recent Bookings Table (Latest 5 with customer and provider user data)
+        $recentBookings = Booking::with([
+            'customer.user',
+            'provider.user',
+        ])
             ->latest()
             ->take(5)
             ->get();
+
 
         // Pass all variables to the view
         return view('admin.dashboard', compact(
@@ -140,6 +145,7 @@ arsort($categoryCounts);
             'serviceOverviewData',
             'maxServiceBookings',
             'serviceOverviewDateRange',
+            'serviceNamesMap',
             'recentBookings'
         ));
     

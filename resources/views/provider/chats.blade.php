@@ -105,8 +105,18 @@
 
         <div class="provider-avatar">
 
+            @if(auth()->user()?->profile_image)
+
+            <img
+                src="{{ asset('storage/' . auth()->user()->profile_image) }}"
+                alt="{{ auth()->user()->name ?? 'Provider' }}"
+            >
+
+        @else
+
             <i class="fa-solid fa-user"></i>
 
+        @endif
         </div>
 
 
@@ -491,24 +501,6 @@
 
                         <div class="provider-status">
 
-                            <span class="status-dot"></span>
-
-                            <span class="status-text">
-                                Online
-                            </span>
-
-
-                            <label class="status-switch">
-
-                                <input
-                                    type="checkbox"
-                                    class="status-toggle"
-                                    checked
-                                >
-
-                                <span class="status-slider"></span>
-
-                            </label>
 
                         </div>
 
@@ -601,11 +593,18 @@
                                     data-customer-id="{{ $customer->id }}"
                                 >
 
-                                    <div class="provider-chat-avatar">
+                      
+<div class="provider-chat-avatar">
+    @if($customer->profile_image)
+        <img
+            src="{{ asset('storage/' . $customer->profile_image) }}"
+            alt="{{ $customer->name }}"
+        >
+    @else
+        <i class="fa-solid fa-user"></i>
+    @endif
+</div>
 
-                                        <i class="fa-solid fa-user"></i>
-
-                                    </div>
 
 
                                     <div class="provider-chat-user-info">
@@ -667,11 +666,18 @@
                                 <div class="provider-chat-header">
 
 
-                                    <div class="provider-chat-avatar">
+                      
+<div class="provider-chat-avatar">
+    @if($activeCustomer->profile_image)
+        <img
+            src="{{ asset('storage/' . $activeCustomer->profile_image) }}"
+            alt="{{ $activeCustomer->name }}"
+        >
+    @else
+        <i class="fa-solid fa-user"></i>
+    @endif
+</div>
 
-                                        <i class="fa-solid fa-user"></i>
-
-                                    </div>
 
 
                                     <div>

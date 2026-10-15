@@ -770,20 +770,7 @@ class CustomerBookingController extends Controller
         $payment = null;
 
 
-        DB::transaction(function () use (
-            &$booking,
-            &$payment,
-            $customer,
-            $provider,
-            $serviceArea,
-            $validated,
-            $serviceIds,
-            $totalAmount,
-            $prepaidAmount,
-            $remainingAmount,
-            $scheduledAt,
-            $problemPhoto
-        ) {
+        DB::transaction(function () use (&$booking, &$payment, $customer, $provider, $serviceArea, $validated, $serviceIds, $totalAmount, $prepaidAmount, $remainingAmount, $scheduledAt, $problemPhoto) {
 
             // =================================================
             // CREATE BOOKING
@@ -968,8 +955,8 @@ class CustomerBookingController extends Controller
             ->with(
                 'success',
                 $prepaymentRequired
-                    ? 'Your booking has been created. A 10% prepayment is required.'
-                    : 'Your booking has been created successfully. No prepayment is required.'
+                ? 'Your booking has been created. A 10% prepayment is required.'
+                : 'Your booking has been created successfully. No prepayment is required.'
             );
     }
 
@@ -1086,17 +1073,168 @@ class CustomerBookingController extends Controller
         // =====================================================
 
         $booking = Booking::with([
-    'provider.user',
-    'statusHistory.updater',
-    'payment',
-    'review',
-])
+            'provider.user',
+            'statusHistory.updater',
+            'payment',
+            'review',
+        ])
             ->where(
                 'customer_id',
                 $customer->id
             )
             ->findOrFail($id);
 
+        // =====================================================
+        // AUTOMATIC PROVIDER RESPONSE TIMEOUT
+        // Runs when the customer requests booking status.
+        // No Laravel Scheduler required.
+        // =====================================================
+
+        $responseTimedOut = false;
+
+        if (
+            $booking->status === 'pending' &&
+            $booking->response_deadline &&
+            now()->greaterThanOrEqualTo($booking->response_deadline)
+        ) {
+            DB::transaction(function () use ($booking, &$responseTimedOut) {
+                // Lock and recheck to prevent duplicate timeout updates.
+                $lockedBooking = Booking::whereKey($booking->id)
+                    ->lockForUpdate()
+                    ->first();
+
+                if (
+                    !$lockedBooking ||
+                    $lockedBooking->status !== 'pending' ||
+                    !$lockedBooking->response_deadline ||
+                    now()->lessThan($lockedBooking->response_deadline)
+                ) {
+                    return;
+                }
+
+                // Provider did not respond before the deadline.
+                $lockedBooking->update([
+                    'status' => 'timeout',
+                ]);
+
+                // Record the status change.
+                $lockedBooking->statusHistory()->create([
+                    'status' => 'timeout',
+                    'updated_by' => null,
+                    'note' => 'Provider response time expired.',
+                ]);
+
+                $responseTimedOut = true;
+            });
+
+            // Notify only when this request changed the status.
+            if ($responseTimedOut) {
+                $booking->refresh();
+
+                auth()->user()->notify(
+                    new \App\Notifications\BookingNotification(
+                        $booking,
+                        'timeout'
+                    )
+                );
+
+                // Reload the latest status and history.
+                $booking->load([
+                    'provider.user',
+                    'statusHistory.updater',
+                    'payment',
+                    'review',
+                ]);
+            }
+        }
+
+
+
+
+        // =====================================================
+        // AUTOMATIC PREPAYMENT TIMEOUT
+        // Scheduled bookings only
+        // =====================================================
+
+        $prepaymentTimedOut = false;
+
+        if (
+            $booking->booking_type === 'scheduled' &&
+            $booking->status === 'accepted' &&
+            $booking->scheduled_at &&
+            now()->greaterThanOrEqualTo($booking->scheduled_at)
+        ) {
+            DB::transaction(function () use ($booking, &$prepaymentTimedOut) {
+                // Recheck the booking to avoid duplicate updates.
+                $lockedBooking = Booking::whereKey($booking->id)
+                    ->lockForUpdate()
+                    ->first();
+
+                if (
+                    !$lockedBooking ||
+                    $lockedBooking->booking_type !== 'scheduled' ||
+                    $lockedBooking->status !== 'accepted' ||
+                    !$lockedBooking->scheduled_at ||
+                    now()->lessThan($lockedBooking->scheduled_at)
+                ) {
+                    return;
+                }
+
+                // Lock and check the payment record.
+                $payment = Payment::where(
+                    'booking_id',
+                    $lockedBooking->id
+                )
+                    ->lockForUpdate()
+                    ->first();
+
+                // Do not timeout if payment information is missing,
+                // prepayment is not required, or a slip was uploaded.
+                if (
+                    !$payment ||
+                    (float) $payment->prepaid_amount <= 0 ||
+                    !blank($payment->slip_image)
+                ) {
+                    return;
+                }
+
+                // Update booking status.
+                $lockedBooking->update([
+                    'status' => 'timeout',
+                ]);
+
+                // Record the status change.
+                $lockedBooking->statusHistory()->create([
+                    'status' => 'timeout',
+                    'updated_by' => auth()->id(),
+                    'note' => 'Automatically timed out because the required prepayment slip was not submitted by the scheduled service time.',
+                ]);
+
+                $prepaymentTimedOut = true;
+            });
+
+            // Notify the customer only if this request
+            // actually changed the booking to timeout.
+            if ($prepaymentTimedOut) {
+                $booking->refresh();
+
+                auth()->user()->notify(
+                    new \App\Notifications\BookingNotification(
+                        $booking,
+                        'prepayment_timeout'
+                    )
+                );
+
+                // Reload relations so the JSON response
+                // contains the latest status and history.
+                $booking->load([
+                    'provider.user',
+                    'statusHistory.updater',
+                    'payment',
+                    'review',
+                ]);
+            }
+        }
 
         // =====================================================
         // STATUS LABELS
@@ -1217,150 +1355,136 @@ class CustomerBookingController extends Controller
         // scheduled_at - 1 hour
         // =====================================================
 
-        $cancellationDeadline = null;
-
-
-        if (
-            $booking->booking_type === 'scheduled' &&
-            $booking->scheduled_at
-        ) {
-
-            $cancellationDeadline =
-                $booking->scheduled_at
-                    ->copy()
-                    ->subHour();
-        }
-
 
         // =====================================================
-        // CUSTOMER CAN CANCEL?
+// CUSTOMER CANCELLATION DEADLINE
+// =====================================================
+
+        $cancellationDeadline = $booking->response_deadline;
+
         // =====================================================
+// CUSTOMER CAN CANCEL?
+// =====================================================
 
-        $customerCancellableStatuses = [
-
-            'pending',
-            'accepted',
-            'on_the_way',
-            'arrived',
-
-        ];
-
+        $customerCancellableStatuses =
+            $booking->booking_type === 'asap'
+            ? ['pending']
+            : (
+                $booking->booking_type === 'scheduled'
+                ? ['pending', 'accepted']
+                : []
+            );
 
         $canCancel =
-            $booking->booking_type === 'scheduled' &&
-            $booking->scheduled_at &&
             in_array(
                 $booking->status,
                 $customerCancellableStatuses,
                 true
             ) &&
             $cancellationDeadline &&
-            now()->lessThanOrEqualTo(
-                $cancellationDeadline
-            );
-
+            now()->lessThan($cancellationDeadline);
 
         // =====================================================
 // PAYMENT / REFUND INFORMATION
 // =====================================================
 
-$payment = $booking->payment;
+        $payment = $booking->payment;
 
 
-// =====================================================
+        // =====================================================
 // REFUND
 // =====================================================
 
-$refundStatus =
-    $payment?->refund_status
-    ?? 'not_required';
+        $refundStatus =
+            $payment?->refund_status
+            ?? 'not_required';
 
-$refundedAmount =
-    $payment
-        ? (float) $payment->refunded_amount
-        : 0;
+        $refundedAmount =
+            $payment
+            ? (float) $payment->refunded_amount
+            : 0;
 
 
-// =====================================================
+        // =====================================================
 // PAYMENT AMOUNTS
 // =====================================================
 
-$serviceAmount =
-    $payment
-        ? (float) $payment->service_amount
-        : (float) $booking->total_amount;
+        $serviceAmount =
+            $payment
+            ? (float) $payment->service_amount
+            : (float) $booking->total_amount;
 
-$prepaidAmount =
-    $payment
-        ? (float) $payment->prepaid_amount
-        : 0;
+        $prepaidAmount =
+            $payment
+            ? (float) $payment->prepaid_amount
+            : 0;
 
-$remainingAmount =
-    $payment
-        ? (float) $payment->remaining_amount
-        : 0;
+        $remainingAmount =
+            $payment
+            ? (float) $payment->remaining_amount
+            : 0;
 
 
-// =====================================================
+        // =====================================================
 // PREPAYMENT
 // =====================================================
 
-$paymentStatus =
-    $payment?->payment_status
-    ?? null;
+        $paymentStatus =
+            $payment?->payment_status
+            ?? null;
 
-$prepaymentSlipUploaded =
-    !empty($payment?->slip_image);
+        $prepaymentSlipUploaded =
+            !empty($payment?->slip_image);
 
-$prepaymentRejected =
-    $paymentStatus === 'rejected';
+        $prepaymentRejected =
+            $paymentStatus === 'rejected';
 
-$prepaymentVerified =
-    $paymentStatus === 'verified';
+        $prepaymentVerified =
+            $paymentStatus === 'verified';
 
 
-// =====================================================
+        // =====================================================
 // FINAL PAYMENT
 // =====================================================
 
-$finalPaymentStatus =
-    $payment?->final_payment_status
-    ?? 'not_required';
+        $finalPaymentStatus =
+            $payment?->final_payment_status
+            ?? 'not_required';
 
-$finalSlipUploaded =
-    !empty($payment?->final_slip_image);
+        $finalSlipUploaded =
+            !empty($payment?->final_slip_image);
 
-$finalPaymentRequired =
-    $booking->status === 'completed' &&
-    $remainingAmount > 0 &&
-    $finalPaymentStatus !== 'verified';
+        $finalPaymentRequired =
+            $booking->status === 'completed' &&
+            $remainingAmount > 0 &&
+            $finalPaymentStatus !== 'verified';
 
-$finalPaymentPending =
-    $booking->status === 'completed' &&
-    $finalPaymentStatus === 'pending' &&
-    $finalSlipUploaded;
+        $finalPaymentPending =
+            $booking->status === 'completed' &&
+            $finalPaymentStatus === 'pending' &&
+            !empty($payment?->final_payment_submitted_at);
 
-$finalPaymentRejected =
-    $booking->status === 'completed' &&
-    $finalPaymentStatus === 'rejected';
+        $finalPaymentRejected =
+            $booking->status === 'completed' &&
+            $finalPaymentStatus === 'rejected';
 
-$finalPaymentVerified =
-    $booking->status === 'completed' &&
-    $finalPaymentStatus === 'verified';
-    // =====================================================
+        $finalPaymentVerified =
+            $booking->status === 'completed' &&
+            $finalPaymentStatus === 'verified';
+        // =====================================================
 // REVIEW
 // =====================================================
 
-$reviewExists =
-    $booking->review !== null;
+        $reviewExists =
+            $booking->review !== null;
 
-$reviewEligible =
-    $booking->status === 'completed'
-    && (
-        !$payment
-        || $remainingAmount <= 0
-        || $finalPaymentStatus === 'verified'
-    );
+        $reviewEligible =
+            $booking->status === 'completed'
+            && (
+                !$payment
+                || $remainingAmount <= 0
+                || $finalPaymentStatus === 'verified'
+            );
 
         // =====================================================
         // RETURN AJAX RESPONSE
@@ -1420,8 +1544,8 @@ $reviewEligible =
 
             'cancellation_deadline' =>
                 $cancellationDeadline
-                    ? $cancellationDeadline->toIso8601String()
-                    : null,
+                ? $cancellationDeadline->toIso8601String()
+                : null,
 
             'cancelled_by' =>
                 $booking->cancelled_by,
@@ -1434,101 +1558,101 @@ $reviewEligible =
 // REFUND
 // ---------------------------------------------
 
-'refund_status' => 
-    $refundStatus,
+            'refund_status' =>
+                $refundStatus,
 
-'refunded_amount' => 
-    $refundedAmount,
+            'refunded_amount' =>
+                $refundedAmount,
 
 
-// ---------------------------------------------
+            // ---------------------------------------------
 // PAYMENT
 // ---------------------------------------------
 
-'payment' => [
+            'payment' => [
 
-    'id' => 
-        $payment?->id,
+                'id' =>
+                    $payment?->id,
 
-    'service_amount' => 
-        $serviceAmount,
+                'service_amount' =>
+                    $serviceAmount,
 
-    'prepaid_amount' => 
-        $prepaidAmount,
+                'prepaid_amount' =>
+                    $prepaidAmount,
 
-    'remaining_amount' => 
-        $remainingAmount,
+                'remaining_amount' =>
+                    $remainingAmount,
 
-    'payment_method' => 
-        $payment?->payment_method,
+                'payment_method' =>
+                    $payment?->payment_method,
 
-    // PREPAYMENT
-    'payment_status' => 
-        $paymentStatus,
+                // PREPAYMENT
+                'payment_status' =>
+                    $paymentStatus,
 
-    'prepayment_slip_uploaded' => 
-        $prepaymentSlipUploaded,
+                'prepayment_slip_uploaded' =>
+                    $prepaymentSlipUploaded,
 
-    'prepayment_rejection_reason' => 
-        $payment?->rejection_reason,
+                'prepayment_rejection_reason' =>
+                    $payment?->rejection_reason,
 
-    'prepayment_verified' => 
-        $prepaymentVerified,
+                'prepayment_verified' =>
+                    $prepaymentVerified,
 
-    'prepayment_rejected' => 
-        $prepaymentRejected,
+                'prepayment_rejected' =>
+                    $prepaymentRejected,
 
-    // FINAL PAYMENT
-    'final_payment_status' => 
-        $finalPaymentStatus,
+                // FINAL PAYMENT
+                'final_payment_status' =>
+                    $finalPaymentStatus,
 
-    'final_slip_uploaded' => 
-        $finalSlipUploaded,
+                'final_slip_uploaded' =>
+                    $finalSlipUploaded,
 
-    'final_slip_image' => 
-        $payment?->final_slip_image,
+                'final_slip_image' =>
+                    $payment?->final_slip_image,
 
-    'final_rejection_reason' => 
-        $payment?->final_rejection_reason,
+                'final_rejection_reason' =>
+                    $payment?->final_rejection_reason,
 
-    'final_payment_required' => 
-        $finalPaymentRequired,
+                'final_payment_required' =>
+                    $finalPaymentRequired,
 
-    'final_payment_pending' => 
-        $finalPaymentPending,
+                'final_payment_pending' =>
+                    $finalPaymentPending,
 
-    'final_payment_rejected' => 
-        $finalPaymentRejected,
+                'final_payment_rejected' =>
+                    $finalPaymentRejected,
 
-    'final_payment_verified' => 
-        $finalPaymentVerified,
+                'final_payment_verified' =>
+                    $finalPaymentVerified,
 
-    'payment_url' => 
-        $payment
-            ? route(
-                'customer.payment.show',
-                $booking->id
-            )
-            : null,
-],
-// ---------------------------------------------
+                'payment_url' =>
+                    $payment
+                    ? route(
+                        'customer.payment.show',
+                        $booking->id
+                    )
+                    : null,
+            ],
+            // ---------------------------------------------
 // REVIEW
 // ---------------------------------------------
 
-'review' => [
+            'review' => [
 
-    'exists' =>
-        $reviewExists,
+                'exists' =>
+                    $reviewExists,
 
-    'eligible' =>
-        $reviewEligible,
+                'eligible' =>
+                    $reviewEligible,
 
-    'provider_name' =>
-        $booking->provider?->user?->name,
+                'provider_name' =>
+                    $booking->provider?->user?->name,
 
-],
+            ],
 
-]);
+        ]);
     }
 
 
@@ -1537,23 +1661,25 @@ $reviewEligible =
      *
      * Customer cancellation reason is optional.
      */
+    /**
+     * Cancel the customer's booking.
+     *
+     * Customer cancellation reason is optional.
+     */
+
+    /**
+     * Cancel the customer's booking.
+     *
+     * Customer cancellation reason is optional.
+     */
     public function cancel(Request $request, string $id)
     {
-        // =====================================================
-        // CURRENT CUSTOMER
-        // =====================================================
-
+        // Get the current customer.
         $customer = auth()->user()
             ->customerProfile()
             ->firstOrFail();
 
-
-        // =====================================================
-        // VALIDATE CANCELLATION REASON
-        //
-        // Customer reason is OPTIONAL.
-        // =====================================================
-
+        // Validate the optional cancellation reason.
         $validated = $request->validate([
             'cancellation_reason' => [
                 'nullable',
@@ -1562,12 +1688,156 @@ $reviewEligible =
             ],
         ]);
 
+        // Only allow the customer to cancel their own booking.
+        $booking = Booking::with('payment')
+            ->where('customer_id', $customer->id)
+            ->findOrFail($id);
+
+        // Determine allowed cancellation statuses by booking type.
+        $customerCancellableStatuses =
+            $booking->booking_type === 'asap'
+            ? ['pending']
+            : (
+                $booking->booking_type === 'scheduled'
+                ? ['pending', 'accepted']
+                : []
+            );
+
+        // Check whether the current status permits cancellation.
+        if (
+            !in_array(
+                $booking->status,
+                $customerCancellableStatuses,
+                true
+            )
+        ) {
+            return back()->with(
+                'error',
+                'This booking can no longer be cancelled.'
+            );
+        }
+
+        // Cancellation must happen before the response deadline.
+        if (
+            !$booking->response_deadline ||
+            now()->greaterThanOrEqualTo($booking->response_deadline)
+        ) {
+            return back()->with(
+                'error',
+                'The cancellation deadline has passed. You can no longer cancel this booking.'
+            );
+        }
+
+    
+
+        // Cancel the booking and record its history.
+       
+DB::transaction(function () use ($booking, $validated) {
+
+            // Lock the booking and recheck its current state.
+            $lockedBooking = Booking::whereKey($booking->id)
+                ->lockForUpdate()
+                ->firstOrFail();
+
+            // Recalculate allowed statuses from the locked record.
+            $lockedBookingStatuses =
+                $lockedBooking->booking_type === 'asap'
+                ? ['pending']
+                : (
+                    $lockedBooking->booking_type === 'scheduled'
+                    ? ['pending', 'accepted']
+                    : []
+                );
+
+            // Prevent cancellation if the status or deadline changed.
+            if (
+                !in_array(
+                    $lockedBooking->status,
+                    $lockedBookingStatuses,
+                    true
+                ) ||
+                !$lockedBooking->response_deadline ||
+                now()->greaterThanOrEqualTo(
+                    $lockedBooking->response_deadline
+                )
+            ) {
+                throw \Illuminate\Validation\ValidationException::withMessages([
+                    'booking' => 'This booking can no longer be cancelled.',
+                ]);
+            }
+
+            // Update booking cancellation details.
+            $lockedBooking->update([
+                'status' => 'cancelled',
+                'cancelled_by' => 'customer',
+                'cancellation_reason' =>
+                    $validated['cancellation_reason'] ?? null,
+                'cancelled_at' => now(),
+            ]);
+
+            // Record booking status history.
+            $lockedBooking->statusHistory()->create([
+                'status' => 'cancelled',
+                'updated_by' => auth()->id(),
+                'note' => 'Booking cancelled by customer.',
+            ]);
+
+            
+        });
+
+        // Refresh booking data before sending the notification.
+        $booking->refresh();
+        $booking->load('provider.user');
+
+        // Notify the provider.
+        if ($booking->provider?->user) {
+            $booking->provider->user->notify(
+                new \App\Notifications\BookingNotification(
+                    $booking,
+                    'customer_cancelled'
+                )
+            );
+        }
+
+      // Return the success message.
+return redirect()
+    ->route('customer.booking.detail', $booking->id)
+    ->with(
+        'success',
+        'Your booking has been cancelled successfully.'
+    );
+    }
+
+
+    /**
+     * =====================================================
+     * CUSTOMER - VERIFY REFUND
+     * =====================================================
+     *
+     * received:
+     *     refund_status = refunded
+     *
+     * not_received:
+     *     refund_status = pending
+     *     refund_customer_response = not_received
+     *
+     */
+    public function verifyRefund(
+        Request $request,
+        string $id
+    ) {
+        // =====================================================
+        // GET CURRENT CUSTOMER
+        // =====================================================
+
+        $customer = \App\Models\Customer::where(
+            'user_id',
+            auth()->id()
+        )->firstOrFail();
+
 
         // =====================================================
-        // GET CUSTOMER'S BOOKING
-        //
-        // Security:
-        // Booking MUST belong to current customer.
+        // GET CUSTOMER BOOKING
         // =====================================================
 
         $booking = Booking::with('payment')
@@ -1579,439 +1849,167 @@ $reviewEligible =
 
 
         // =====================================================
-        // ASAP BOOKINGS
-        //
-        // Customer cannot cancel ASAP bookings.
-        // =====================================================
-
-        if ($booking->booking_type === 'asap') {
-
-            return back()
-                ->with(
-                    'error',
-                    'ASAP bookings cannot be cancelled.'
-                );
-        }
-
-
-        // =====================================================
-        // ONLY SCHEDULED BOOKINGS CONTINUE
-        // =====================================================
-
-        if ($booking->booking_type !== 'scheduled') {
-
-            return back()
-                ->with(
-                    'error',
-                    'This booking cannot be cancelled.'
-                );
-        }
-
-
-        // =====================================================
-        // CHECK BOOKING STATUS
-        // =====================================================
-
-        $customerCancellableStatuses = [
-
-            'pending',
-            'accepted',
-            'on_the_way',
-            'arrived',
-
-        ];
-
-
-        if (
-            !in_array(
-                $booking->status,
-                $customerCancellableStatuses,
-                true
-            )
-        ) {
-
-            return back()
-                ->with(
-                    'error',
-                    'This booking can no longer be cancelled.'
-                );
-        }
-
-
-        // =====================================================
-        // CHECK SCHEDULED TIME
-        // =====================================================
-
-        if (!$booking->scheduled_at) {
-
-            return back()
-                ->with(
-                    'error',
-                    'This scheduled booking has no scheduled date and time.'
-                );
-        }
-
-
-        // =====================================================
-        // CUSTOMER CANCELLATION DEADLINE
-        //
-        // Customer can cancel until:
-        //
-        // scheduled_at - 1 hour
-        // =====================================================
-
-        $cancellationDeadline =
-            $booking->scheduled_at->copy()->subHour();
-
-
-        if (
-            now()->greaterThan(
-                $cancellationDeadline
-            )
-        ) {
-
-            return back()
-                ->with(
-                    'error',
-                    'The cancellation deadline has passed. You can no longer cancel this booking.'
-                );
-        }
-
-
-        // =====================================================
-        // CHECK VERIFIED PREPAYMENT
+        // GET PAYMENT
         // =====================================================
 
         $payment = $booking->payment;
 
 
-        $hasVerifiedPrepayment =
-            $payment &&
-            $payment->payment_status === 'verified' &&
-            (float) $payment->prepaid_amount > 0;
-
-
         // =====================================================
-        // CANCEL BOOKING + HISTORY + REFUND RECORD
-        //
-        // Everything happens in one transaction.
+        // PAYMENT MUST EXIST
         // =====================================================
 
-        DB::transaction(function () use (
-            $booking,
-            $payment,
-            $hasVerifiedPrepayment,
-            $validated
-        ) {
+        if (!$payment) {
 
-            // ================================================
-            // UPDATE BOOKING
-            // ================================================
-
-            $booking->update([
-
-                'status' =>
-                    'cancelled',
-
-                'cancelled_by' =>
-                    'customer',
-
-                'cancellation_reason' =>
-                    $validated['cancellation_reason'] ?? null,
-
-                'cancelled_at' =>
-                    now(),
-
-            ]);
-
-
-            // ================================================
-            // CREATE STATUS HISTORY
-            // ================================================
-
-            $booking->statusHistory()->create([
-
-                'status' =>
-                    'cancelled',
-
-                'updated_by' =>
-                    auth()->id(),
-
-                'note' =>
-                    'Booking cancelled by customer.',
-
-            ]);
-
-
-            // ================================================
-            // REFUND RECORD
-            //
-            // We do NOT claim that money has already been
-            // transferred.
-            //
-            // "pending" means refund is required.
-            // ================================================
-
-            if ($hasVerifiedPrepayment) {
-
-                $payment->update([
-
-                    'refund_status' =>
-                        'pending',
-
-                    'refunded_amount' =>
-                        $payment->prepaid_amount,
-
-                    'refunded_at' =>
-                        null,
-
-                    'refund_reason' =>
-                        'Customer cancelled before the cancellation deadline.',
-
-                ]);
-            }
-        });
-
-
-        // =====================================================
-        // NOTIFY PROVIDER
-        // =====================================================
-
-        $booking->load('provider.user');
-
-
-        if (
-            $booking->provider &&
-            $booking->provider->user
-        ) {
-
-            $booking->provider->user->notify(
-                new \App\Notifications\BookingNotification(
-                    $booking,
-                    'customer_cancelled'
-                )
+            return back()->with(
+                'error',
+                'Payment information was not found.'
             );
         }
 
 
         // =====================================================
-        // SUCCESS MESSAGE
+        // REFUND MUST BE PENDING
         // =====================================================
 
-        return redirect()
-            ->route(
-                'customer.booking.detail',
-                $booking->id
-            )
-            ->with(
-                'success',
-                $hasVerifiedPrepayment
-                    ? 'Your booking has been cancelled. Your prepaid amount is eligible for refund.'
-                    : 'Your booking has been cancelled successfully.'
+        if (
+            $payment->refund_status !== 'pending'
+        ) {
+
+            return back()->with(
+                'error',
+                'This refund is no longer waiting for verification.'
             );
-    }
-
-/**
- * =====================================================
- * CUSTOMER - VERIFY REFUND
- * =====================================================
- *
- * received:
- *     refund_status = refunded
- *
- * not_received:
- *     refund_status = pending
- *     refund_customer_response = not_received
- *
- */
-public function verifyRefund(
-    Request $request,
-    string $id
-) {
-    // =====================================================
-    // GET CURRENT CUSTOMER
-    // =====================================================
-
-    $customer = \App\Models\Customer::where(
-        'user_id',
-        auth()->id()
-    )->firstOrFail();
+        }
 
 
-    // =====================================================
-    // GET CUSTOMER BOOKING
-    // =====================================================
+        // =====================================================
+        // PROVIDER MUST HAVE SUBMITTED REFUND PROOF
+        // =====================================================
 
-    $booking = Booking::with('payment')
-        ->where(
-            'customer_id',
-            $customer->id
-        )
-        ->findOrFail($id);
+        if (
+            empty($payment->refund_slip_image) ||
+            !$payment->refund_submitted_at
+        ) {
 
-
-    // =====================================================
-    // GET PAYMENT
-    // =====================================================
-
-    $payment = $booking->payment;
+            return back()->with(
+                'error',
+                'The provider has not submitted refund proof yet.'
+            );
+        }
 
 
-    // =====================================================
-    // PAYMENT MUST EXIST
-    // =====================================================
+        // =====================================================
+        // VALIDATE CUSTOMER RESPONSE
+        // =====================================================
 
-    if (! $payment) {
-
-        return back()->with(
-            'error',
-            'Payment information was not found.'
-        );
-    }
-
-
-    // =====================================================
-    // REFUND MUST BE PENDING
-    // =====================================================
-
-    if (
-        $payment->refund_status !== 'pending'
-    ) {
-
-        return back()->with(
-            'error',
-            'This refund is no longer waiting for verification.'
-        );
-    }
-
-
-    // =====================================================
-    // PROVIDER MUST HAVE SUBMITTED REFUND PROOF
-    // =====================================================
-
-    if (
-        empty($payment->refund_slip_image) ||
-        ! $payment->refund_submitted_at
-    ) {
-
-        return back()->with(
-            'error',
-            'The provider has not submitted refund proof yet.'
-        );
-    }
-
-
-    // =====================================================
-    // VALIDATE CUSTOMER RESPONSE
-    // =====================================================
-
-    $validated = $request->validate([
-        'refund_response' => [
-            'required',
-            'in:received,not_received',
-        ],
-    ]);
-
-
-    // =====================================================
-    // CUSTOMER RECEIVED REFUND
-    // =====================================================
-
-    if (
-        $validated['refund_response'] === 'received'
-    ) {
-
-        $payment->update([
-
-            'refund_status' =>
-                'refunded',
-
-            'refund_customer_response' =>
-                'received',
-
-            'refund_customer_verified_at' =>
-                now(),
-
-            'refunded_at' =>
-                now(),
-
+        $validated = $request->validate([
+            'refund_response' => [
+                'required',
+                'in:received,not_received',
+            ],
         ]);
 
-// =====================================================
+
+        // =====================================================
+        // CUSTOMER RECEIVED REFUND
+        // =====================================================
+
+        if (
+            $validated['refund_response'] === 'received'
+        ) {
+
+            $payment->update([
+
+                'refund_status' =>
+                    'refunded',
+
+                'refund_customer_response' =>
+                    'received',
+
+                'refund_customer_verified_at' =>
+                    now(),
+
+                'refunded_at' =>
+                    now(),
+
+            ]);
+
+            // =====================================================
 // NOTIFY PROVIDER
 // Customer confirmed refund
 // =====================================================
 
-$providerUser = $booking->provider?->user;
+            $providerUser = $booking->provider?->user;
 
-if ($providerUser) {
+            if ($providerUser) {
 
-    $providerUser->notify(
-        new PaymentNotification(
-            $payment,
-            'refund_received'
-        )
-    );
-}
+                $providerUser->notify(
+                    new PaymentNotification(
+                        $payment,
+                        'refund_received'
+                    )
+                );
+            }
+            return redirect()
+                ->route(
+                    'customer.booking.detail',
+                    $booking->id
+                )
+                ->with(
+                    'success',
+                    'Refund has been confirmed successfully.'
+                );
+        }
+
+
+        // =====================================================
+        // CUSTOMER DID NOT RECEIVE REFUND
+        // =====================================================
+
+        $payment->update([
+
+            'refund_status' =>
+                'pending',
+
+            'refund_customer_response' =>
+                'not_received',
+
+            'refund_customer_verified_at' =>
+                null,
+
+            'refunded_at' =>
+                null,
+
+        ]);
+        // =====================================================
+// NOTIFY PROVIDER
+// Customer reported refund not received
+// =====================================================
+
+        $providerUser = $booking->provider?->user;
+
+        if ($providerUser) {
+
+            $providerUser->notify(
+                new PaymentNotification(
+                    $payment,
+                    'refund_not_received'
+                )
+            );
+        }
+
+
         return redirect()
             ->route(
                 'customer.booking.detail',
                 $booking->id
             )
             ->with(
-                'success',
-                'Refund has been confirmed successfully.'
+                'error',
+                'You reported that the refund was not received. The provider needs to review the refund.'
             );
     }
-
-
-    // =====================================================
-    // CUSTOMER DID NOT RECEIVE REFUND
-    // =====================================================
-
-    $payment->update([
-
-        'refund_status' =>
-            'pending',
-
-        'refund_customer_response' =>
-            'not_received',
-
-        'refund_customer_verified_at' =>
-            null,
-
-        'refunded_at' =>
-            null,
-
-    ]);
-    // =====================================================
-// NOTIFY PROVIDER
-// Customer reported refund not received
-// =====================================================
-
-$providerUser = $booking->provider?->user;
-
-if ($providerUser) {
-
-    $providerUser->notify(
-        new PaymentNotification(
-            $payment,
-            'refund_not_received'
-        )
-    );
-}
-
-
-    return redirect()
-        ->route(
-            'customer.booking.detail',
-            $booking->id
-        )
-        ->with(
-            'error',
-            'You reported that the refund was not received. The provider needs to review the refund.'
-        );
-}
     /**
      * Show the form for editing the specified resource.
      */

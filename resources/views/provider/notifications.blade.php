@@ -136,7 +136,18 @@
 
             <div class="provider-avatar">
 
-                <i class="fa-solid fa-user"></i>
+                @if(auth()->user()?->profile_image)
+
+            <img
+                src="{{ asset('storage/' . auth()->user()->profile_image) }}"
+                alt="{{ auth()->user()->name ?? 'Provider' }}"
+            >
+
+        @else
+
+            <i class="fa-solid fa-user"></i>
+
+        @endif
 
             </div>
 
@@ -245,32 +256,17 @@
 
 
 
-            <!-- CHATS -->
+            <a href="{{ route('provider.chats') }}" class="provider-menu-link">
+                    <i class="fa-solid fa-comments"></i>
 
-            <a
-                href="{{ route('provider.chats') }}"
-                class="provider-menu-link"
-            >
+                    <span class="provider-menu-text">
+                        Chats
+                    </span>
 
-                <i class="fa-solid fa-comments"></i>
-
-                <span class="provider-menu-text">
-
-                    Chats
-
-                </span>
-
-
-                <!-- UNREAD CHAT COUNT -->
-
-                <span class="provider-chat-badge">
-
-                    3
-
-                </span>
-
-            </a>
-
+                    <span class="provider-chat-badge" id="providerSidebarChatUnread" style="display: none;">
+                        0
+                    </span>
+                </a>
 
 
             <!-- PROFILE -->
@@ -299,27 +295,19 @@
              SIDEBAR BOTTOM
         ================================================== -->
 
-        <div class="provider-sidebar-bottom">
+         <div class="provider-sidebar-bottom">
 
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="provider-menu-link provider-logout">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span class="provider-menu-text logout-text">
+                            Logout
+                        </span>
+                    </button>
+                </form>
 
-            <a
-                href="#"
-                class="provider-menu-link provider-logout"
-            >
-
-                <i class="fa-solid fa-right-from-bracket"></i>
-
-                <span class="provider-menu-text logout-text">
-
-                    Logout
-
-                </span>
-
-            </a>
-
-
-        </div>
-
+            </div>
 
     </aside>
 

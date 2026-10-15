@@ -2633,3 +2633,28 @@ body.dark-mode .customer-notification-list::-webkit-scrollbar-thumb:hover {
         padding: 20px 16px;
     }
 }
+
+/* Browse Services and Provider Detail */
+.service-provider-list {
+    width: 100%;
+    max-width: 360px;
+}
+
+.service-provider-list .border,
+.card {
+    border-radius: 12px;
+}
+
+@media (max-width: 767.98px) {
+    .service-provider-list {
+        max-width: 100%;
+    }
+
+    .container.py-4 {
+        padding-top: 1rem !important;
+    }
+
+    .card-body.p-4 {
+        padding: 1rem !important;
+    }
+}

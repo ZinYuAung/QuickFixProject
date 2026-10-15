@@ -6,6 +6,7 @@ use App\Http\Requests\UpdateCustomerProfileRequest;
 use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class CustomerProfileController extends Controller
@@ -116,6 +117,35 @@ class CustomerProfileController extends Controller
             ->route('customer.profile')
             ->with('success', 'Profile updated successfully.');
     }
+    
+    /**
+     * Change the customer's password.
+     */
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => ['required'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        $user = Auth::user();
+
+        // Check whether the current password is correct.
+        if (!Hash::check($request->current_password, $user->password)) {
+            return back()->withErrors([
+                'current_password' => 'Your current password is incorrect.',
+            ]);
+        }
+
+        // Save the new password securely.
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        return redirect()
+            ->route('customer.profile')
+            ->with('success', 'Password changed successfully.');
+    }
+
 
     /**
      * Remove the specified resource from storage.

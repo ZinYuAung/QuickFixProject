@@ -337,8 +337,9 @@ if (sidebarBadge) {
                         error
                     );
 
-                    alert(
-                        "Unable to send message."
+                    showAppAlert(
+                        "Unable to send message.",
+                        "Send Failed"
                     );
 
                 } finally {

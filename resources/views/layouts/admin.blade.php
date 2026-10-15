@@ -252,22 +252,28 @@
                 <div class="admin-navbar-right">
 
 
-                    <!-- Notification -->
+                    
 
-                    <button
-                        type="button"
-                        class="admin-notification-btn"
-                        id="adminNotificationBtn"
-                        aria-label="Notifications"
-                    >
+<!-- Logout Button -->
+<form
+    action="{{ route('logout') }}"
+    method="POST"
+    class="admin-logout-form"
+    id="adminLogoutForm"
+>
+    @csrf
 
-                        <i class="fa-regular fa-bell"></i>
+    <button
+        type="button"
+        class="admin-logout-btn"
+        data-bs-toggle="modal"
+        data-bs-target="#adminLogoutModal"
+    >
+        
+        <span>Logout</span>
+    </button>
+</form>
 
-                        <span class="admin-notification-badge">
-                            3
-                        </span>
-
-                    </button>
 
 
                     <!-- Profile -->
@@ -480,6 +486,64 @@
         @endif
     });
 </script>
+
+<!-- Logout Confirmation Modal -->
+<div
+    class="modal fade"
+    id="adminLogoutModal"
+    tabindex="-1"
+    aria-labelledby="adminLogoutModalLabel"
+    aria-hidden="true"
+>
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content admin-logout-modal-content">
+
+            <div class="modal-body text-center p-4">
+
+                <div class="admin-logout-icon mb-3">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </div>
+
+                <h5
+                    class="fw-bold mb-2"
+                    id="adminLogoutModalLabel"
+                >
+                    Confirm Logout
+                </h5>
+
+                <p class="text-muted small mb-4">
+                    Are you sure you want to logout
+                    from your Admin account?
+                </p>
+
+                <div class="d-flex gap-2">
+
+                    <button
+                        type="button"
+                        class="btn btn-outline-secondary flex-fill"
+                        data-bs-dismiss="modal"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="button"
+                        class="btn btn-danger flex-fill"
+                        id="confirmAdminLogout"
+                    >
+                        <i class="fa-solid fa-right-from-bracket me-1"></i>
+                        Logout
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
     </body>
 
 </html>

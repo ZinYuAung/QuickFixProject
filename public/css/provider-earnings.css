@@ -403,3 +403,133 @@
     }
 
 }
+
+/* =========================================================
+   EARNINGS — MATCH SHARED PROVIDER CARDS
+========================================================= */
+
+/* Statistics grid */
+.provider-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+/* Statistics cards */
+.provider-stats-grid .provider-stat-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-width: 0;
+    padding: 20px;
+    background: #ffffff;
+    border: 1px solid #e9eef5;
+    border-radius: 14px;
+    box-shadow: 0 4px 15px rgba(7, 27, 65, 0.06);
+    transition: transform 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+.provider-stats-grid .provider-stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 20px rgba(7, 27, 65, 0.09);
+}
+
+/* Icon tiles */
+.provider-stats-grid .provider-stat-icon {
+    flex: 0 0 48px;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    font-size: 20px;
+}
+
+/* Blue — Total Earnings */
+.provider-stats-grid .provider-stat-card:nth-child(1)
+.provider-stat-icon {
+    background: #eaf2ff;
+    color: #146cff;
+}
+
+/* Orange — This Week */
+.provider-stats-grid .provider-stat-card:nth-child(2)
+.provider-stat-icon {
+    background: #fff4e8;
+    color: #f59e0b;
+}
+
+/* Green — This Month */
+.provider-stats-grid .provider-stat-card:nth-child(3)
+.provider-stat-icon {
+    background: #eaf7ee;
+    color: #16a34a;
+}
+
+/* Purple — Completed Jobs */
+.provider-stats-grid .provider-stat-card:nth-child(4)
+.provider-stat-icon {
+    background: #f3e8ff;
+    color: #7c3aed;
+}
+
+/* Card text */
+.provider-stats-grid .provider-stat-card > div:last-child {
+    min-width: 0;
+}
+
+.provider-stats-grid .provider-stat-card span {
+    display: block;
+    margin-bottom: 7px;
+    color: #526174;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.provider-stats-grid .provider-stat-card h3 {
+    margin: 0;
+    color: #071b41;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+/* Payment History outer card */
+.provider-bookings-section {
+    background: #ffffff;
+    border: 1px solid #e9eef5;
+    border-radius: 14px;
+    box-shadow: 0 4px 15px rgba(7, 27, 65, 0.06);
+    padding: 24px;
+}
+
+/* Responsive cards */
+@media (max-width: 1100px) {
+    .provider-stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 576px) {
+    .provider-stats-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .provider-stats-grid .provider-stat-card {
+        padding: 16px;
+    }
+
+    .provider-stats-grid .provider-stat-card h3 {
+        font-size: 19px;
+    }
+
+    .provider-bookings-section {
+        padding: 16px;
+    }
+}

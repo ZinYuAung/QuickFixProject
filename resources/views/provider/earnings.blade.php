@@ -114,7 +114,18 @@
 
             <div class="provider-avatar">
 
-                <i class="fa-solid fa-user"></i>
+                @if(auth()->user()?->profile_image)
+
+            <img
+                src="{{ asset('storage/' . auth()->user()->profile_image) }}"
+                alt="{{ auth()->user()->name ?? 'Provider' }}"
+            >
+
+        @else
+
+            <i class="fa-solid fa-user"></i>
+
+        @endif
 
             </div>
 
@@ -288,22 +299,19 @@
 
         {{-- LOGOUT --}}
 
-        <div class="provider-sidebar-bottom">
+            <div class="provider-sidebar-bottom">
 
-            <a
-                href="#"
-                class="provider-menu-link provider-logout"
-            >
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="provider-menu-link provider-logout">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span class="provider-menu-text logout-text">
+                            Logout
+                        </span>
+                    </button>
+                </form>
 
-                <i class="fa-solid fa-right-from-bracket"></i>
-
-                <span class="provider-menu-text logout-text">
-                    Logout
-                </span>
-
-            </a>
-
-        </div>
+            </div>
 
     </aside>
 
@@ -513,24 +521,7 @@
 
                 <div class="provider-status">
 
-                    <span class="status-dot"></span>
-
-                    <span class="status-text">
-                        Online
-                    </span>
-
-
-                    <label class="status-switch">
-
-                        <input
-                            type="checkbox"
-                            class="status-toggle"
-                            checked
-                        >
-
-                        <span class="status-slider"></span>
-
-                    </label>
+                    
 
                 </div>
 

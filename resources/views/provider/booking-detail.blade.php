@@ -63,7 +63,7 @@
         rel="stylesheet"
         href="{{ asset('css/provider-booking-detail.css') }}"
     >
-
+<link rel="stylesheet" href="{{ asset('css/app-alert.css') }}">
 </head>
 
 
@@ -549,25 +549,7 @@
 
                 <div class="provider-status">
 
-                    <span class="status-dot"></span>
-
-                    <span class="status-text">
-
-                        Online
-
-                    </span>
-
-
-                    <label class="status-switch">
-
-                        <input
-                            type="checkbox"
-                            checked
-                        >
-
-                        <span class="status-slider"></span>
-
-                    </label>
+                   
 
                 </div>
 
@@ -1364,9 +1346,10 @@
         (float) $payment->remaining_amount > 0 &&
         $payment->final_payment_status !== 'verified';
 
-    $finalPaymentPending =
-        $finalPaymentRequired &&
-        $payment->final_payment_status === 'pending';
+  $finalPaymentPending =
+    $finalPaymentRequired &&
+    $payment->final_payment_status === 'pending' &&
+    !empty($payment->final_payment_submitted_at);
 
     $finalPaymentRejected =
         $finalPaymentRequired &&
@@ -1680,7 +1663,7 @@
             <button
                 type="submit"
                 class="btn btn-success w-100"
-                onclick="return confirm('Are you sure you want to verify this payment?');"
+                
             >
 
                 <i class="fa-solid fa-circle-check me-1"></i>
@@ -1866,28 +1849,25 @@
                 </small>
 
             </div>
+@elseif($finalPaymentRequired && !$finalPaymentPending)
 
-        @elseif($finalPaymentRequired)
+    <div class="alert alert-warning mt-4 mb-0">
 
-            <div class="alert alert-warning mt-4 mb-0">
+        <i class="fa-solid fa-clock me-2"></i>
 
-                <i class="fa-solid fa-clock me-2"></i>
+        The customer has not submitted the final payment yet.
 
-                The customer has not submitted the final payment yet.
+    </div>
 
-            </div>
+@endif
 
-        @endif
 
 
         <!-- =================================================
              FINAL PAYMENT ACTIONS
         ================================================== -->
 
-        @if(
-            $finalPaymentPending &&
-            $payment->final_slip_image
-        )
+        @if($finalPaymentPending)
 
             <div class="mt-4">
 
@@ -2088,10 +2068,16 @@
      REFUND INFORMATION
 ================================================== -->
 
+
 @if(
     $payment &&
-    (float) $payment->refunded_amount > 0
+    $booking->status === 'cancelled' &&
+    $booking->cancelled_by === 'provider' &&
+    $payment->payment_status === 'verified' &&
+    (float) $payment->prepaid_amount > 0 &&
+    in_array($payment->refund_status, ['pending', 'refunded'], true)
 )
+
 
     <div class="mt-4 pt-4 border-top">
 
@@ -2116,9 +2102,11 @@
 
                 <strong>
                     {{ number_format(
-                        (float) $payment->refunded_amount
-                    ) }}
-                    MMK
+    (float) $payment->refunded_amount > 0
+        ? (float) $payment->refunded_amount
+        : (float) $payment->prepaid_amount
+) }}
+MMK
                 </strong>
 
             </div>
@@ -2412,6 +2400,27 @@
                 </p>
 
             </div>
+            
+            @if(
+                $booking->status === 'cancelled' &&
+                $booking->cancelled_by === 'provider' &&
+                $payment->payment_status === 'verified' &&
+                (float) $payment->prepaid_amount > 0 &&
+                $payment->refund_status === 'pending'
+            )
+
+                <button
+                    type="button"
+                    class="btn btn-primary w-100 mt-3"
+                    data-bs-toggle="modal"
+                    data-bs-target="#refundBookingModal{{ $booking->id }}"
+                >
+                    <i class="fa-solid fa-money-bill-transfer me-2"></i>
+                    Refund Customer &amp; Submit Proof
+                </button>
+
+            @endif
+
 
         @endif
 
@@ -2889,11 +2898,10 @@
             $payment &&
             (float) $payment->remaining_amount > 0 &&
             $payment->final_payment_status !== 'verified';
-
-        $finalPaymentPending =
-            $payment &&
-            $payment->final_payment_status === 'pending' &&
-            !empty($payment->final_slip_image);
+$finalPaymentPending =
+    $payment &&
+    $payment->final_payment_status === 'pending' &&
+    !empty($payment->final_payment_submitted_at);
 
         $finalPaymentRejected =
             $payment &&
@@ -3692,13 +3700,13 @@
 <!-- =====================================================
      REJECT FINAL PAYMENT MODAL
 ====================================================== -->
-
 @if(
     $booking->payment &&
     $booking->status === 'completed' &&
     $booking->payment->final_payment_status === 'pending' &&
-    $booking->payment->final_slip_image
+    !empty($booking->payment->final_payment_submitted_at)
 )
+
 
     <div
         class="modal fade"
@@ -4188,16 +4196,16 @@
      PROVIDER REFUND MODAL
 ====================================================== -->
 
+
 @if(
-    (
-        session('open_refund_modal') ||
-        $booking->payment?->refund_customer_response === 'not_received'
-    ) &&
+    $booking->status === 'cancelled' &&
+    $booking->cancelled_by === 'provider' &&
     $booking->payment &&
     $booking->payment->payment_status === 'verified' &&
     (float) $booking->payment->prepaid_amount > 0 &&
     $booking->payment->refund_status === 'pending'
 )
+
 
     @php
         $isReRefund =
@@ -4467,6 +4475,12 @@
 <script
     src="{{ asset('js/provider-booking-detail.js') }}"
 ></script>
+<script src="{{ asset('js/app-alert.js') }}"></script>
+
+<!-- =====================================================
+     APP ALERT JS
+====================================================== -->
+
 
 
 <!-- =====================================================
@@ -4771,39 +4785,29 @@ else if (status === 'completed') {
             }
 
 
-            // =================================================
-            // SHOW MESSAGE
-            // =================================================
+        
+// SHOW MESSAGE
+if (typeof window.showAppAlert === 'function') {
+    window.showAppAlert(message, 'Notice');
+} else {
+    alert(message);
+}
 
-            alert(message);
+// RESTORE BUTTON
+if (
+    !xhr.responseJSON ||
+    xhr.responseJSON.status !== 'timeout'
+) {
+    button.prop('disabled', false);
+    button.html(originalButton);
+}
 
+        }, // END ERROR FUNCTION
 
-            // =================================================
-            // RESTORE BUTTON
-            // =================================================
+    }); // END AJAX REQUEST
 
-            if (
-                !xhr.responseJSON ||
-                xhr.responseJSON.status !== 'timeout'
-            ) {
+}); // END BUTTON CLICK HANDLER
 
-                button.prop(
-                    'disabled',
-                    false
-                );
-
-
-                button.html(
-                    originalButton
-                );
-
-            }
-
-        }
-
-    });
-
-});
 
 
 // =============================================================
@@ -5312,16 +5316,17 @@ function showCompletedAction(payment)
     // FINAL PAYMENT PENDING
     // =====================================================
 
-    else if (
-        remainingAmount > 0 &&
-        finalPaymentStatus === 'pending'
-    ) {
+   else if (
+    remainingAmount > 0 &&
+    finalPaymentStatus === 'pending' &&
+    payment?.final_payment_submitted_at
+) {
 
         // -------------------------------------------------
         // Customer has already uploaded final slip
         // -------------------------------------------------
 
-        if (finalSlipImage) {
+        if (payment?.final_payment_submitted_at) {
 
             paymentMessage = `
                 <div class="alert alert-warning mb-0">
@@ -5645,6 +5650,23 @@ $(document).ready(function () {
 
 
 </script>
+<!-- APP ALERT MODAL -->
+<div id="appAlertModal" class="app-alert-overlay" style="display: none;">
+    <div class="app-alert-box" role="dialog" aria-modal="true"
+         aria-labelledby="appAlertTitle">
+        <h3 id="appAlertTitle">Notice</h3>
+        <p id="appAlertMessage"></p>
+
+        <div class="app-alert-actions">
+            <button type="button" id="appAlertCancel"
+                    class="app-alert-cancel" style="display: none;">
+                Cancel
+            </button>
+            <button type="button" id="appAlertOk">OK</button>
+        </div>
+    </div>
+</div>
+
 
 
 </body>

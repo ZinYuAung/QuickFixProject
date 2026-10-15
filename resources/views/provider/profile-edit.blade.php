@@ -426,28 +426,7 @@
                     <div class="provider-status">
 
 
-                        <span class="status-dot"></span>
-
-
-                        <span class="status-text">
-
-                            {{ ucfirst($provider->availability_status ?? 'offline') }}
-
-                        </span>
-
-
-                        <label class="status-switch">
-
-                            <input
-                                type="checkbox"
-                                class="status-toggle"
-                                {{ ($provider->availability_status ?? 'offline') === 'online' ? 'checked' : '' }}
-                                disabled
-                            >
-
-                            <span class="status-slider"></span>
-
-                        </label>
+                        
 
 
                     </div>

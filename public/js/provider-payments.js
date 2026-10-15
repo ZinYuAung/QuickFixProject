@@ -49,15 +49,21 @@ document.addEventListener('DOMContentLoaded', function () {
     let rejectModal = null;
 
 
-    if (
-        rejectModalElement &&
-        typeof bootstrap !== 'undefined'
-    ) {
+   
+if (
+    rejectModalElement &&
+    window.bootstrap &&
+    typeof window.bootstrap.Modal === 'function'
+) {
+    rejectModal = new window.bootstrap.Modal(
+        rejectModalElement
+    );
+} else if (rejectModalElement) {
+    console.error(
+        'Payments List reject modal could not initialize. Check Bootstrap JS.'
+    );
+}
 
-        rejectModal =
-            new bootstrap.Modal(rejectModalElement);
-
-    }
 
 
     /* =====================================================
@@ -187,50 +193,71 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-    /* =====================================================
-       APPROVE FORM SUBMIT
-    ====================================================== */
+   
 
-    const approveForms =
-        document.querySelectorAll('.payment-approve-form');
+/* =====================================================
+   APPROVE FORM SUBMIT
+====================================================== */
 
-    approveForms.forEach(function (form) {
+const approveForms =
+    document.querySelectorAll('.payment-approve-form');
 
-        form.addEventListener('submit', function (event) {
+approveForms.forEach(function (form) {
 
-            const confirmed =
-                window.confirm(
-                    'Are you sure you want to approve this payment?'
+    let approvalInProgress = false;
+
+    form.addEventListener('submit', async function (event) {
+
+        event.preventDefault();
+
+        if (approvalInProgress) {
+            return;
+        }
+
+        if (typeof window.showAppConfirm !== 'function') {
+            console.error(
+                'Custom confirmation modal is not loaded.'
+            );
+
+            if (typeof window.showAppAlert === 'function') {
+                window.showAppAlert(
+                    'Confirmation dialog could not be opened. Please refresh the page and try again.',
+                    'Error'
                 );
-
-
-            if (!confirmed) {
-
-                event.preventDefault();
-
-                return;
-
             }
 
+            return;
+        }
 
-            const button =
-                form.querySelector(
-                    'button[type="submit"]'
-                );
+        const confirmed = await window.showAppConfirm(
+            'Are you sure you want to approve this payment?',
+            'Confirm Payment Approval',
+            'Confirm'
+        );
 
+        if (!confirmed) {
+            return;
+        }
 
-            if (button) {
+        approvalInProgress = true;
 
-                button.disabled = true;
+        const button =
+            form.querySelector('button[type="submit"]');
 
-                button.innerHTML =
-                    '<i class="fa-solid fa-spinner fa-spin"></i> Approving...';
+        if (button) {
+            button.disabled = true;
 
-            }
+            button.innerHTML =
+                '<i class="fa-solid fa-spinner fa-spin"></i> Approving...';
+        }
 
-        });
+        form.submit();
 
     });
+
+});
+
+
 
 
     /* =====================================================

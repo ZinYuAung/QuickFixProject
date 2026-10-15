@@ -26,12 +26,19 @@ document.addEventListener('DOMContentLoaded', function () {
     let rejectModal = null;
 
 
-    if (modalElement) {
+    
+if (
+    modalElement &&
+    window.bootstrap &&
+    typeof window.bootstrap.Modal === 'function'
+) {
+    rejectModal = new window.bootstrap.Modal(modalElement);
+} else if (modalElement) {
+    console.error(
+        'Payment Details reject modal could not initialize. Check Bootstrap JS.'
+    );
+}
 
-        rejectModal =
-            new bootstrap.Modal(modalElement);
-
-    }
 
 
     /* =====================================================
@@ -104,6 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
+
     /* =====================================================
        APPROVE SUBMIT
     ====================================================== */
@@ -113,36 +121,36 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (approveForm) {
 
-        approveForm.addEventListener('submit', function (event) {
+        approveForm.addEventListener('submit', async function (event) {
 
-            const confirmed =
-                window.confirm(
-                    'Are you sure you want to approve this payment?'
-                );
+            event.preventDefault();
+
+            const confirmed = await window.showAppConfirm(
+                'Are you sure you want to approve this payment?',
+                'Confirm Payment Approval',
+                'Confirm'
+            );
 
             if (!confirmed) {
-
-                event.preventDefault();
-
                 return;
-
             }
 
-
             const button =
+                approveForm.querySelector('button[type="submit"]') ||
                 approveForm.querySelector('button');
 
             if (button) {
-
                 button.disabled = true;
 
                 button.innerHTML =
                     '<i class="fa-solid fa-spinner fa-spin"></i> Approving...';
-
             }
+
+            approveForm.submit();
 
         });
 
     }
+
 
 });

@@ -75,9 +75,9 @@
             href="{{ asset('css/customer-booking-detail.css') }}"
         >
         <link
-    rel="stylesheet"
-    href="{{ asset('css/customer-review.css') }}"
->
+            rel="stylesheet"
+            href="{{ asset('css/customer-review.css') }}"
+        >
 
     </head>
 
@@ -89,40 +89,24 @@
             id="customerLayout"
         >
 
-
             <!-- =====================================================
-             SIDEBAR
-        ====================================================== -->
+     CUSTOMER SIDEBAR
+====================================================== -->
 
-            <aside
-                class="customer-sidebar"
-                id="customerSidebar"
-            >
+            <aside class="customer-sidebar" id="customerSidebar">
 
-
-                <!-- =================================================
-                 SIDEBAR HEADER
-            ================================================== -->
-
+                <!-- Sidebar Header -->
                 <div class="customer-sidebar-header">
 
-                    <a
-                        href="{{ url('/') }}"
-                        class="customer-logo"
-                    >
-
+                    <a href="{{ url('/') }}" class="customer-logo">
                         <span class="customer-logo-icon">
-
                             <i class="fa-solid fa-wrench"></i>
-
                         </span>
 
                         <span class="customer-logo-text">
                             QuickFix
                         </span>
-
                     </a>
-
 
                     <button
                         type="button"
@@ -131,165 +115,118 @@
                         aria-label="Toggle sidebar"
                         title="Toggle sidebar"
                     >
-
                         <i class="fa-solid fa-bars"></i>
-
                     </button>
 
                 </div>
 
-
-                <!-- =================================================
-                 CUSTOMER PROFILE
-            ================================================== -->
-
+                <!-- Customer Profile -->
                 <div class="customer-profile">
 
                     <div class="customer-avatar">
 
-                        <i class="fa-solid fa-user"></i>
+                        @if(auth()->user()->profile_image)
+                            <img
+                                src="{{ asset('storage/' . auth()->user()->profile_image) }}"
+                                alt="{{ auth()->user()->name ?? 'Customer' }}"
+                            >
+                        @else
+                            <i class="fa-solid fa-user"></i>
+                        @endif
 
                     </div>
 
-
                     <div class="customer-profile-info">
-
-                        <h4>
-                            {{ $customer->user?->name ?? 'Customer' }}
-                        </h4>
-
-                        <span>
-                            Customer
-                        </span>
-
+                        <h4>{{ auth()->user()->name ?? 'Customer' }}</h4>
+                        <span>Customer</span>
                     </div>
 
                 </div>
 
-
-                <!-- =================================================
-                 SIDEBAR MENU
-            ================================================== -->
-
+                <!-- Sidebar Menu -->
                 <nav class="customer-sidebar-menu">
 
-
                     <!-- Dashboard -->
-
                     <a
                         href="{{ url('/customer/dashboard') }}"
                         class="customer-menu-link"
                     >
-
                         <i class="fa-solid fa-house"></i>
-
-                        <span class="customer-menu-text">
-                            Dashboard
-                        </span>
-
+                        <span class="customer-menu-text">Dashboard</span>
                     </a>
 
-
                     <!-- My Services -->
-
                     <a
                         href="{{ route('customer.services') }}"
                         class="customer-menu-link"
                     >
-
                         <i class="fa-solid fa-briefcase"></i>
-
-                        <span class="customer-menu-text">
-                            My Services
-                        </span>
-
+                        <span class="customer-menu-text">My Services</span>
                     </a>
 
-
                     <!-- My Bookings -->
-
                     <a
                         href="{{ route('customer.bookings') }}"
                         class="customer-menu-link active"
                     >
-
                         <i class="fa-solid fa-calendar-check"></i>
-
-                        <span class="customer-menu-text">
-                            My Bookings
-                        </span>
-
+                        <span class="customer-menu-text">My Bookings</span>
                     </a>
 
+                    <!-- Payment -->
+                    <a
+                        href="{{ route('customer.payments') }}"
+                        class="customer-menu-link"
+                    >
+                        <i class="fa-solid fa-credit-card"></i>
+                        <span class="customer-menu-text">Payment</span>
+                    </a>
 
                     <!-- Chat -->
-
                     <a
                         href="{{ route('customer.chats') }}"
                         class="customer-menu-link"
                     >
+                        <i class="fa-solid fa-comments"></i>
+                        <span class="customer-menu-text">Chat</span>
 
-
-                        <span class="customer-menu-text">
-                            Chat
-                        </span>
-
-                        <span class="customer-chat-badge">
-                            2
-                        </span>
-
+                        <span
+                            id="customerSidebarChatUnread"
+                            class="customer-sidebar-chat-unread"
+                            style="display: none;"
+                        ></span>
                     </a>
 
-
                     <!-- My Profile -->
-
                     <a
                         href="{{ route('customer.profile') }}"
                         class="customer-menu-link"
                     >
-
                         <i class="fa-solid fa-user-circle"></i>
-
-                        <span class="customer-menu-text">
-                            My Profile
-                        </span>
-
+                        <span class="customer-menu-text">My Profile</span>
                     </a>
 
                 </nav>
 
-
-                <!-- =================================================
-                 LOGOUT
-            ================================================== -->
-
+                <!-- Logout -->
                 <div class="customer-sidebar-bottom">
 
-                    <form
-                        action="{{ route('logout') }}"
-                        method="POST"
-                    >
-
+                    <form action="{{ route('logout') }}" method="POST">
                         @csrf
 
                         <button
                             type="submit"
                             class="customer-menu-link customer-logout"
                         >
-
                             <i class="fa-solid fa-right-from-bracket"></i>
-
-                            <span class="customer-menu-text">
-                                Logout
-                            </span>
-
+                            <span class="customer-menu-text">Logout</span>
                         </button>
-
                     </form>
 
                 </div>
 
             </aside>
+
 
 
             <!-- =====================================================
@@ -766,7 +703,7 @@
                                                 $booking->scheduled_at->format(
                                                     'M d, Y - h:i A'
                                                 )
-                                                                                                                                                                                                                                                                                                                                    }}
+                                                                                                                                                                                                                                                                                                                                                                            }}
 
                                             @else
 
@@ -1065,9 +1002,6 @@
                                                     Service
                                                 </th>
 
-                                                <th>
-                                                    Quantity
-                                                </th>
 
                                                 <th>
                                                     Price
@@ -1116,7 +1050,7 @@
                                                                                                         {{
                                                 $service->category?->name
                                                 ?? 'Home Service'
-                                                                                                                                                                                                                                                                                                                                                        }}
+                                                                                                                                                                                                                                                                                                                                                                                                }}
 
                                                                                                     </small>
 
@@ -1127,9 +1061,7 @@
                                                                                         </td>
 
 
-                                                                                        <td>
-                                                                                            1
-                                                                                        </td>
+                                                                                        
 
 
                                                                                         <td>
@@ -1139,7 +1071,7 @@
                                                 number_format(
                                                     $service->base_price
                                                 )
-                                                                                                                                                                                                                                                                                                                                            }}
+                                                                                                                                                                                                                                                                                                                                                                                    }}
 
                                                                                         </td>
 
@@ -1153,7 +1085,7 @@
                                                 number_format(
                                                     $service->base_price
                                                 )
-                                                                                                                                                                                                                                                                                                                                                }}
+                                                                                                                                                                                                                                                                                                                                                                                        }}
 
                                                                                             </strong>
 
@@ -1218,7 +1150,7 @@
                                                                                 {{
                                     $service->category?->name
                                     ?? 'Home Service'
-                                                                                                                                                                                                                                                        }}
+                                                                                                                                                                                                                                                                                    }}
 
                                                                             </span>
 
@@ -1232,18 +1164,7 @@
                                                                 <div class="mobile-service-item-info">
 
 
-                                                                    <div>
-
-                                                                        <span>
-                                                                            Quantity
-                                                                        </span>
-
-                                                                        <strong>
-                                                                            1
-                                                                        </strong>
-
-                                                                    </div>
-
+                                                                    
 
                                                                     <div>
 
@@ -1258,7 +1179,7 @@
                                     number_format(
                                         $service->base_price
                                     )
-                                                                                                                                                                                                                                                    }}
+                                                                                                                                                                                                                                                                                }}
 
                                                                         </strong>
 
@@ -1278,7 +1199,7 @@
                                     number_format(
                                         $service->base_price
                                     )
-                                                                                                                                                                                                                                                    }}
+                                                                                                                                                                                                                                                                                }}
 
                                                                         </strong>
 
@@ -1501,7 +1422,7 @@
                                                             ->format(
                                                                 'M d, Y - h:i A'
                                                             )
-                                                                                                                                                                                                                                                                                                                                                                        }}
+                                                                                                                                                                                                                                                                                                                                                                                                                    }}
 
                                                     @else
 
@@ -1526,7 +1447,7 @@
                                                     $pendingHistory
                                                         ->updater
                                                         ->name
-                                                                                                                                                                                                                                                                                                                                            }}
+                                                                                                                                                                                                                                                                                                                                                                                    }}
 
                                                                                     </small>
 
@@ -1543,7 +1464,7 @@
 
                                                                                         {{
                                                     $pendingHistory->note
-                                                                                                                                                                                                                                                                                                                                            }}
+                                                                                                                                                                                                                                                                                                                                                                                    }}
 
                                                                                     </small>
 
@@ -1581,7 +1502,7 @@
                                                             ->format(
                                                                 'M d, Y - h:i A'
                                                             )
-                                                                                                                                                                                                                                                                                                                                                                        }}
+                                                                                                                                                                                                                                                                                                                                                                                                                    }}
 
                                                     @else
 
@@ -1606,7 +1527,7 @@
                                                     $alternativeHistory
                                                         ->updater
                                                         ->name
-                                                                                                                                                                                                                                                                                                                                            }}
+                                                                                                                                                                                                                                                                                                                                                                                    }}
 
                                                                                     </small>
 
@@ -1625,7 +1546,7 @@
                                                                                             {{
                                                     $alternativeHistory
                                                         ->note
-                                                                                                                                                                                                                                                                                                                                                }}
+                                                                                                                                                                                                                                                                                                                                                                                        }}
                                                                                         </span>
 
                                                                                     </div>
@@ -1641,8 +1562,8 @@
 
 
                                         <!-- =================================================
-                                                                     NORMAL BOOKING FLOW
-                                                                ================================================== -->
+                                                                         NORMAL BOOKING FLOW
+                                                                    ================================================== -->
 
                                         @foreach (
                                                 $normalStatuses
@@ -1680,10 +1601,10 @@
 
                                             <div
                                                 class="
-                                                                                                        timeline-item
-                                                                                                        {{ $isCompleted ? 'completed' : '' }}
-                                                                                                        {{ $isCurrent ? 'current completed' : '' }}
-                                                                                                    "
+                                                                                                                timeline-item
+                                                                                                                {{ $isCompleted ? 'completed' : '' }}
+                                                                                                                {{ $isCurrent ? 'current completed' : '' }}
+                                                                                                            "
                                             >
 
                                                 <div class="timeline-marker">
@@ -1717,7 +1638,7 @@
                                                                 ->format(
                                                                     'M d, Y - h:i A'
                                                                 )
-                                                                                                                                                                                                                                                                                                                                                                            }}
+                                                                                                                                                                                                                                                                                                                                                                                                                        }}
 
                                                         @elseif ($isCurrent)
 
@@ -1746,7 +1667,7 @@
                                                         $historyItem
                                                             ->updater
                                                             ->name
-                                                                                                                                                                                                                                                                                                                                                }}
+                                                                                                                                                                                                                                                                                                                                                                                        }}
 
                                                                                     </small>
 
@@ -1763,7 +1684,7 @@
 
                                                                                         {{
                                                         $historyItem->note
-                                                                                                                                                                                                                                                                                                                                                }}
+                                                                                                                                                                                                                                                                                                                                                                                        }}
 
                                                                                     </small>
 
@@ -1854,7 +1775,7 @@
                                             ?->user
                                                 ?->name
                                         ?? 'Waiting for Provider'
-                                                                                                                                                                                                                                                                                }}
+                                                                                                                                                                                                                                                                                                                }}
 
                                                                             </h4>
 
@@ -1901,8 +1822,8 @@
 
 
                                                                     <!-- =================================================
-                                                                                                                                                                                                                                                                     ACCEPTED / ACTIVE / COMPLETED
-                                                                                                                                                                                                                                                                ================================================== -->
+                                                                                                                                                                                                                                                                                                     ACCEPTED / ACTIVE / COMPLETED
+                                                                                                                                                                                                                                                                                                ================================================== -->
 
                                     @elseif (
                                             $booking->status === 'accepted' ||
@@ -1943,7 +1864,7 @@
                                                                                         ->provider
                                                                                         ->user
                                                                                         ->name
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        }}"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            }}"
                                                                                                                 >
 
                                                                             @else
@@ -1967,7 +1888,7 @@
                                                 ->user
                                                     ?->name
                                             ?? 'Provider'
-                                                                                                                                                                                                                                                                                        }}
+                                                                                                                                                                                                                                                                                                                        }}
 
                                                                             </h4>
 
@@ -1990,7 +1911,7 @@
                                                 ->provider
                                                 ->rating
                                             ?? 'N/A'
-                                                                                                                                                                                                                                                                                            }}
+                                                                                                                                                                                                                                                                                                                            }}
 
                                                                                 </strong>
 
@@ -2022,7 +1943,7 @@
                                                                                 $booking
                                                                                     ->provider
                                                                                     ->experience_years
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                }}
 
                                                                                                                     {{
                                                                                 $booking
@@ -2030,7 +1951,7 @@
                                                                                     ->experience_years == 1
                                                                                 ? 'year'
                                                                                 : 'years'
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                }}
 
                                                                                                                     experience
 
@@ -2046,8 +1967,8 @@
 
 
                                                                     <!-- =================================================
-                                                                                                                                                                                                                                                                                 PROVIDER STATUS MESSAGE
-                                                                                                                                                                                                                                                                            ================================================== -->
+                                                                                                                                                                                                                                                                                                                 PROVIDER STATUS MESSAGE
+                                                                                                                                                                                                                                                                                                            ================================================== -->
 
                                                                     <div class="booking-provider-message">
 
@@ -2116,13 +2037,13 @@
 
 
                                                                     <!-- =================================================
-                                                                                                                                                                                                                                                                                 CHAT
-                                                                                                                                                                                                                                                                            ================================================== -->
+                                                                                                                                                                                                                                                                                                                 CHAT
+                                                                                                                                                                                                                                                                                                            ================================================== -->
 
-                                                                    <a 
-    href="{{ route('customer.chats', ['provider_id' => $booking->provider_id]) }}" 
-    class="booking-chat-button"
->
+                                                                    <a
+                                                                        href="{{ route('customer.chats', ['provider_id' => $booking->provider_id]) }}"
+                                                                        class="booking-chat-button"
+                                                                    >
 
                                                                         <i class="fa-solid fa-comments"></i>
 
@@ -2167,8 +2088,8 @@
 
 
                                         <!-- =================================================
-                                                                     CANCELLED
-                                                                ================================================== -->
+                                                                         CANCELLED
+                                                                    ================================================== -->
 
                                     @elseif ($booking->status === 'cancelled')
 
@@ -2271,91 +2192,97 @@
 
 
                                         <!-- =================================================
-                                                                     TIMEOUT
-                                                                ================================================== -->
+                                                                         TIMEOUT
+                                                                    ================================================== -->
 
                                     @elseif ($booking->status === 'timeout')
 
 
-                                        @php
+                                                                    @php
 
-                                            $timeoutHistory =
-                                                $booking
-                                                    ->statusHistory
-                                                    ->where(
-                                                        'status',
-                                                        'timeout'
-                                                    )
-                                                    ->sortByDesc(
-                                                        'created_at'
-                                                    )
-                                                    ->first();
+                                                                        $timeoutHistory =
+                                                                            $booking
+                                                                                ->statusHistory
+                                                                                ->where(
+                                                                                    'status',
+                                                                                    'timeout'
+                                                                                )
+                                                                                ->sortByDesc(
+                                                                                    'created_at'
+                                                                                )
+                                                                                ->first();
 
-                                        @endphp
+                                                                        $isPrepaymentTimeout = str_contains(
+                                                                            strtolower($timeoutHistory?->note ?? ''),
+                                                                            'prepayment slip'
+                                                                        );
 
-
-                                        <div class="provider-detail-body">
-
-
-                                            <div class="provider-large-avatar">
-
-                                                <i class="fa-solid fa-clock"></i>
-
-                                            </div>
+                                                                    @endphp
 
 
-                                            <div class="provider-detail-info">
-
-                                                <h4>
-                                                    Provider Did Not Respond
-                                                </h4>
-
-                                                <span>
-
-                                                    The provider did not respond
-                                                    within the required time.
-
-                                                </span>
+                                                                    <div class="provider-detail-body">
 
 
-                                                @if ($timeoutHistory?->updater)
+                                                                        <div class="provider-large-avatar">
 
-                                                                                    <small class="d-block mt-2 text-muted">
+                                                                            <i class="fa-solid fa-clock"></i>
 
-                                                                                        <i
-                                                                                            class="fa-solid fa-user-pen me-1"
-                                                                                        ></i>
-
-                                                                                        Updated by
-
-                                                                                        {{
-                                                    $timeoutHistory
-                                                        ->updater
-                                                        ->name
-                                                                                                                                                                                                                                                                                                                                            }}
-
-                                                                                    </small>
-
-                                                @endif
-
-                                            </div>
-
-                                        </div>
+                                                                        </div>
 
 
-                                        <div class="booking-provider-message">
+                                                                        <div class="provider-detail-info">
 
-                                            <i class="fa-solid fa-hourglass-end"></i>
+                                                                            <h4>
+                                                                                {{ $isPrepaymentTimeout
+                                        ? 'Prepayment Deadline Expired'
+                                        : 'Provider Did Not Respond' }}
+                                                                            </h4>
 
-                                            <span>
+                                                                            <span>
 
-                                                The response deadline has expired
-                                                and this booking can no longer be
-                                                accepted.
+                                                                                {{ $isPrepaymentTimeout
+                                        ? 'The required prepayment slip was not submitted by the scheduled service time.'
+                                        : 'The provider did not respond within the required time.' }}
 
-                                            </span>
+                                                                            </span>
 
-                                        </div>
+
+                                                                            @if ($timeoutHistory?->updater)
+
+                                                                                                                <small class="d-block mt-2 text-muted">
+
+                                                                                                                    <i
+                                                                                                                        class="fa-solid fa-user-pen me-1"
+                                                                                                                    ></i>
+
+                                                                                                                    Updated by
+
+                                                                                                                    {{
+                                                                                $timeoutHistory
+                                                                                    ->updater
+                                                                                    ->name
+                                                                                                                                                                                                                                                                                                                                                                                                                }}
+
+                                                                                                                </small>
+
+                                                                            @endif
+
+                                                                        </div>
+
+                                                                    </div>
+
+
+                                                                    <div class="booking-provider-message">
+
+                                                                        <i class="fa-solid fa-hourglass-end"></i>
+
+                                                                        <span>
+                                                                            {{ $isPrepaymentTimeout
+                                        ? 'Your booking timed out because the required prepayment slip was not submitted before the scheduled service time.'
+                                        : 'The response deadline has expired and this booking can no longer be accepted.' }}
+                                                                        </span>
+
+                                                                    </div>
 
 
                                     @endif
@@ -2367,848 +2294,849 @@
 
                             </div>
                          
-<!-- =================================================
+                            <!-- =================================================
  PAYMENT CARD
 ================================================== -->
 
-@if ($booking->payment)
+                            @if ($booking->payment)
 
-    @php
-        $payment = $booking->payment;
+                                                            @php
+                                                                $payment = $booking->payment;
 
-        $serviceAmount = (float) $payment->service_amount;
-        $prepaidAmount = (float) $payment->prepaid_amount;
-        $remainingAmount = (float) $payment->remaining_amount;
+                                                                $serviceAmount = (float) $payment->service_amount;
+                                                                $prepaidAmount = (float) $payment->prepaid_amount;
+                                                                $remainingAmount = (float) $payment->remaining_amount;
 
-        $prepaymentRequired = $prepaidAmount > 0;
+                                                                $prepaymentRequired = $prepaidAmount > 0;
 
-        $prepaymentVerified =
-            $payment->payment_status === 'verified';
+                                                                $prepaymentVerified =
+                                                                    $payment->payment_status === 'verified';
 
-        $prepaymentPending =
-            $payment->payment_status === 'pending';
+                                                                $prepaymentPending =
+                                                                    $payment->payment_status === 'pending';
 
-        $prepaymentRejected =
-            $payment->payment_status === 'rejected';
+                                                                $prepaymentRejected =
+                                                                    $payment->payment_status === 'rejected';
 
-        $finalPaymentRequired =
-            $remainingAmount > 0;
+                                                                $finalPaymentRequired =
+                                                                    $remainingAmount > 0;
 
-        $finalPaymentPending =
-            $payment->final_payment_status === 'pending';
+                                                                $finalPaymentPending =
+                                                                    $payment->final_payment_status === 'pending';
 
-        $finalPaymentRejected =
-            $payment->final_payment_status === 'rejected';
+                                                                $finalPaymentRejected =
+                                                                    $payment->final_payment_status === 'rejected';
 
-        $finalPaymentVerified =
-            $payment->final_payment_status === 'verified';
-    @endphp
+                                                                $finalPaymentVerified =
+                                                                    $payment->final_payment_status === 'verified';
+                                                            @endphp
 
 
-    <div class="booking-detail-card payment-detail-card">
+                                                            <div class="booking-detail-card payment-detail-card">
 
-        <div class="booking-detail-card-header">
+                                                                <div class="booking-detail-card-header">
 
-            <div class="booking-detail-heading">
+                                                                    <div class="booking-detail-heading">
 
-                <div class="booking-detail-icon">
+                                                                        <div class="booking-detail-icon">
 
-                    <i class="fa-solid fa-credit-card"></i>
+                                                                            <i class="fa-solid fa-credit-card"></i>
 
-                </div>
+                                                                        </div>
 
-                <div>
+                                                                        <div>
 
-                    <h3>
-                        Payment
-                    </h3>
+                                                                            <h3>
+                                                                                Payment
+                                                                            </h3>
 
-                    <p>
-                        Payment details for this booking.
-                    </p>
+                                                                            <p>
+                                                                                Payment details for this booking.
+                                                                            </p>
 
-                </div>
+                                                                        </div>
 
-            </div>
+                                                                    </div>
 
-        </div>
+                                                                </div>
 
 
-        <div class="payment-detail-body">
+                                                                <div class="payment-detail-body">
 
 
-            <!-- =================================================
-             SERVICE FEE
-            ================================================== -->
+                                                                    <!-- =================================================
+                                             SERVICE FEE
+                                            ================================================== -->
 
-            <div class="payment-detail-row">
+                                                                    <div class="payment-detail-row">
 
-                <span>
-                    Service Fee
-                </span>
+                                                                        <span>
+                                                                            Service Fee
+                                                                        </span>
 
-                <strong>
-                    MMK {{ number_format($serviceAmount) }}
-                </strong>
+                                                                        <strong>
+                                                                            MMK {{ number_format($serviceAmount) }}
+                                                                        </strong>
 
-            </div>
+                                                                    </div>
 
 
-            <!-- =================================================
-             PREPAID AMOUNT
-            ================================================== -->
+                                                                    <!-- =================================================
+                                             PREPAID AMOUNT
+                                            ================================================== -->
 
-            @if ($prepaymentRequired)
+                                                                    @if ($prepaymentRequired)
 
-                <div class="payment-detail-row">
+                                                                        <div class="payment-detail-row">
 
-                    <span>
-                        Prepaid Amount
-                    </span>
+                                                                            <span>
+                                                                                Prepaid Amount
+                                                                            </span>
 
-                    <strong>
-                        MMK {{ number_format($prepaidAmount) }}
-                    </strong>
+                                                                            <strong>
+                                                                                MMK {{ number_format($prepaidAmount) }}
+                                                                            </strong>
 
-                </div>
+                                                                        </div>
 
-            @endif
+                                                                    @endif
 
 
-            <!-- =================================================
-             REMAINING AMOUNT
-            ================================================== -->
+                                                                    <!-- =================================================
+                                             REMAINING AMOUNT
+                                            ================================================== -->
 
-            <div class="payment-detail-row">
+                                                                    <div class="payment-detail-row">
 
-                <span>
-                    Remaining Amount
-                </span>
+                                                                        <span>
+                                                                            Remaining Amount
+                                                                        </span>
 
-                <strong>
-                    MMK {{ number_format($remainingAmount) }}
-                </strong>
+                                                                        <strong>
+                                                                            MMK {{ number_format($remainingAmount) }}
+                                                                        </strong>
 
-            </div>
+                                                                    </div>
 
 
-            <!-- =================================================
-             TOTAL
-            ================================================== -->
+                                                                    <!-- =================================================
+                                             TOTAL
+                                            ================================================== -->
 
-            <div class="payment-detail-row">
+                                                                    <div class="payment-detail-row">
 
-                <span>
-                    Total Amount
-                </span>
+                                                                        <span>
+                                                                            Total Amount
+                                                                        </span>
 
-                <strong>
-                    MMK {{ number_format($serviceAmount) }}
-                </strong>
+                                                                        <strong>
+                                                                            MMK {{ number_format($serviceAmount) }}
+                                                                        </strong>
 
-            </div>
+                                                                    </div>
 
 
-            <!-- =================================================
-             PREPAYMENT PENDING
-            ================================================== -->
+                                                                    <!-- =================================================
+                                             PREPAYMENT PENDING
+                                            ================================================== -->
 
-            @if (
-                $prepaymentRequired &&
-                $prepaymentPending
-            )
+                                                                    @if (
+                                                                                                    $prepaymentRequired &&
+                                                                                                    $prepaymentPending
+                                                                                                )
 
-                <div class="booking-provider-message">
+                                                                                                <div class="booking-provider-message">
 
-                    <i class="fa-solid fa-circle-exclamation"></i>
+                                                                                                    <i class="fa-solid fa-circle-exclamation"></i>
 
-                    <span>
+                                                                                                    <span>
 
-                        <strong>
-                            Prepayment Required
-                        </strong>
+                                                                                                        <strong>
+                                                                                                            Prepayment Required
+                                                                                                        </strong>
 
-                        <br>
+                                                                                                        <br>
 
-                        Please pay the required prepayment
-                        before the provider can start the service.
+                                                                                                        Please pay the required prepayment
+                                                                                                        before the provider can start the service.
 
-                    </span>
+                                                                                                    </span>
 
-                </div>
+                                                                                                </div>
 
 
-                <div class="payment-detail-row">
+                                                                                                <div class="payment-detail-row">
 
-                    <span>
-                        Payment Method
-                    </span>
+                                                                                                    <span>
+                                                                                                        Payment Method
+                                                                                                    </span>
 
-                    <strong>
+                                                                                                    <strong>
 
-                        <i class="fa-solid fa-mobile-screen-button me-1"></i>
+                                                                                                        <i class="fa-solid fa-mobile-screen-button me-1"></i>
 
-                        KBZPay
+                                                                                                        KBZPay
 
-                    </strong>
+                                                                                                    </strong>
 
-                </div>
+                                                                                                </div>
 
 
-                <a
-                    href="{{ route('customer.payment.show', $booking->id) }}"
-                    class="payment-now-button"
-                >
+                                                                                                <a
+                                                                                                    href="{{ route('customer.payment.show', $booking->id) }}"
+                                                                                                    class="payment-now-button"
+                                                                                                >
 
-                    <i class="fa-solid fa-credit-card"></i>
+                                                                                                    <i class="fa-solid fa-credit-card"></i>
 
-                    Update Payment
+                                                                                                    Update Payment
 
-                </a>
+                                                                                                </a>
 
 
-            <!-- =================================================
-             PREPAYMENT REJECTED
-            ================================================== -->
+                                                                                                <!-- =================================================
+                                                                         PREPAYMENT REJECTED
+                                                                        ================================================== -->
 
-            @elseif (
-                $prepaymentRequired &&
-                $prepaymentRejected
-            )
+                                                                    @elseif (
+                                                                                                    $prepaymentRequired &&
+                                                                                                    $prepaymentRejected
+                                                                                                )
 
-                <div class="booking-provider-message text-danger">
+                                                                                                <div class="booking-provider-message text-danger">
 
-                    <i class="fa-solid fa-circle-xmark"></i>
+                                                                                                    <i class="fa-solid fa-circle-xmark"></i>
 
-                    <span>
+                                                                                                    <span>
 
-                        <strong>
-                            Payment Rejected
-                        </strong>
+                                                                                                        <strong>
+                                                                                                            Payment Rejected
+                                                                                                        </strong>
 
-                        @if ($payment->rejection_reason)
+                                                                                                        @if ($payment->rejection_reason)
 
-                            <br>
+                                                                                                            <br>
 
-                            {{ $payment->rejection_reason }}
+                                                                                                            {{ $payment->rejection_reason }}
 
-                        @endif
+                                                                                                        @endif
 
-                    </span>
+                                                                                                    </span>
 
-                </div>
+                                                                                                </div>
 
 
-                <a
-                    href="{{ route('customer.payment.show', $booking->id) }}"
-                    class="payment-now-button"
-                >
+                                                                                                <a
+                                                                                                    href="{{ route('customer.payment.show', $booking->id) }}"
+                                                                                                    class="payment-now-button"
+                                                                                                >
 
-                    <i class="fa-solid fa-rotate"></i>
+                                                                                                    <i class="fa-solid fa-rotate"></i>
 
-                    Update Payment
+                                                                                                    Update Payment
 
-                </a>
+                                                                                                </a>
 
 
-            <!-- =================================================
-             PREPAYMENT VERIFIED
-            ================================================== -->
+                                                                                                <!-- =================================================
+                                                                         PREPAYMENT VERIFIED
+                                                                        ================================================== -->
 
-            @elseif (
-                $prepaymentRequired &&
-                $prepaymentVerified
-            )
+                                                                    @elseif (
+                                                                                                    $prepaymentRequired &&
+                                                                                                    $prepaymentVerified
+                                                                                                )
 
-                <div class="payment-success-message">
+                                                                                                <div class="payment-success-message">
 
-                    <i class="fa-solid fa-circle-check"></i>
+                                                                                                    <i class="fa-solid fa-circle-check"></i>
 
-                    <span>
+                                                                                                    <span>
 
-                        Your prepayment has been verified
-                        successfully.
+                                                                                                        Your prepayment has been verified
+                                                                                                        successfully.
 
-                    </span>
+                                                                                                    </span>
 
-                </div>
+                                                                                                </div>
 
 
-                @if ($payment->verified_at)
+                                                                                                @if ($payment->verified_at)
 
-                    <small class="d-block mt-2 text-muted">
+                                                                                                    <small class="d-block mt-2 text-muted">
 
-                        <i class="fa-solid fa-clock me-1"></i>
+                                                                                                        <i class="fa-solid fa-clock me-1"></i>
 
-                        Verified on
+                                                                                                        Verified on
 
-                        {{ $payment->verified_at->format('M d, Y - h:i A') }}
+                                                                                                        {{ $payment->verified_at->format('M d, Y - h:i A') }}
 
-                    </small>
+                                                                                                    </small>
 
-                @endif
+                                                                                                @endif
 
 
-                <!-- =================================================
-                 FINAL PAYMENT SECTION
-                ================================================== -->
+                                                                                                <!-- =================================================
+                                                                             FINAL PAYMENT SECTION
+                                                                            ================================================== -->
 
-                @if (
-                    $booking->status === 'completed' &&
-                    $finalPaymentRequired
-                )
+                                                                                                @if (
+                                                                                                        $booking->status === 'completed' &&
+                                                                                                        $finalPaymentRequired
+                                                                                                    )
 
-                    <hr class="my-4">
+                                                                                                    <hr class="my-4">
 
 
-                    <div class="payment-detail-row">
+                                                                                                    <div class="payment-detail-row">
 
-                        <span>
-                            Final Payment
-                        </span>
+                                                                                                        <span>
+                                                                                                            Final Payment
+                                                                                                        </span>
 
-                        <strong>
-                            MMK {{ number_format($remainingAmount) }}
-                        </strong>
+                                                                                                        <strong>
+                                                                                                            MMK {{ number_format($remainingAmount) }}
+                                                                                                        </strong>
 
-                    </div>
+                                                                                                    </div>
 
 
-                    <!-- FINAL PAYMENT PENDING -->
+                                                                                                    <!-- FINAL PAYMENT PENDING -->
 
-                    @if ($finalPaymentPending)
+                                                                                                    @if ($finalPaymentPending)
 
-                        <div class="booking-provider-message">
+                                                                                                        <div class="booking-provider-message">
 
-                            <i class="fa-solid fa-circle-exclamation"></i>
+                                                                                                            <i class="fa-solid fa-circle-exclamation"></i>
 
-                            <span>
+                                                                                                            <span>
 
-                                <strong>
-                                    Final Payment Required
-                                </strong>
+                                                                                                                <strong>
+                                                                                                                    Final Payment Required
+                                                                                                                </strong>
 
-                                <br>
+                                                                                                                <br>
 
-                                Your service is completed.
-                                Please submit the remaining payment.
+                                                                                                                Your service is completed.
+                                                                                                                Please submit the remaining payment.
 
-                            </span>
+                                                                                                            </span>
 
-                        </div>
+                                                                                                        </div>
 
 
-                        <a
-                            href="{{ route('customer.payment.show', $booking->id) }}"
-                            class="payment-now-button"
-                        >
+                                                                                                        <a
+                                                                                                            href="{{ route('customer.payment.show', $booking->id) }}"
+                                                                                                            class="payment-now-button"
+                                                                                                        >
 
-                            <i class="fa-solid fa-money-bill-wave"></i>
+                                                                                                            <i class="fa-solid fa-money-bill-wave"></i>
 
-                            Pay Remaining Amount
+                                                                                                            Pay Remaining Amount
 
-                        </a>
+                                                                                                        </a>
 
 
-                    <!-- FINAL PAYMENT REJECTED -->
+                                                                                                        <!-- FINAL PAYMENT REJECTED -->
 
-                    @elseif ($finalPaymentRejected)
+                                                                                                    @elseif ($finalPaymentRejected)
 
-                        <div class="booking-provider-message text-danger">
+                                                                                                        <div class="booking-provider-message text-danger">
 
-                            <i class="fa-solid fa-circle-xmark"></i>
+                                                                                                            <i class="fa-solid fa-circle-xmark"></i>
 
-                            <span>
+                                                                                                            <span>
 
-                                <strong>
-                                    Final Payment Rejected
-                                </strong>
+                                                                                                                <strong>
+                                                                                                                    Final Payment Rejected
+                                                                                                                </strong>
 
-                                @if ($payment->final_rejection_reason)
+                                                                                                                @if ($payment->final_rejection_reason)
 
-                                    <br>
+                                                                                                                    <br>
 
-                                    {{ $payment->final_rejection_reason }}
+                                                                                                                    {{ $payment->final_rejection_reason }}
 
-                                @endif
+                                                                                                                @endif
 
-                            </span>
+                                                                                                            </span>
 
-                        </div>
+                                                                                                        </div>
 
 
-                        <a
-                            href="{{ route('customer.payment.show', $booking->id) }}"
-                            class="payment-now-button"
-                        >
+                                                                                                        <a
+                                                                                                            href="{{ route('customer.payment.show', $booking->id) }}"
+                                                                                                            class="payment-now-button"
+                                                                                                        >
 
-                            <i class="fa-solid fa-rotate"></i>
+                                                                                                            <i class="fa-solid fa-rotate"></i>
 
-                            Update Final Payment
+                                                                                                            Update Final Payment
 
-                        </a>
+                                                                                                        </a>
 
 
-                    <!-- FINAL PAYMENT VERIFIED -->
+                                                                                                        <!-- FINAL PAYMENT VERIFIED -->
 
-                    @elseif ($finalPaymentVerified)
+                                                                                                    @elseif ($finalPaymentVerified)
 
-                        <div class="payment-success-message">
+                                                                                                        <div class="payment-success-message">
 
-                            <i class="fa-solid fa-circle-check"></i>
+                                                                                                            <i class="fa-solid fa-circle-check"></i>
 
-                            <span>
+                                                                                                            <span>
 
-                                Final payment has been verified
-                                successfully.
+                                                                                                                Final payment has been verified
+                                                                                                                successfully.
 
-                            </span>
+                                                                                                            </span>
 
-                        </div>
+                                                                                                        </div>
 
-                    @endif
+                                                                                                    @endif
 
-                @endif
+                                                                                                @endif
 
 
-            <!-- =================================================
-             NO PREPAYMENT
-            ================================================== -->
+                                                                                                <!-- =================================================
+                                                                         NO PREPAYMENT
+                                                                        ================================================== -->
 
-            @else
+                                                                    @else
 
-                @if (
-                    $booking->status === 'completed' &&
-                    $finalPaymentRequired
-                )
+                                                                        @if (
+                                                                                                $booking->status === 'completed' &&
+                                                                                                $finalPaymentRequired
+                                                                                            )
 
-                    <!-- =================================================
-                     FINAL PAYMENT FOR NO-PREPAYMENT BOOKING
-                    ================================================== -->
+                                                                                            <!-- =================================================
+                                                                             FINAL PAYMENT FOR NO-PREPAYMENT BOOKING
+                                                                            ================================================== -->
 
-                    <hr class="my-4">
+                                                                                            <hr class="my-4">
 
 
-                    <div class="payment-detail-row">
+                                                                                            <div class="payment-detail-row">
 
-                        <span>
-                            Final Payment
-                        </span>
+                                                                                                <span>
+                                                                                                    Final Payment
+                                                                                                </span>
 
-                        <strong>
-                            MMK {{ number_format($remainingAmount) }}
-                        </strong>
+                                                                                                <strong>
+                                                                                                    MMK {{ number_format($remainingAmount) }}
+                                                                                                </strong>
 
-                    </div>
+                                                                                            </div>
 
 
-                    @if ($finalPaymentPending)
+                                                                                            @if ($finalPaymentPending)
 
-                        <div class="booking-provider-message">
+                                                                                                <div class="booking-provider-message">
 
-                            <i class="fa-solid fa-circle-exclamation"></i>
+                                                                                                    <i class="fa-solid fa-circle-exclamation"></i>
 
-                            <span>
+                                                                                                    <span>
 
-                                <strong>
-                                    Final Payment Required
-                                </strong>
+                                                                                                        <strong>
+                                                                                                            Final Payment Required
+                                                                                                        </strong>
 
-                                <br>
+                                                                                                        <br>
 
-                                Please submit the remaining payment.
+                                                                                                        Please submit the remaining payment.
 
-                            </span>
+                                                                                                    </span>
 
-                        </div>
+                                                                                                </div>
 
 
-                        <a
-                            href="{{ route('customer.payment.show', $booking->id) }}"
-                            class="payment-now-button"
-                        >
+                                                                                                <a
+                                                                                                    href="{{ route('customer.payment.show', $booking->id) }}"
+                                                                                                    class="payment-now-button"
+                                                                                                >
 
-                            <i class="fa-solid fa-money-bill-wave"></i>
+                                                                                                    <i class="fa-solid fa-money-bill-wave"></i>
 
-                            Pay Remaining Amount
+                                                                                                    Pay Remaining Amount
 
-                        </a>
+                                                                                                </a>
 
 
-                    @elseif ($finalPaymentRejected)
+                                                                                            @elseif ($finalPaymentRejected)
 
-                        <div class="booking-provider-message text-danger">
+                                                                                                <div class="booking-provider-message text-danger">
 
-                            <i class="fa-solid fa-circle-xmark"></i>
+                                                                                                    <i class="fa-solid fa-circle-xmark"></i>
 
-                            <span>
+                                                                                                    <span>
 
-                                <strong>
-                                    Final Payment Rejected
-                                </strong>
+                                                                                                        <strong>
+                                                                                                            Final Payment Rejected
+                                                                                                        </strong>
 
-                                @if ($payment->final_rejection_reason)
+                                                                                                        @if ($payment->final_rejection_reason)
 
-                                    <br>
+                                                                                                            <br>
 
-                                    {{ $payment->final_rejection_reason }}
+                                                                                                            {{ $payment->final_rejection_reason }}
 
-                                @endif
+                                                                                                        @endif
 
-                            </span>
+                                                                                                    </span>
 
-                        </div>
+                                                                                                </div>
 
 
-                        <a
-                            href="{{ route('customer.payment.show', $booking->id) }}"
-                            class="payment-now-button"
-                        >
+                                                                                                <a
+                                                                                                    href="{{ route('customer.payment.show', $booking->id) }}"
+                                                                                                    class="payment-now-button"
+                                                                                                >
 
-                            <i class="fa-solid fa-rotate"></i>
+                                                                                                    <i class="fa-solid fa-rotate"></i>
 
-                            Update Final Payment
+                                                                                                    Update Final Payment
 
-                        </a>
+                                                                                                </a>
 
 
-                    @elseif ($finalPaymentVerified)
+                                                                                            @elseif ($finalPaymentVerified)
 
-                        <div class="payment-success-message">
+                                                                                                <div class="payment-success-message">
 
-                            <i class="fa-solid fa-circle-check"></i>
+                                                                                                    <i class="fa-solid fa-circle-check"></i>
 
-                            <span>
+                                                                                                    <span>
 
-                                Final payment has been verified
-                                successfully.
+                                                                                                        Final payment has been verified
+                                                                                                        successfully.
 
-                            </span>
+                                                                                                    </span>
 
-                        </div>
+                                                                                                </div>
 
-                    @endif
+                                                                                            @endif
 
 
-                @else
+                                                                        @else
 
-                    <div class="payment-success-message">
+                                                                            <div class="payment-success-message">
 
-                        <i class="fa-solid fa-circle-check"></i>
+                                                                                <i class="fa-solid fa-circle-check"></i>
 
-                        <span>
+                                                                                <span>
 
-                            No prepayment is required for this booking.
+                                                                                    No prepayment is required for this booking.
 
-                        </span>
+                                                                                </span>
 
-                    </div>
+                                                                            </div>
 
-                @endif
+                                                                        @endif
 
-            @endif
+                                                                    @endif
 
 
-<!-- =================================================
-     REFUND INFORMATION
-================================================== -->
+                                                                    <!-- =================================================
+                                     REFUND INFORMATION
+                                ================================================== -->
 
-@if(
-    $payment &&
-    (float) $payment->refunded_amount > 0 &&
-    $payment->refund_slip_image &&
-    $payment->refund_submitted_at &&
-    $payment->refund_status === 'pending'
-)
 
-    <hr class="my-4">
+                                                                    @if(
+                                                                                                        $payment &&
+                                                                                                        $booking->status === 'cancelled' &&
+                                                                                                        $booking->cancelled_by === 'provider' &&
+                                                                                                        $payment->payment_status === 'verified' &&
+                                                                                                        (float) $payment->prepaid_amount > 0 &&
+                                                                                                        $payment->refund_status === 'pending'
+                                                                                                    )
 
+                                                                                                    <hr class="my-4">
 
-    <div class="refund-detail-section">
 
+                                                                                                    <div class="refund-detail-section">
 
-        <!-- =================================================
-             HEADER
-        ================================================== -->
 
-        <div class="payment-detail-row">
+                                                                                                        <!-- =================================================
+                                                                             HEADER
+                                                                        ================================================== -->
 
-            <span>
-                Refund Amount
-            </span>
 
-            <strong>
-                MMK {{ number_format(
-                    (float) $payment->refunded_amount
-                ) }}
-            </strong>
+                                                                                                        <div class="payment-detail-row">
+                                                                                                            <span>
+                                                                                                                Refund Amount
+                                                                                                            </span>
 
-        </div>
+                                                                                                            <strong>
+                                                                                                                MMK {{ number_format(
+                                                                            (float) (
+                                                                                $payment->refunded_amount > 0
+                                                                                ? $payment->refunded_amount
+                                                                                : $payment->prepaid_amount
+                                                                            )
+                                                                        ) }}
+                                                                                                            </strong>
+                                                                                                        </div>
 
 
-        <!-- =================================================
-             CUSTOMER ALREADY REPORTED NOT RECEIVED
-        ================================================== -->
 
-        @if(
-            $payment->refund_customer_response ===
-            'not_received'
-        )
 
-            <div class="booking-provider-message text-danger mt-3">
+                                                                                                        @if (!$payment->refund_slip_image || !$payment->refund_submitted_at)
 
-                <i class="fa-solid fa-circle-xmark"></i>
+                                                                                                            <div class="booking-provider-message mt-3">
+                                                                                                                <i class="fa-solid fa-clock"></i>
 
-                <span>
+                                                                                                                <span>
+                                                                                                                    <strong>Refund Pending</strong>
+                                                                                                                    <br>
+                                                                                                                    The provider cancelled this booking.
+                                                                                                                    Your provider needs to refund your verified
+                                                                                                                    prepayment of
+                                                                                                                    <strong>
+                                                                                                                        MMK {{ number_format((float) $payment->prepaid_amount) }}
+                                                                                                                    </strong>.
+                                                                                                                </span>
+                                                                                                            </div>
 
-                    <strong>
-                        Refund Not Received
-                    </strong>
+                                                                                                        @elseif ($payment->refund_customer_response === 'not_received')
 
-                    <br>
+                                                                                                            <div class="booking-provider-message text-danger mt-3">
+                                                                                                                <i class="fa-solid fa-circle-xmark"></i>
 
-                    You reported that you did not receive
-                    the refund. The provider needs to review
-                    the refund and take further action.
+                                                                                                                <span>
+                                                                                                                    <strong>Refund Not Received</strong>
+                                                                                                                    <br>
+                                                                                                                    You reported that you did not receive
+                                                                                                                    the refund. The provider needs to review
+                                                                                                                    the refund and take further action.
+                                                                                                                </span>
+                                                                                                            </div>
 
-                </span>
+                                                                                                        @else
 
-            </div>
+                                                                                                            <div class="booking-provider-message mt-3">
+                                                                                                                <i class="fa-solid fa-clock"></i>
 
+                                                                                                                <span>
+                                                                                                                    <strong>Refund Waiting for Your Confirmation</strong>
+                                                                                                                    <br>
+                                                                                                                    The provider has submitted refund proof.
+                                                                                                                    Please confirm whether you received the refund.
+                                                                                                                </span>
+                                                                                                            </div>
 
-        <!-- =================================================
-             WAITING FOR CUSTOMER CONFIRMATION
-        ================================================== -->
+                                                                                                        @endif
 
-        @else
 
-            <div class="booking-provider-message mt-3">
 
-                <i class="fa-solid fa-clock"></i>
+                                                                                                        <!-- REFUND SUBMITTED TIME -->
 
-                <span>
+                                                                                                        @if ($payment->refund_submitted_at)
 
-                    <strong>
-                        Refund Waiting for Your Confirmation
-                    </strong>
+                                                                                                                                        <div class="mt-3">
+                                                                                                                                            <small class="text-muted">
+                                                                                                                                                <i class="fa-solid fa-clock me-1"></i>
 
-                    <br>
+                                                                                                                                                Refund submitted on
 
-                    The provider has submitted refund proof.
-                    Please confirm whether you received
-                    the refund.
+                                                                                                                                                {{ $payment->refund_submitted_at->format(
+                                                                                                                'M d, Y - h:i A'
+                                                                                                            ) }}
+                                                                                                                                            </small>
+                                                                                                                                        </div>
 
-                </span>
+                                                                                                        @endif
 
-            </div>
+                                                                                                        @if ($payment->refund_slip_image && $payment->refund_submitted_at)
 
-        @endif
+                                                                                                                                            <!-- =================================================
+                                                                                                                 REFUND PROOF
+                                                                                                            ================================================== -->
 
+                                                                                                                                            <div class="mt-4">
 
-        <!-- =================================================
-             REFUND SUBMITTED TIME
-        ================================================== -->
+                                                                                                                                                <h6 class="fw-bold mb-3">
 
-        <div class="mt-3">
+                                                                                                                                                    <i class="fa-solid fa-image me-2"></i>
 
-            <small class="text-muted">
+                                                                                                                                                    Refund Proof
 
-                <i class="fa-solid fa-clock me-1"></i>
+                                                                                                                                                </h6>
 
-                Refund submitted on
 
-                {{ $payment->refund_submitted_at->format(
-                    'M d, Y - h:i A'
-                ) }}
+                                                                                                                                                <div
+                                                                                                                                                    class="border rounded p-2 bg-light"
+                                                                                                                                                >
 
-            </small>
+                                                                                                                                                    <a
+                                                                                                                                                        href="{{ asset(
+                                                                                                                    'storage/' .
+                                                                                                                    $payment->refund_slip_image
+                                                                                                                ) }}"
+                                                                                                                                                        target="_blank"
+                                                                                                                                                    >
 
-        </div>
+                                                                                                                                                        <img
+                                                                                                                                                            src="{{ asset(
+                                                                                                                    'storage/' .
+                                                                                                                    $payment->refund_slip_image
+                                                                                                                ) }}"
+                                                                                                                                                            alt="Refund Proof"
+                                                                                                                                                            class="img-fluid rounded"
+                                                                                                                                                            style="
+                                                                                                                                max-height:350px;
+                                                                                                                                width:100%;
+                                                                                                                                object-fit:contain;
+                                                                                                                                cursor:pointer;
+                                                                                                                            "
+                                                                                                                                                        >
 
+                                                                                                                                                    </a>
 
-        <!-- =================================================
-             REFUND PROOF
-        ================================================== -->
+                                                                                                                                                </div>
 
-        <div class="mt-4">
 
-            <h6 class="fw-bold mb-3">
+                                                                                                                                                <small class="text-muted d-block mt-2">
 
-                <i class="fa-solid fa-image me-2"></i>
+                                                                                                                                                    Click the image to view the full refund proof.
 
-                Refund Proof
+                                                                                                                                                </small>
 
-            </h6>
+                                                                                                                                            </div>
 
 
-            <div
-                class="border rounded p-2 bg-light"
-            >
+                                                                                                                                            <!-- =================================================
+                                                                                                                 CUSTOMER VERIFICATION BUTTONS
+                                                                                                            ================================================== -->
 
-                <a
-                    href="{{ asset(
-                        'storage/' .
-                        $payment->refund_slip_image
-                    ) }}"
-                    target="_blank"
-                >
+                                                                                                                                            @if(
+                                                                                                                                                                            $payment->refund_customer_response !==
+                                                                                                                                                                            'not_received'
+                                                                                                                                                                        )
 
-                    <img
-                        src="{{ asset(
-                            'storage/' .
-                            $payment->refund_slip_image
-                        ) }}"
-                        alt="Refund Proof"
-                        class="img-fluid rounded"
-                        style="
-                            max-height:350px;
-                            width:100%;
-                            object-fit:contain;
-                            cursor:pointer;
-                        "
-                    >
+                                                                                                                                                                        <div class="mt-4">
 
-                </a>
+                                                                                                                                                                            <div class="row g-2">
 
-            </div>
 
+                                                                                                                                                                                <!-- RECEIVED -->
 
-            <small class="text-muted d-block mt-2">
+                                                                                                                                                                                <div class="col-12 col-md-6">
 
-                Click the image to view the full refund proof.
+                                                                                                                                                                                    <form
+                                                                                                                                                                                        action="{{ route(
+                                                                                                                                                    'customer.booking.refund.verify',
+                                                                                                                                                    $booking->id
+                                                                                                                                                ) }}"
+                                                                                                                                                                                        method="POST"
+                                                                                                                                                                                    >
 
-            </small>
+                                                                                                                                                                                        @csrf
 
-        </div>
+                                                                                                                                                                                        <input
+                                                                                                                                                                                            type="hidden"
+                                                                                                                                                                                            name="refund_response"
+                                                                                                                                                                                            value="received"
+                                                                                                                                                                                        >
 
 
-        <!-- =================================================
-             CUSTOMER VERIFICATION BUTTONS
-        ================================================== -->
+                                                                                                                                                                                        <button
+                                                                                                                                                                                            type="submit"
+                                                                                                                                                                                            class="btn btn-success w-100"
+                                                                                                                                                                                            onclick="
+                                                                                                                                                                    return confirm(
+                                                                                                                                                                        'Have you received the refund successfully?'
+                                                                                                                                                                    );
+                                                                                                                                                                "
+                                                                                                                                                                                        >
 
-        @if(
-            $payment->refund_customer_response !==
-            'not_received'
-        )
+                                                                                                                                                                                            <i
+                                                                                                                                                                                                class="fa-solid fa-circle-check me-1"
+                                                                                                                                                                                            ></i>
 
-            <div class="mt-4">
+                                                                                                                                                                                            I Received the Refund
 
-                <div class="row g-2">
+                                                                                                                                                                                        </button>
 
+                                                                                                                                                                                    </form>
 
-                    <!-- RECEIVED -->
+                                                                                                                                                                                </div>
 
-                    <div class="col-12 col-md-6">
 
-                        <form
-                            action="{{ route(
-                                'customer.booking.refund.verify',
-                                $booking->id
-                            ) }}"
-                            method="POST"
-                        >
+                                                                                                                                                                                <!-- NOT RECEIVED -->
 
-                            @csrf
+                                                                                                                                                                                <div class="col-12 col-md-6">
 
-                            <input
-                                type="hidden"
-                                name="refund_response"
-                                value="received"
-                            >
+                                                                                                                                                                                    <form
+                                                                                                                                                                                        action="{{ route(
+                                                                                                                                                    'customer.booking.refund.verify',
+                                                                                                                                                    $booking->id
+                                                                                                                                                ) }}"
+                                                                                                                                                                                        method="POST"
+                                                                                                                                                                                    >
 
+                                                                                                                                                                                        @csrf
 
-                            <button
-                                type="submit"
-                                class="btn btn-success w-100"
-                                onclick="
-                                    return confirm(
-                                        'Have you received the refund successfully?'
-                                    );
-                                "
-                            >
+                                                                                                                                                                                        <input
+                                                                                                                                                                                            type="hidden"
+                                                                                                                                                                                            name="refund_response"
+                                                                                                                                                                                            value="not_received"
+                                                                                                                                                                                        >
 
-                                <i
-                                    class="fa-solid fa-circle-check me-1"
-                                ></i>
 
-                                I Received the Refund
+                                                                                                                                                                                        <button
+                                                                                                                                                                                            type="submit"
+                                                                                                                                                                                            class="btn btn-outline-danger w-100"
+                                                                                                                                                                                            onclick="
+                                                                                                                                                                    return confirm(
+                                                                                                                                                                        'Are you sure you did not receive the refund?'
+                                                                                                                                                                    );
+                                                                                                                                                                "
+                                                                                                                                                                                        >
 
-                            </button>
+                                                                                                                                                                                            <i
+                                                                                                                                                                                                class="fa-solid fa-circle-xmark me-1"
+                                                                                                                                                                                            ></i>
 
-                        </form>
+                                                                                                                                                                                            I Did Not Receive the Refund
 
-                    </div>
+                                                                                                                                                                                        </button>
 
+                                                                                                                                                                                    </form>
 
-                    <!-- NOT RECEIVED -->
+                                                                                                                                                                                </div>
 
-                    <div class="col-12 col-md-6">
+                                                                                                                                                                            </div>
 
-                        <form
-                            action="{{ route(
-                                'customer.booking.refund.verify',
-                                $booking->id
-                            ) }}"
-                            method="POST"
-                        >
+                                                                                                                                                                        </div>
 
-                            @csrf
+                                                                                                                                            @endif
 
-                            <input
-                                type="hidden"
-                                name="refund_response"
-                                value="not_received"
-                            >
 
+                                                                                                                                        </div>
 
-                            <button
-                                type="submit"
-                                class="btn btn-outline-danger w-100"
-                                onclick="
-                                    return confirm(
-                                        'Are you sure you did not receive the refund?'
-                                    );
-                                "
-                            >
+                                                                                                        @endif
 
-                                <i
-                                    class="fa-solid fa-circle-xmark me-1"
-                                ></i>
 
-                                I Did Not Receive the Refund
+                                                                    @endif
 
-                            </button>
+                                                                </div>
+                                                                <!-- END RIGHT COLUMN -->
 
-                        </form>
 
-                    </div>
+                                                            </div>
+                                                            <!-- END MAIN DETAIL GRID -->
 
-                </div>
 
-            </div>
+                                                </section>
+                                                <!-- END BOOKING DETAIL CONTENT -->
 
-        @endif
 
 
-    </div>
+                            @endif
 
-@endif
 
 
-@endif
-
-                        </div>
-                        <!-- END RIGHT COLUMN -->
-
-
-                    </div>
-                    <!-- END MAIN DETAIL GRID -->
-
-
-                </section>
-                <!-- END BOOKING DETAIL CONTENT -->
-
-
+        
                 <!-- =====================================================
  CUSTOMER CANCELLATION MODAL
 ====================================================== -->
@@ -3267,29 +3195,7 @@
                                         </p>
 
 
-                                        @if (
-                                                $booking->payment &&
-                                                $booking->payment->payment_status === 'verified' &&
-                                                (float) $booking->payment->prepaid_amount > 0
-                                            )
 
-                                            <div class="alert alert-info">
-
-                                                <i class="fa-solid fa-money-bill-transfer me-2"></i>
-
-                                                Your verified prepayment of
-
-                                                <strong>
-                                                    MMK
-                                                    {{ number_format($booking->payment->prepaid_amount) }}
-                                                </strong>
-
-                                                will be marked for refund because you are
-                                                cancelling before the cancellation deadline.
-
-                                            </div>
-
-                                        @endif
 
 
                                         <div class="mb-3">
@@ -3308,13 +3214,13 @@
                                             </label>
 
                                             <textarea
-                                                    name="cancellation_reason"
-                                                    id="cancellation_reason"
-                                                    class="form-control"
-                                                    rows="4"
-                                                    maxlength="1000"
-                                                    placeholder="Please tell us why you want to cancel..."
-                                                ></textarea>
+                                                        name="cancellation_reason"
+                                                        id="cancellation_reason"
+                                                        class="form-control"
+                                                        rows="4"
+                                                        maxlength="1000"
+                                                        placeholder="Please tell us why you want to cancel..."
+                                                    ></textarea>
 
                                         </div>
 
@@ -3356,162 +3262,162 @@
 
                 @endif
 
-<!-- =====================================================
+                <!-- =====================================================
  CUSTOMER REVIEW MODAL
 ====================================================== -->
 
-<div
-    class="modal fade"
-    id="customerReviewModal"
-    tabindex="-1"
-    aria-labelledby="customerReviewModalLabel"
-    aria-hidden="true"
->
-    <div class="modal-dialog modal-dialog-centered">
-
-        <div class="modal-content customer-review-modal">
-
-            <!-- HEADER -->
-
-            <div class="modal-header">
-
-                <div>
-
-                    <h5
-                        class="modal-title"
-                        id="customerReviewModalLabel"
-                    >
-                        <i class="fa-solid fa-star me-2"></i>
-                        Rate Your Service
-                    </h5>
-
-                    <p class="customer-review-subtitle mb-0">
-                        Share your experience with
-                        <strong id="reviewProviderName">
-                            your provider
-                        </strong>
-                    </p>
-
-                </div>
-
-                <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                ></button>
-
-            </div>
-
-
-            <!-- BODY -->
-
-            <div class="modal-body">
-
-                <!-- ERROR -->
-
                 <div
-                    id="reviewError"
-                    class="alert alert-danger d-none"
-                    role="alert"
-                ></div>
+                    class="modal fade"
+                    id="customerReviewModal"
+                    tabindex="-1"
+                    aria-labelledby="customerReviewModalLabel"
+                    aria-hidden="true"
+                >
+                    <div class="modal-dialog modal-dialog-centered">
+
+                        <div class="modal-content customer-review-modal">
+
+                            <!-- HEADER -->
+
+                            <div class="modal-header">
+
+                                <div>
+
+                                    <h5
+                                        class="modal-title"
+                                        id="customerReviewModalLabel"
+                                    >
+                                        <i class="fa-solid fa-star me-2"></i>
+                                        Rate Your Service
+                                    </h5>
+
+                                    <p class="customer-review-subtitle mb-0">
+                                        Share your experience with
+                                        <strong id="reviewProviderName">
+                                            your provider
+                                        </strong>
+                                    </p>
+
+                                </div>
+
+                                <button
+                                    type="button"
+                                    class="btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                                ></button>
+
+                            </div>
 
 
-                <!-- RATING -->
+                            <!-- BODY -->
 
-                <div class="customer-review-rating-section">
+                            <div class="modal-body">
 
-                    <label class="customer-review-label">
-                        Your Rating
-                    </label>
+                                <!-- ERROR -->
 
-
-                    <div
-                        class="customer-review-stars"
-                        id="customerReviewStars"
-                    >
-
-                        <button
-                            type="button"
-                            class="review-star"
-                            data-rating="1"
-                            aria-label="1 star"
-                        >
-                            <i class="fa-regular fa-star"></i>
-                        </button>
-
-                        <button
-                            type="button"
-                            class="review-star"
-                            data-rating="2"
-                            aria-label="2 stars"
-                        >
-                            <i class="fa-regular fa-star"></i>
-                        </button>
-
-                        <button
-                            type="button"
-                            class="review-star"
-                            data-rating="3"
-                            aria-label="3 stars"
-                        >
-                            <i class="fa-regular fa-star"></i>
-                        </button>
-
-                        <button
-                            type="button"
-                            class="review-star"
-                            data-rating="4"
-                            aria-label="4 stars"
-                        >
-                            <i class="fa-regular fa-star"></i>
-                        </button>
-
-                        <button
-                            type="button"
-                            class="review-star"
-                            data-rating="5"
-                            aria-label="5 stars"
-                        >
-                            <i class="fa-regular fa-star"></i>
-                        </button>
-
-                    </div>
+                                <div
+                                    id="reviewError"
+                                    class="alert alert-danger d-none"
+                                    role="alert"
+                                ></div>
 
 
-                    <div
-                        id="reviewRatingText"
-                        class="customer-review-rating-text"
-                    >
-                        Select a rating
-                    </div>
+                                <!-- RATING -->
+
+                                <div class="customer-review-rating-section">
+
+                                    <label class="customer-review-label">
+                                        Your Rating
+                                    </label>
 
 
-                    <input
-                        type="hidden"
-                        id="reviewRating"
-                        value=""
-                    >
+                                    <div
+                                        class="customer-review-stars"
+                                        id="customerReviewStars"
+                                    >
 
-                </div>
+                                        <button
+                                            type="button"
+                                            class="review-star"
+                                            data-rating="1"
+                                            aria-label="1 star"
+                                        >
+                                            <i class="fa-regular fa-star"></i>
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            class="review-star"
+                                            data-rating="2"
+                                            aria-label="2 stars"
+                                        >
+                                            <i class="fa-regular fa-star"></i>
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            class="review-star"
+                                            data-rating="3"
+                                            aria-label="3 stars"
+                                        >
+                                            <i class="fa-regular fa-star"></i>
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            class="review-star"
+                                            data-rating="4"
+                                            aria-label="4 stars"
+                                        >
+                                            <i class="fa-regular fa-star"></i>
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            class="review-star"
+                                            data-rating="5"
+                                            aria-label="5 stars"
+                                        >
+                                            <i class="fa-regular fa-star"></i>
+                                        </button>
+
+                                    </div>
 
 
-                <!-- COMMENT -->
-
-                <div class="customer-review-comment-section">
-
-                    <label
-                        for="reviewComment"
-                        class="customer-review-label"
-                    >
-                        Comment
-                        <span>
-                            (Optional)
-                        </span>
-                    </label>
+                                    <div
+                                        id="reviewRatingText"
+                                        class="customer-review-rating-text"
+                                    >
+                                        Select a rating
+                                    </div>
 
 
-                    <textarea
+                                    <input
+                                        type="hidden"
+                                        id="reviewRating"
+                                        value=""
+                                    >
+
+                                </div>
+
+
+                                <!-- COMMENT -->
+
+                                <div class="customer-review-comment-section">
+
+                                    <label
+                                        for="reviewComment"
+                                        class="customer-review-label"
+                                    >
+                                        Comment
+                                        <span>
+                                            (Optional)
+                                        </span>
+                                    </label>
+
+
+                                    <textarea
                         id="reviewComment"
                         class="form-control"
                         rows="5"
@@ -3520,52 +3426,52 @@
                     ></textarea>
 
 
-                    <div class="customer-review-character-count">
+                                    <div class="customer-review-character-count">
 
-                        <span id="reviewCharacterCount">
-                            0
-                        </span>
+                                        <span id="reviewCharacterCount">
+                                            0
+                                        </span>
 
-                        / 1000
+                                        / 1000
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- FOOTER -->
+
+                            <div class="modal-footer">
+
+                                <button
+                                    type="button"
+                                    class="btn btn-secondary"
+                                    data-bs-dismiss="modal"
+                                >
+                                    Maybe Later
+                                </button>
+
+
+                                <button
+                                    type="button"
+                                    class="btn btn-primary"
+                                    id="submitCustomerReview"
+                                >
+
+                                    <i class="fa-solid fa-paper-plane me-2"></i>
+
+                                    Submit Review
+
+                                </button>
+
+                            </div>
+
+                        </div>
 
                     </div>
-
                 </div>
-
-            </div>
-
-
-            <!-- FOOTER -->
-
-            <div class="modal-footer">
-
-                <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                >
-                    Maybe Later
-                </button>
-
-
-                <button
-                    type="button"
-                    class="btn btn-primary"
-                    id="submitCustomerReview"
-                >
-
-                    <i class="fa-solid fa-paper-plane me-2"></i>
-
-                    Submit Review
-
-                </button>
-
-            </div>
-
-        </div>
-
-    </div>
-</div>
             </main>
         </div>
 
@@ -3579,14 +3485,14 @@
         <script
         src="{{ asset('js/customer.js') }}"
     ></script>
-<script>
-    window.customerChatUrl = "{{ route('customer.chats') }}";
-</script>
+        <script>
+            window.customerChatUrl = "{{ route('customer.chats') }}";
+        </script>
 
         <script
         src="{{ asset('js/customer-booking-detail.js') }}"
     ></script>
-    <script
+        <script
     src="{{ asset('js/customer-review.js') }}"
 ></script>
 

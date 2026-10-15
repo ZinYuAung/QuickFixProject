@@ -6667,3 +6667,104 @@ body.dark-mode .admin-profile-modal-content .bg-light {
 body.dark-mode .admin-profile-modal-content .text-muted {
     color: #94a3b8 !important;
 }
+
+/* Admin Logout Confirmation Modal */
+.admin-logout-modal-content {
+    border: none;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.admin-logout-icon {
+    width: 58px;
+    height: 58px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #fff0f0;
+    color: #dc3545;
+    font-size: 23px;
+}
+
+.admin-logout-modal-content h5 {
+    color: var(--navy);
+    font-size: 18px;
+}
+
+.admin-logout-modal-content p {
+    line-height: 1.7;
+}
+
+.admin-logout-modal-content .btn {
+    padding: 9px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* =====================================
+   ADMIN LOGOUT BUTTON
+===================================== */
+
+.admin-navbar-right .admin-logout-form {
+    display: flex !important;
+    align-items: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.admin-navbar-right .admin-logout-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+
+    padding: 9px 14px !important;
+    margin: 0 !important;
+
+    background-color: #ffffff !important;
+    color: #dc3545 !important;
+    border: 1px solid #dc3545 !important;
+    border-radius: 8px !important;
+
+    font-family: inherit !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    line-height: 1.5 !important;
+
+    cursor: pointer !important;
+    box-shadow: none !important;
+    text-decoration: none !important;
+
+    transition: background-color 0.2s ease,
+                color 0.2s ease !important;
+}
+
+.admin-navbar-right .admin-logout-btn i {
+    display: inline-block !important;
+    color: inherit !important;
+    font-size: 14px !important;
+}
+
+.admin-navbar-right .admin-logout-btn span {
+    display: inline-block !important;
+    color: inherit !important;
+}
+
+.admin-navbar-right .admin-logout-btn:hover {
+    background-color: #dc3545 !important;
+    color: #ffffff !important;
+}
+
+.admin-navbar-right .admin-logout-btn:hover i,
+.admin-navbar-right .admin-logout-btn:hover span {
+    color: #ffffff !important;
+}
+
+.admin-navbar-right .admin-logout-btn:focus-visible {
+    outline: 3px solid rgba(220, 53, 69, 0.25) !important;
+    outline-offset: 2px !important;
+}

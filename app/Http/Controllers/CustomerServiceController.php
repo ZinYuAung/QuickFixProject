@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Booking;
 use App\Models\Customer;
+use App\Models\Provider;
+use App\Models\Review;
 use App\Models\Service;
+use App\Models\ServiceCategory;
 use Illuminate\Http\Request;
 
 class CustomerServiceController extends Controller
@@ -52,7 +55,7 @@ class CustomerServiceController extends Controller
                 )
                     ->flatten()
                     ->filter()
-                    ->map(fn ($id) => (int) $id);
+                    ->map(fn($id) => (int) $id);
             })
             ->unique()
             ->values()
@@ -79,7 +82,7 @@ class CustomerServiceController extends Controller
             )
                 ->flatten()
                 ->filter()
-                ->map(fn ($id) => (int) $id)
+                ->map(fn($id) => (int) $id)
                 ->unique();
 
 
@@ -188,4 +191,92 @@ class CustomerServiceController extends Controller
     {
         //
     }
+
+    /**
+     * Browse active services and their available providers.
+     */
+    public function browse(Request $request)
+    {
+        $categoryId = $request->query('category_id');
+
+        $categories = ServiceCategory::where('is_active', true)
+            ->orderBy('name')
+            ->get();
+
+        $servicesQuery = Service::with([
+            'category',
+            'providers' => function ($query) {
+                $query->where('approval_status', 'approved')
+                    ->where('availability_status', 'online')
+                    ->with(['user', 'serviceArea']);
+            },
+        ])->where('is_active', true);
+
+        if ($categoryId !== null) {
+            $servicesQuery->where('service_category_id', $categoryId);
+        }
+
+        $services = $servicesQuery
+            ->orderBy('name')
+            ->paginate(9)
+            ->withQueryString();
+
+        return view('customer.services-browse', compact(
+            'categories',
+            'services',
+            'categoryId'
+        ));
+    }
+
+    /**
+     * Show a provider's public profile, rating and reviews.
+     */
+    public function providerShow($id)
+    {
+        $provider = Provider::with([
+            'user',
+            'serviceArea',
+            'locations',
+            'services' => function ($query) {
+                $query->where('is_active', true)
+                    ->with('category');
+            },
+        ])
+            ->where('approval_status', 'approved')
+            ->findOrFail($id);
+
+        // Only reviews customers are allowed to see.
+        // Soft-deleted reviews are excluded automatically by the Review model.
+        $reviewsQuery = Review::where('provider_id', $provider->id)
+            ->whereNull('provider_hidden_at')
+            ->with(['customer.user'])
+            ->latest();
+
+
+        $averageRating = (clone $reviewsQuery)->avg('rating');
+        $totalReviews = (clone $reviewsQuery)->count();
+
+        // Calculate total rating penalties from provider bookings.
+        $totalPenalty = Booking::where(
+            'provider_id',
+            $provider->id
+        )->sum('rating_penalty');
+
+        // Subtract penalties from the average review rating.
+        $averageRating = max(
+            0,
+            (float) ($averageRating ?? 0) - (float) $totalPenalty
+        );
+
+
+        $reviews = $reviewsQuery->paginate(10);
+
+        return view('customer.provider-detail', compact(
+            'provider',
+            'averageRating',
+            'totalReviews',
+            'reviews'
+        ));
+    }
+
 }

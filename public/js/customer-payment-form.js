@@ -1386,8 +1386,13 @@ document.addEventListener("DOMContentLoaded", function () {
         const slipUploaded =
             data.slip_uploaded;
 
-        const finalSlipUploaded =
-            data.final_slip_uploaded;
+    
+const finalSlipUploaded =
+    Boolean(
+        data.final_payment_submitted ||
+        data.final_slip_uploaded
+    );
+
 
         remainingAmount =
             Number(
@@ -1548,8 +1553,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     event.preventDefault();
 
-                    alert(
-                        "Please select a payment method."
+                    showAppAlert(
+                        "Please select a payment method.",
+                        "No Payment Method Selected"
                     );
 
                     return;
@@ -1568,8 +1574,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     event.preventDefault();
 
-                    alert(
-                        "A KBZPay prepayment is required."
+                    showAppAlert(
+                        "A KBZPay prepayment is required.",
+                        "Invalid Payment Method"
                     );
 
                     return;
@@ -1592,8 +1599,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     event.preventDefault();
 
-                    alert(
-                        "Please upload your KBZPay payment slip."
+                    showAppAlert(
+                        "Please upload your KBZPay payment slip.",
+                        "Payment Slip Required"
                     );
 
 

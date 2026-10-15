@@ -30,7 +30,7 @@
 </head>
 
 <body>
-
+@include('components.app-alert')
     @yield('content')
 
     <!-- Bootstrap JS -->
@@ -40,6 +40,9 @@
 
     <!-- QuickFix JS -->
     <script src="{{ asset('js/quickfix.js') }}"></script>
+
+    <!-- Custom Alert Modal JS -->
+<script src="{{ asset('js/app-alert.js') }}"></script>
 
     @stack('scripts')
 

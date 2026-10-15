@@ -273,35 +273,44 @@
                         All Services
                     </option>
 
-                    @php
+                   
+@php
+    $serviceOptions = collect();
 
-                        $serviceOptions = collect();
+    foreach ($bookings as $booking) {
+        foreach ($booking->chosen_services ?? [] as $service) {
+            if (is_array($service)) {
+                $name = $service['name'] ?? null;
+                $serviceId = $service['service_id']
+                    ?? $service['id']
+                    ?? null;
+            } elseif (is_object($service)) {
+                $name = $service->name ?? null;
+                $serviceId = $service->service_id
+                    ?? $service->id
+                    ?? null;
+            } else {
+                $name = null;
+                $serviceId = is_numeric($service)
+                    ? $service
+                    : null;
+            }
 
-                        foreach ($bookings as $booking) {
+            $name = $name
+                ?: ($serviceNamesMap[$serviceId] ?? null);
 
-                            foreach ($booking->chosen_services ?? [] as $service) {
+            if ($name) {
+                $serviceOptions->push($name);
+            }
+        }
+    }
+@endphp
 
-                                if (!empty($service['name'])) {
-
-                                    $serviceOptions->push(
-                                        $service['name']
-                                    );
-
-                                }
-
-                            }
-
-                        }
-
-                    @endphp
-
-                    @foreach($serviceOptions->unique()->sort() as $serviceName)
-
-                        <option value="{{ $serviceName }}">
-                            {{ $serviceName }}
-                        </option>
-
-                    @endforeach
+@foreach($serviceOptions->unique()->sort() as $serviceName)
+    <option value="{{ $serviceName }}">
+        {{ $serviceName }}
+    </option>
+@endforeach
 
                 </select>
 
@@ -418,20 +427,37 @@
                             |
                             */
 
-                            $chosenServices =
-                                $booking->chosen_services ?? [];
+                           
+$chosenServices = $booking->chosen_services ?? [];
 
+$serviceNames = collect($chosenServices)
+    ->map(function ($service) use ($serviceNamesMap) {
+        if (is_array($service)) {
+            $name = $service['name'] ?? null;
+            $serviceId = $service['service_id']
+                ?? $service['id']
+                ?? null;
+        } elseif (is_object($service)) {
+            $name = $service->name ?? null;
+            $serviceId = $service->service_id
+                ?? $service->id
+                ?? null;
+        } else {
+            $name = null;
+            $serviceId = is_numeric($service)
+                ? $service
+                : null;
+        }
 
-                            $serviceNames = collect(
-                                $chosenServices
-                            )
-                                ->pluck('name')
-                                ->filter()
-                                ->implode(', ');
+        return $name
+            ?: ($serviceNamesMap[$serviceId] ?? null);
+    })
+    ->filter()
+    ->unique()
+    ->implode(', ');
 
+$serviceNames = $serviceNames ?: 'No service';
 
-                            $serviceNames =
-                                $serviceNames ?: 'No service';
 
 
                             /*

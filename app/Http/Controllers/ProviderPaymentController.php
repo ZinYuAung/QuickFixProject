@@ -112,10 +112,10 @@ class ProviderPaymentController extends Controller
                     'payment_status',
                     $status
                 )
-                ->orWhere(
-                    'final_payment_status',
-                    $status
-                );
+                    ->orWhere(
+                        'final_payment_status',
+                        $status
+                    );
             });
         }
 
@@ -161,7 +161,7 @@ class ProviderPaymentController extends Controller
 
                 return $payment
                     ->booking
-                    ?->chosen_services ?? [];
+                        ?->chosen_services ?? [];
 
             })
             ->filter()
@@ -221,10 +221,10 @@ class ProviderPaymentController extends Controller
                         'payment_status',
                         'pending'
                     )
-                    ->orWhere(
-                        'final_payment_status',
-                        'pending'
-                    );
+                        ->orWhere(
+                            'final_payment_status',
+                            'pending'
+                        );
                 })
                 ->count();
 
@@ -243,10 +243,10 @@ class ProviderPaymentController extends Controller
                         'payment_status',
                         'verified'
                     )
-                    ->orWhere(
-                        'final_payment_status',
-                        'verified'
-                    );
+                        ->orWhere(
+                            'final_payment_status',
+                            'verified'
+                        );
                 })
                 ->count();
 
@@ -265,10 +265,10 @@ class ProviderPaymentController extends Controller
                         'payment_status',
                         'rejected'
                     )
-                    ->orWhere(
-                        'final_payment_status',
-                        'rejected'
-                    );
+                        ->orWhere(
+                            'final_payment_status',
+                            'rejected'
+                        );
                 })
                 ->count();
 
@@ -330,7 +330,7 @@ class ProviderPaymentController extends Controller
         abort_unless(
             $payment->booking &&
             $payment->booking->provider_id ==
-                $provider->id,
+            $provider->id,
             403
         );
 
@@ -405,13 +405,12 @@ class ProviderPaymentController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        if (
-            $payment->final_payment_status ===
-            'pending'
-        ) {
-
-            $paymentStage = 'final';
-        }
+       if (
+    $payment->final_payment_status === 'pending' &&
+    !empty($payment->final_payment_submitted_at)
+) {
+    $paymentStage = 'final';
+}
 
 
         /*
@@ -485,7 +484,7 @@ class ProviderPaymentController extends Controller
         abort_unless(
             $payment->booking &&
             $payment->booking->provider_id ==
-                $provider->id,
+            $provider->id,
             403
         );
 
@@ -500,6 +499,16 @@ class ProviderPaymentController extends Controller
         */
 
         if (
+            $payment->final_payment_status === 'pending' &&
+            empty($payment->final_payment_submitted_at)
+        ) {
+            return back()->with(
+                'error',
+                'The customer has not submitted the final payment yet.'
+            );
+        }
+
+        if (
             $payment->final_payment_status ===
             'pending'
         ) {
@@ -507,16 +516,16 @@ class ProviderPaymentController extends Controller
             DB::transaction(
                 function () use ($payment) {
 
-                   $payment->update([
-    'final_payment_status' =>
-        'verified',
+                    $payment->update([
+                        'final_payment_status' =>
+                            'verified',
 
-    'final_verified_at' =>
-        now(),
+                        'final_verified_at' =>
+                            now(),
 
-    'final_rejection_reason' =>
-        null,
-]);
+                        'final_rejection_reason' =>
+                            null,
+                    ]);
 
 
                     /*
@@ -529,7 +538,7 @@ class ProviderPaymentController extends Controller
                         $payment
                             ->booking
                             ?->customer
-                            ?->user;
+                                ?->user;
 
 
                     if ($customerUser) {
@@ -596,7 +605,7 @@ class ProviderPaymentController extends Controller
                         $payment
                             ->booking
                             ?->customer
-                            ?->user;
+                                ?->user;
 
 
                     if ($customerUser) {
@@ -693,7 +702,7 @@ class ProviderPaymentController extends Controller
         abort_unless(
             $payment->booking &&
             $payment->booking->provider_id ==
-                $provider->id,
+            $provider->id,
             403
         );
 
@@ -726,15 +735,22 @@ class ProviderPaymentController extends Controller
         */
 
         if (
+            $payment->final_payment_status === 'pending' &&
+            empty($payment->final_payment_submitted_at)
+        ) {
+            return back()->with(
+                'error',
+                'The customer has not submitted the final payment yet.'
+            );
+        }
+
+        if (
             $payment->final_payment_status ===
             'pending'
         ) {
 
             DB::transaction(
-                function () use (
-                    $payment,
-                    $validated
-                ) {
+                function () use ($payment, $validated) {
 
                     $payment->update([
                         'final_payment_status' =>
@@ -757,7 +773,7 @@ class ProviderPaymentController extends Controller
                         $payment
                             ->booking
                             ?->customer
-                            ?->user;
+                                ?->user;
 
 
                     if ($customerUser) {
@@ -800,10 +816,7 @@ class ProviderPaymentController extends Controller
         ) {
 
             DB::transaction(
-                function () use (
-                    $payment,
-                    $validated
-                ) {
+                function () use ($payment, $validated) {
 
                     $payment->update([
                         'payment_status' =>
@@ -832,7 +845,7 @@ class ProviderPaymentController extends Controller
                         $payment
                             ->booking
                             ?->customer
-                            ?->user;
+                                ?->user;
 
 
                     if ($customerUser) {
@@ -899,56 +912,56 @@ class ProviderPaymentController extends Controller
         );
     }
     public function checkUpdates(Request $request)
-{
-    $provider = Provider::where(
-        'user_id',
-        auth()->id()
-    )->firstOrFail();
+    {
+        $provider = Provider::where(
+            'user_id',
+            auth()->id()
+        )->firstOrFail();
 
-    $query = Payment::whereHas(
-        'booking',
-        function ($query) use ($provider) {
-            $query->where(
-                'provider_id',
-                $provider->id
-            );
-        }
-    );
-
-    $pendingCount = (clone $query)
-        ->where(function ($query) {
-            $query
-                ->where('payment_status', 'pending')
-                ->orWhere(
-                    'final_payment_status',
-                    'pending'
+        $query = Payment::whereHas(
+            'booking',
+            function ($query) use ($provider) {
+                $query->where(
+                    'provider_id',
+                    $provider->id
                 );
-        })
-        ->count();
+            }
+        );
 
-    $latestPendingPayment = (clone $query)
-        ->where(function ($query) {
-            $query
-                ->where('payment_status', 'pending')
-                ->orWhere(
-                    'final_payment_status',
-                    'pending'
-                );
-        })
-        ->latest('updated_at')
-        ->first();
+        $pendingCount = (clone $query)
+            ->where(function ($query) {
+                $query
+                    ->where('payment_status', 'pending')
+                    ->orWhere(
+                        'final_payment_status',
+                        'pending'
+                    );
+            })
+            ->count();
 
-    return response()->json([
-        'success' => true,
+        $latestPendingPayment = (clone $query)
+            ->where(function ($query) {
+                $query
+                    ->where('payment_status', 'pending')
+                    ->orWhere(
+                        'final_payment_status',
+                        'pending'
+                    );
+            })
+            ->latest('updated_at')
+            ->first();
 
-        'pending_count' =>
-            $pendingCount,
+        return response()->json([
+            'success' => true,
 
-        'latest_pending_id' =>
-            $latestPendingPayment?->id,
+            'pending_count' =>
+                $pendingCount,
 
-        'latest_pending_updated_at' =>
-            $latestPendingPayment?->updated_at?->timestamp,
-    ]);
-}
+            'latest_pending_id' =>
+                $latestPendingPayment?->id,
+
+            'latest_pending_updated_at' =>
+                $latestPendingPayment?->updated_at?->timestamp,
+        ]);
+    }
 }

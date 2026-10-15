@@ -76,7 +76,18 @@
 
                     <div class="customer-avatar">
 
-                        <i class="fa-solid fa-user"></i>
+                          @if(auth()->user()->profile_image)
+
+        <img
+            src="{{ asset('storage/' . auth()->user()->profile_image) }}"
+            alt="{{ auth()->user()->name ?? 'Customer' }}"
+        >
+
+    @else
+
+        <i class="fa-solid fa-user"></i>
+
+    @endif
 
                     </div>
 
@@ -132,11 +143,28 @@
                         </span>
 
                     </a>
+                      <!-- Payment -->
+
+                    <a
+                        href="{{ route('customer.payments') }}"
+                        class="customer-menu-link"
+                    >
+
+                        <i class="fa-solid fa-credit-card"></i>
+
+                        <span class="customer-menu-text">
+                            Payment
+                        </span>
+
+                    </a>
 
 
                     <!-- Chat -->
 
-                    <a href="{{ route('customer.chats') }}" class="customer-menu-link">
+                    <a
+                        href="{{ route('customer.chats') }}"
+                        class="customer-menu-link"
+                    >
 
                         <i class="fa-solid fa-comments"></i>
 
@@ -144,10 +172,11 @@
                             Chat
                         </span>
 
-                        <span class="customer-chat-badge">
-                            2
-                        </span>
-
+                        <span
+                            id="customerSidebarChatUnread"
+                            class="customer-sidebar-chat-unread"
+                            style="display: none;"
+                        ></span>
                     </a>
 
 

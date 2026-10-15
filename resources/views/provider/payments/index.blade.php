@@ -41,7 +41,7 @@
         rel="stylesheet"
         href="{{ asset('css/provider-payments.css') }}"
     >
-
+<link rel="stylesheet" href="{{ asset('css/app-alert.css') }}">
 </head>
 
 
@@ -102,7 +102,18 @@
     <div class="provider-profile">
 
         <div class="provider-avatar">
+            @if(auth()->user()?->profile_image)
+
+            <img
+                src="{{ asset('storage/' . auth()->user()->profile_image) }}"
+                alt="{{ auth()->user()->name ?? 'Provider' }}"
+            >
+
+        @else
+
             <i class="fa-solid fa-user"></i>
+
+        @endif
         </div>
 
         <div class="provider-profile-info">
@@ -264,22 +275,19 @@
 
     {{-- LOGOUT --}}
 
-    <div class="provider-sidebar-bottom">
+        <div class="provider-sidebar-bottom">
 
-        <a
-            href="#"
-            class="provider-menu-link provider-logout"
-        >
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="provider-menu-link provider-logout">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span class="provider-menu-text logout-text">
+                            Logout
+                        </span>
+                    </button>
+                </form>
 
-            <i class="fa-solid fa-right-from-bracket"></i>
-
-            <span class="provider-menu-text logout-text">
-                Logout
-            </span>
-
-        </a>
-
-    </div>
+            </div>
 
 </aside>
 
@@ -480,23 +488,7 @@
 
                 <div class="provider-status">
 
-                    <span class="status-dot"></span>
-
-                    <span class="status-text">
-                        Online
-                    </span>
-
-                    <label class="status-switch">
-
-                        <input
-                            type="checkbox"
-                            class="status-toggle"
-                            checked
-                        >
-
-                        <span class="status-slider"></span>
-
-                    </label>
+                    
 
                 </div>
 
@@ -1404,7 +1396,7 @@
 
 
 {{-- Payment JS --}}
-
+<script src="{{ asset('js/app-alert.js') }}"></script>
 <script
     src="{{ asset('js/provider-payments.js') }}"
 ></script>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Booking;
+use App\Models\Service;
 use Illuminate\Http\Request;
 
 class AdminBookingController extends Controller
@@ -52,6 +53,7 @@ class AdminBookingController extends Controller
             ->latest()
             ->paginate(10)
             ->withQueryString();
+            $serviceNamesMap = Service::pluck('name', 'id')->toArray();
 
         // STATISTICS
         $totalBookings = Booking::count();
@@ -76,7 +78,8 @@ class AdminBookingController extends Controller
             'totalBookings',
             'pendingBookings',
             'inProgressBookings',
-            'completedBookings'
+            'completedBookings',
+            'serviceNamesMap'
         ));
     }
 
@@ -91,10 +94,15 @@ class AdminBookingController extends Controller
             'statusHistory.updater',
             'payment',
         ])->findOrFail($id);
+        // Get service names and prices using service ID
+    $servicesMap = Service::select('id', 'name', 'base_price')
+        ->get()
+        ->keyBy('id');
+        $serviceNamesMap = Service::pluck('name', 'id')->toArray();
 
         return view(
             'admin.booking-show',
-            compact('booking')
+            compact('booking', 'serviceNamesMap','servicesMap')
         );
     
     }

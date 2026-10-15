@@ -24,11 +24,17 @@ use App\Http\Controllers\ProviderEarningsController;
 use App\Http\Controllers\ProviderNotificationController;
 use App\Http\Controllers\ProviderPaymentController;
 use App\Http\Controllers\ProviderReviewController;
+use App\Models\Service;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
-    return view('welcome');
+    $popularServices = Service::where('is_active', true)
+        ->orderBy('name')
+        ->take(6)
+        ->get();
+
+    return view('welcome', compact('popularServices'));
 });
 
 Auth::routes();
@@ -45,17 +51,20 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->name('customer
     Route::get('/profile', [CustomerProfileController::class, 'index'])->name('profile');
     Route::get('/profile/edit', [CustomerProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [CustomerProfileController::class, 'update'])->name('profile.update');
+    // Customer Change Password
+Route::post('/profile/password', [CustomerProfileController::class, 'changePassword'])
+    ->name('profile.password');
     Route::get('/chats', [CustomerChatController::class, 'index'])->name('chats');
     Route::get(
-    '/chats/unread-counts',
-    [CustomerChatController::class, 'unreadCounts']
-)->name('chats.unread-counts');
+        '/chats/unread-counts',
+        [CustomerChatController::class, 'unreadCounts']
+    )->name('chats.unread-counts');
     Route::post('/chats/{provider}/send', [CustomerChatController::class, 'store'])
-    ->name('chats.store');
+        ->name('chats.store');
     Route::get(
-    '/chats/{provider}/messages',
-    [CustomerChatController::class, 'fetchMessages']
-)->name('chats.messages');
+        '/chats/{provider}/messages',
+        [CustomerChatController::class, 'fetchMessages']
+    )->name('chats.messages');
 
     Route::get('/bookings', [CustomerBookingController::class, 'index'])->name('bookings');
     Route::get('/bookings/create', [CustomerBookingController::class, 'create'])->name('booking.create');
@@ -70,14 +79,14 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->name('customer
     )->name('booking.cancel');
 
     Route::post(
-    '/bookings/{id}/refund/verify',
-    [CustomerBookingController::class, 'verifyRefund']
-)->name('booking.refund.verify');
+        '/bookings/{id}/refund/verify',
+        [CustomerBookingController::class, 'verifyRefund']
+    )->name('booking.refund.verify');
 
     Route::post(
-    '/bookings/{id}/review',
-    [CustomerReviewController::class, 'store']
-)->name('review.store');
+        '/bookings/{id}/review',
+        [CustomerReviewController::class, 'store']
+    )->name('review.store');
     // =====================================================
 // CUSTOMER PAYMENTS
 // =====================================================
@@ -88,7 +97,7 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->name('customer
         [PaymentController::class, 'index']
     )->name('payments');
 
-    
+
 
     // Payment form for selected booking
     Route::get(
@@ -130,28 +139,37 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->name('customer
         '/notifications/unread',
         [CustomerNotificationController::class, 'unread']
     )->name('notifications.unread');
+    Route::get('/browse-services', [
+    CustomerServiceController::class,
+    'browse'
+])->name('services.browse');
+
+Route::get('/providers/{id}', [
+    CustomerServiceController::class,
+    'providerShow'
+])->name('providers.show');
 });
 
 //provider routes
 Route::middleware(['auth', 'role:provider'])->prefix('provider')->name('provider.')->group(function () {
     Route::get('/dashboard', [ProviderDashboardController::class, 'index'])->name('dashboard');
     Route::get(
-    '/dashboard/booking-requests',
-    [ProviderDashboardController::class, 'bookingRequests']
-)->name('dashboard.booking-requests');
-Route::get(
-    '/dashboard/today-jobs',
-    [ProviderDashboardController::class, 'todayJobs']
-)->name('dashboard.today-jobs');
+        '/dashboard/booking-requests',
+        [ProviderDashboardController::class, 'bookingRequests']
+    )->name('dashboard.booking-requests');
+    Route::get(
+        '/dashboard/today-jobs',
+        [ProviderDashboardController::class, 'todayJobs']
+    )->name('dashboard.today-jobs');
 
     Route::get('/bookings', [BookingController::class, 'index'])->name('bookings');
     Route::get('/bookings/{id}', [BookingController::class, 'show'])->name('bookings.show');
 
     Route::post('/bookings/{id}/accept', [BookingController::class, 'accept'])->name('bookings.accept');
     Route::post('/bookings/{id}/reject', [BookingController::class, 'reject'])->name('bookings.reject');
-    Route::post('/bookings/{id}/cancel',[BookingController::class, 'cancel'])->name('bookings.cancel');
+    Route::post('/bookings/{id}/cancel', [BookingController::class, 'cancel'])->name('bookings.cancel');
     Route::post('/bookings/{id}/go-to-site', [BookingController::class, 'goToSite'])->name('bookings.go-to-site');
-Route::post('/bookings/{booking}/refund',[BookingController::class, 'submitRefund'])->name('bookings.refund');
+    Route::post('/bookings/{booking}/refund', [BookingController::class, 'submitRefund'])->name('bookings.refund');
 
 
     Route::post('/bookings/{id}/arrive', [BookingController::class, 'arrive'])->name('bookings.arrive');
@@ -162,40 +180,40 @@ Route::post('/bookings/{booking}/refund',[BookingController::class, 'submitRefun
     Route::get('/profile/edit', [ProviderDashboardController::class, 'editProfile'])->name('profile.edit');
     Route::put('/profile', [ProviderDashboardController::class, 'updateProfile'])->name('profile.update');
     // Change password
-Route::post('/profile/password', [ProviderDashboardController::class, 'changePassword'])
-    ->name('profile.password');
+    Route::post('/profile/password', [ProviderDashboardController::class, 'changePassword'])
+        ->name('profile.password');
 
-// Account active / inactive
-Route::post('/profile/account-status', [ProviderDashboardController::class, 'updateAccountStatus'])
-    ->name('profile.account-status');
+    // Account active / inactive
+    Route::post('/profile/account-status', [ProviderDashboardController::class, 'updateAccountStatus'])
+        ->name('profile.account-status');
     // Provider online / offline availability
-Route::post('/availability-status', [ProviderDashboardController::class, 'updateAvailability'])
-    ->name('availability-status');
+    Route::post('/availability-status', [ProviderDashboardController::class, 'updateAvailability'])
+        ->name('availability-status');
     Route::get('/jobs', [ProviderDashboardController::class, 'jobs'])->name('jobs');
     Route::get('/earnings', [ProviderEarningsController::class, 'index'])->name('earnings');
-   Route::get('/chats', [ProviderDashboardController::class, 'chats'])->name('chats');
-   Route::get(
-    '/chats/unread-counts',
-    [ProviderDashboardController::class, 'unreadCounts']
-)->name('chats.unread-counts');
+    Route::get('/chats', [ProviderDashboardController::class, 'chats'])->name('chats');
+    Route::get(
+        '/chats/unread-counts',
+        [ProviderDashboardController::class, 'unreadCounts']
+    )->name('chats.unread-counts');
 
-Route::post(
-    '/chats/{customer}/send',
-    [ProviderDashboardController::class, 'sendChat']
-)->name('chats.send');
-Route::get(
-    '/chats/{customer}/messages',
-    [ProviderDashboardController::class, 'fetchMessages']
-)->name('chats.messages');
-   Route::get(
-    '/reviews',
-    [ProviderReviewController::class, 'index']
-)->name('reviews.index');
+    Route::post(
+        '/chats/{customer}/send',
+        [ProviderDashboardController::class, 'sendChat']
+    )->name('chats.send');
+    Route::get(
+        '/chats/{customer}/messages',
+        [ProviderDashboardController::class, 'fetchMessages']
+    )->name('chats.messages');
+    Route::get(
+        '/reviews',
+        [ProviderReviewController::class, 'index']
+    )->name('reviews.index');
 
-Route::delete(
-    '/reviews/{id}',
-    [ProviderReviewController::class, 'destroy']
-)->name('reviews.destroy');
+    Route::delete(
+        '/reviews/{id}',
+        [ProviderReviewController::class, 'destroy']
+    )->name('reviews.destroy');
     /*
        |--------------------------------------------------------------------------
        | Payments
@@ -207,9 +225,9 @@ Route::delete(
         'index'
     ])->name('payments.index');
     Route::get(
-    '/payments/check-updates',
-    [ProviderPaymentController::class, 'checkUpdates']
-)->name('payments.check-updates');
+        '/payments/check-updates',
+        [ProviderPaymentController::class, 'checkUpdates']
+    )->name('payments.check-updates');
 
     Route::get('/payments/{payment}', [
         ProviderPaymentController::class,
@@ -245,7 +263,7 @@ Route::middleware(['auth', 'role:admin,superadmin'])->prefix('admin')->name('adm
     Route::resource('providers', AdminProviderController::class);
     Route::post('/providers/{id}/reactivate', [AdminProviderController::class, 'reactivate'])->name('providers.reactivate');
     Route::post('/providers/{id}/approve', [AdminProviderController::class, 'approve'])->name('providers.approve');
-Route::post('/providers/{id}/reject', [AdminProviderController::class, 'reject'])->name('providers.reject');
+    Route::post('/providers/{id}/reject', [AdminProviderController::class, 'reject'])->name('providers.reject');
     //service
     Route::resource('services', AdminServiceController::class);
     Route::post('/services/{id}/reactivate', [AdminServiceController::class, 'reactivate'])->name('services.reactivate');

@@ -56,26 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =================================================
-       CHANGE PASSWORD BUTTON
-    ================================================= */
-
-    const securityButton =
-        document.querySelector(".security-button");
-
-    if (securityButton) {
-
-        securityButton.addEventListener("click", function () {
-
-            /*
-             * Password feature can be connected later.
-             */
-
-            alert(
-                "Change Password feature will be available soon."
-            );
-        });
-    }
+   
 
 
     /* =================================================
@@ -141,3 +122,17 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 });
+/* =================================================
+   CHANGE PASSWORD FORM SUBMIT
+================================================= */
+const changePasswordForm = document.getElementById("changePasswordForm");
+const changePasswordSubmit = document.getElementById("changePasswordSubmit");
+
+if (changePasswordForm && changePasswordSubmit) {
+    changePasswordForm.addEventListener("submit", function () {
+        changePasswordSubmit.disabled = true;
+        changePasswordSubmit.innerHTML =
+            '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Updating...';
+    });
+
+}
