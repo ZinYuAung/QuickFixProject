@@ -104,11 +104,12 @@
     ====================================================== --}}
 
     <form
-        method="POST"
-        action="{{ route('admin.providers.update', $provider->id) }}"
-        id="providerEditForm"
-        class="admin-provider-edit-form"
-    >
+    method="POST"
+    action="{{ route('admin.providers.update', $provider->id) }}"
+    id="providerEditForm"
+    class="admin-provider-edit-form"
+    enctype="multipart/form-data"
+>
 
         @csrf
 
@@ -1091,7 +1092,113 @@
 
             </div>
 
+{{-- =================================================
+     NRC IMAGES
+     FULL WIDTH
+================================================== --}}
 
+<div class="admin-card admin-provider-edit-card full-width-card">
+
+    <div class="admin-card-header">
+        <div>
+            <h3>NRC Images</h3>
+            <p>
+                Replace the provider's NRC images if necessary.
+                Leave the fields empty to keep the current images.
+            </p>
+        </div>
+    </div>
+
+    <div class="admin-provider-edit-fields two-columns">
+
+        {{-- NRC FRONT IMAGE --}}
+
+        <div class="admin-provider-edit-field">
+
+            <label for="nrc_front_image">
+                NRC Front Image
+            </label>
+
+            @if ($provider->nrc_front_image)
+                <p>
+                    <a
+                        href="{{ route('admin.providers.nrc-image', [
+                            'id' => $provider->id,
+                            'side' => 'front'
+                        ]) }}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        View Current Front Image
+                    </a>
+                </p>
+            @endif
+
+            <input
+                type="file"
+                id="nrc_front_image"
+                name="nrc_front_image"
+                accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"
+            >
+
+            <small class="admin-provider-edit-help">
+                Optional. JPG, PNG or WEBP; maximum 2 MB.
+            </small>
+
+            @error('nrc_front_image')
+                <small class="admin-provider-edit-error">
+                    {{ $message }}
+                </small>
+            @enderror
+
+        </div>
+
+
+        {{-- NRC BACK IMAGE --}}
+
+        <div class="admin-provider-edit-field">
+
+            <label for="nrc_back_image">
+                NRC Back Image
+            </label>
+
+            @if ($provider->nrc_back_image)
+                <p>
+                    <a
+                        href="{{ route('admin.providers.nrc-image', [
+                            'id' => $provider->id,
+                            'side' => 'back'
+                        ]) }}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        View Current Back Image
+                    </a>
+                </p>
+            @endif
+
+            <input
+                type="file"
+                id="nrc_back_image"
+                name="nrc_back_image"
+                accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"
+            >
+
+            <small class="admin-provider-edit-help">
+                Optional. JPG, PNG or WEBP; maximum 2 MB.
+            </small>
+
+            @error('nrc_back_image')
+                <small class="admin-provider-edit-error">
+                    {{ $message }}
+                </small>
+            @enderror
+
+        </div>
+
+    </div>
+
+</div>
             {{-- =================================================
                  FORM ACTIONS
                  FULL WIDTH / UNDER EVERYTHING

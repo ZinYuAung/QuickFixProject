@@ -117,6 +117,7 @@ PROVIDER CREATE JS
 <form
     action="{{ route('admin.providers.store') }}"
     method="POST"
+    enctype="multipart/form-data"
     class="admin-form"
 >
 
@@ -478,7 +479,81 @@ PROVIDER CREATE JS
         </div>
 
     </div>
+{{-- =================================================
+     NRC DOCUMENTS
+================================================== --}}
 
+<div class="admin-form-card">
+
+    <div class="admin-form-card-header">
+
+        <div class="admin-form-card-icon">
+            <i class="fa-solid fa-id-card"></i>
+        </div>
+
+        <div>
+            <h2>NRC Documents</h2>
+            <p>
+                Upload the provider's NRC front and back images.
+                Accepted formats: JPG, PNG, WEBP. Maximum 2 MB per image.
+            </p>
+        </div>
+
+    </div>
+
+    <div class="admin-form-grid">
+
+        {{-- NRC Front Image --}}
+
+        <div class="admin-form-group">
+
+            <label for="nrc_front_image">
+                NRC Front Image <span>*</span>
+            </label>
+
+            <input
+                type="file"
+                id="nrc_front_image"
+                name="nrc_front_image"
+                accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"
+                required
+            >
+
+            @error('nrc_front_image')
+                <small class="admin-form-error">
+                    {{ $message }}
+                </small>
+            @enderror
+
+        </div>
+
+        {{-- NRC Back Image --}}
+
+        <div class="admin-form-group">
+
+            <label for="nrc_back_image">
+                NRC Back Image <span>*</span>
+            </label>
+
+            <input
+                type="file"
+                id="nrc_back_image"
+                name="nrc_back_image"
+                accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"
+                required
+            >
+
+            @error('nrc_back_image')
+                <small class="admin-form-error">
+                    {{ $message }}
+                </small>
+            @enderror
+
+        </div>
+
+    </div>
+
+</div>
 
     {{-- =================================================
          PROVIDER INFORMATION

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Storage;
 
 class RegisterController extends Controller
 {
@@ -40,12 +41,27 @@ class RegisterController extends Controller
             'bio' => ['nullable', 'string'],
             'services' => ['nullable', 'array'],
             'services.*' => ['exists:services,id'],
+
+            // Provider NRC image validation
+            'nrc_front_image' => [
+                'required_if:role,provider',
+                'image',
+                'mimes:jpeg,png,webp',
+                'max:2048',
+            ],
+
+            'nrc_back_image' => [
+                'required_if:role,provider',
+                'image',
+                'mimes:jpeg,png,webp',
+                'max:2048',
+            ],
         ]);
     }
 
     protected function create(array $data)
     {
-        // အကယ်၍ Provider ဖြစ်ပါက Area သည် Selected City ထဲတွင် ပါဝင်ခြင်း ရှိမရှိ စစ်ဆေးမည်
+
         if (isset($data['role']) && $data['role'] === 'provider') {
             $areaExists = ServiceArea::where('id', $data['area_id'])
                 ->where('city_id', $data['city_id'])
@@ -67,8 +83,19 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
-        // Provider Profile ဖန်တီးခြင်း
+
+        // Provider Profile
         if ($user->role === 'provider') {
+
+            // Retrieve uploaded NRC images from the request
+$request = request();
+
+$frontImage = $request->file('nrc_front_image');
+$backImage = $request->file('nrc_back_image');
+
+// Store images on the private local disk
+$frontImagePath = $frontImage->store('provider-nrc', 'local');
+$backImagePath = $backImage->store('provider-nrc', 'local');
             $provider = Provider::create([
                 'user_id' => $user->id,
                 'area_id' => $data['area_id'] ?? null,
@@ -77,9 +104,11 @@ class RegisterController extends Controller
                 'availability_status' => 'offline',
                 'approval_status' => 'pending',
                 'rating' => 0.00,
-            ]);
 
-            // Services များ ချိတ်ဆက်ခြင်း
+                // Save NRC image paths
+                'nrc_front_image' => $frontImagePath,
+                'nrc_back_image' => $backImagePath,
+            ]);
             if (!empty($data['services'])) {
                 $provider->services()->sync($data['services']);
             }

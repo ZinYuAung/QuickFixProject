@@ -21,15 +21,15 @@
 
 
             <!-- =====================================================
-                 LEFT SIDE
-            ====================================================== -->
+                     LEFT SIDE
+                ====================================================== -->
 
             <div
                 class="col-5
-                        d-flex
-                        align-items-center
-                        justify-content-center
-                        auth-left-panel"
+                            d-flex
+                            align-items-center
+                            justify-content-center
+                            auth-left-panel"
             >
 
 
@@ -37,9 +37,9 @@
 
 
                     <!-- =================================================
-                         QUICKFIX LOGO
-                         CLICK → WELCOME / HOME
-                    ================================================== -->
+                             QUICKFIX LOGO
+                             CLICK → WELCOME / HOME
+                        ================================================== -->
 
                     <a
                         href="{{ url('/') }}"
@@ -60,8 +60,8 @@
 
 
                     <!-- =================================================
-                         WELCOME MESSAGE
-                    ================================================== -->
+                             WELCOME MESSAGE
+                        ================================================== -->
 
                     <h1 class="auth-welcome">
 
@@ -79,8 +79,8 @@
 
 
                     <!-- =================================================
-                         ICON
-                    ================================================== -->
+                             ICON
+                        ================================================== -->
 
                     <i class="fa-solid fa-house auth-left-icon"></i>
 
@@ -93,15 +93,15 @@
 
 
             <!-- =====================================================
-                 RIGHT SIDE
-            ====================================================== -->
+                     RIGHT SIDE
+                ====================================================== -->
 
             <div
                 class="col-7
-                        d-flex
-                        align-items-center
-                        justify-content-center
-                        auth-right-panel"
+                            d-flex
+                            align-items-center
+                            justify-content-center
+                            auth-right-panel"
             >
 
 
@@ -109,8 +109,8 @@
 
 
                     <!-- =================================================
-                         TITLE
-                    ================================================== -->
+                             TITLE
+                        ================================================== -->
 
                     <h2 class="auth-title">
 
@@ -136,21 +136,28 @@
                         </div>
                     @endif
 
-                    <!-- =================================================
-                         LOGIN FORM
-                    ================================================== -->
+                
+                   {{-- Error message section --}}
+@if (session('error') || $errors->any())
+    <div class="custom-alert custom-alert-danger" role="alert">
+        <i class="fa-solid fa-circle-exclamation custom-alert-icon"></i>
+        <span>{{ session('error') ?? $errors->first() }}</span>
+    </div>
+@endif
 
-                    <form
-                        method="POST"
-                        action="{{ route('login') }}"
-                    >
+
+                    <!-- =================================================
+                             LOGIN FORM
+                        ================================================== -->
+
+                    <form method="POST" action="{{ route('login') }}" novalidate>
 
                         @csrf
 
 
                         <!-- =============================================
-                             EMAIL
-                        ============================================== -->
+                                 EMAIL
+                            ============================================== -->
 
                         <div class="auth-form-group">
 
@@ -161,22 +168,24 @@
 
                             </label>
 
-
                             <input
                                 type="email"
                                 name="email"
-                                class="auth-form-control"
+                                class="auth-form-control @error('email') is-invalid @enderror"
                                 placeholder="you@example.com"
+                                value="{{ old('email') }}"
+                                autocomplete="email"
+                            
                             >
 
-
+        
                         </div>
 
 
 
                         <!-- =============================================
-                             PASSWORD
-                        ============================================== -->
+                                 PASSWORD
+                            ============================================== -->
 
                         <div class="auth-form-group">
 
@@ -191,9 +200,12 @@
                             <input
                                 type="password"
                                 name="password"
-                                class="auth-form-control"
+                                class="auth-form-control @error('password') is-invalid @enderror"
                                 placeholder="Enter your password"
+                                autocomplete="current-password"
+                                
                             >
+
 
 
                         </div>
@@ -201,8 +213,8 @@
 
 
                         <!-- =============================================
-                             REMEMBER + FORGOT
-                        ============================================== -->
+                                 REMEMBER + FORGOT
+                            ============================================== -->
 
                         <div class="auth-options">
 
@@ -224,12 +236,10 @@
 
 
                             <a
-                                href="#"
+                                href="{{ route('password.request') }}"
                                 class="auth-link"
                             >
-
                                 Forgot password?
-
                             </a>
 
 
@@ -238,8 +248,8 @@
 
 
                         <!-- =============================================
-                             LOGIN BUTTON
-                        ============================================== -->
+                                 LOGIN BUTTON
+                            ============================================== -->
 
                         <button
                             type="submit"
@@ -258,8 +268,8 @@
 
 
                     <!-- =================================================
-                         REGISTER LINK
-                    ================================================== -->
+                             REGISTER LINK
+                        ================================================== -->
 
                     <p class="auth-footer">
 

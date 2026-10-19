@@ -822,7 +822,7 @@
 
 
             <div class="admin-provider-quick-actions">
-                {{-- 👉 APPROVE & REJECT (Pending ဖြစ်မှ ပေါ်မည်) --}}
+                
                 @if($provider->approval_status === 'pending')
 
                     <form
@@ -918,6 +918,135 @@
         </div>
 
     </div>
+
+</div>
+{{-- =====================================================
+     NRC DOCUMENTS
+====================================================== --}}
+
+<div class="admin-card admin-provider-nrc-card">
+
+    <div class="admin-card-header">
+        <div>
+            <h3>NRC Documents</h3>
+            <p>Identity documents submitted by this provider</p>
+        </div>
+    </div>
+
+    <div class="admin-provider-nrc-grid">
+
+        {{-- NRC FRONT --}}
+
+        <div class="admin-provider-nrc-item">
+
+            <h4>NRC Front</h4>
+
+            @if($provider->nrc_front_image)
+
+                <a
+                    href="{{ route('admin.providers.nrc-image', [
+                        'id' => $provider->id,
+                        'side' => 'front'
+                    ]) }}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="admin-provider-nrc-image-link"
+                >
+                    <img
+                        src="{{ route('admin.providers.nrc-image', [
+                            'id' => $provider->id,
+                            'side' => 'front'
+                        ]) }}"
+                        alt="Provider NRC front"
+                        class="admin-provider-nrc-image"
+                        loading="lazy"
+                    >
+                </a>
+
+                <a
+                    href="{{ route('admin.providers.nrc-image', [
+                        'id' => $provider->id,
+                        'side' => 'front'
+                    ]) }}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="admin-small-btn"
+                >
+                    <i class="fa-solid fa-up-right-from-square"></i>
+                    View Full Image
+                </a>
+
+            @else
+
+                <div class="admin-provider-nrc-empty">
+                    <i class="fa-regular fa-image"></i>
+                    <p>Front image not uploaded</p>
+                </div>
+
+            @endif
+
+        </div>
+
+
+        {{-- NRC BACK --}}
+
+        <div class="admin-provider-nrc-item">
+
+            <h4>NRC Back</h4>
+
+            @if($provider->nrc_back_image)
+
+                <a
+                    href="{{ route('admin.providers.nrc-image', [
+                        'id' => $provider->id,
+                        'side' => 'back'
+                    ]) }}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="admin-provider-nrc-image-link"
+                >
+                    <img
+                        src="{{ route('admin.providers.nrc-image', [
+                            'id' => $provider->id,
+                            'side' => 'back'
+                        ]) }}"
+                        alt="Provider NRC back"
+                        class="admin-provider-nrc-image"
+                        loading="lazy"
+                    >
+                </a>
+
+                <a
+                    href="{{ route('admin.providers.nrc-image', [
+                        'id' => $provider->id,
+                        'side' => 'back'
+                    ]) }}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="admin-small-btn"
+                >
+                    <i class="fa-solid fa-up-right-from-square"></i>
+                    View Full Image
+                </a>
+
+            @else
+
+                <div class="admin-provider-nrc-empty">
+                    <i class="fa-regular fa-image"></i>
+                    <p>Back image not uploaded</p>
+                </div>
+
+            @endif
+
+        </div>
+
+    </div>
+
+    <p class="admin-provider-nrc-note">
+        <i class="fa-solid fa-lock"></i>
+        These identity documents are confidential. Only authorized
+        administrators should access them.
+    </p>
 
 </div>
 

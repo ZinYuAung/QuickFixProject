@@ -12,6 +12,8 @@ use App\Models\ServiceCategory;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 
 class ProviderDashboardController extends Controller
@@ -1009,7 +1011,61 @@ public function profile()
         compact('provider')
     );
 }
+public function nrcImage(string $side): StreamedResponse
+{
+    abort_unless(in_array($side, ['front', 'back'], true), 404);
 
+    // Only access the currently logged-in provider's own record.
+    $provider = Provider::where('user_id', auth()->id())
+        ->firstOrFail();
+
+    $path = $side === 'front'
+        ? $provider->nrc_front_image
+        : $provider->nrc_back_image;
+
+    abort_unless(
+        is_string($path) &&
+        str_starts_with($path, 'provider-nrc/') &&
+        !str_contains($path, '..') &&
+        Storage::disk('local')->exists($path),
+        404
+    );
+
+    $mimeType = Storage::disk('local')->mimeType($path);
+
+    abort_unless(
+        is_string($mimeType) &&
+        in_array($mimeType, [
+            'image/jpeg',
+            'image/png',
+            'image/webp',
+        ], true),
+        404
+    );
+
+    return response()->stream(
+        function () use ($path) {
+            $stream = Storage::disk('local')->readStream($path);
+
+            if ($stream === false) {
+                abort(404);
+            }
+
+            try {
+                fpassthru($stream);
+            } finally {
+                fclose($stream);
+            }
+        },
+        200,
+        [
+            'Content-Type' => $mimeType,
+            'Content-Disposition' => 'inline',
+            'X-Content-Type-Options' => 'nosniff',
+            'Cache-Control' => 'private, no-store',
+        ]
+    );
+}
 // =====================================================
 // PROVIDER CHANGE PASSWORD
 // =====================================================

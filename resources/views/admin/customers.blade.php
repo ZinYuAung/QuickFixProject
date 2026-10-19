@@ -109,7 +109,7 @@
                         Customer account information
                     </p>
                 </div>
-                <a href="{{ route('admin.customers.create') }}" class="admin-small-btn"> <i class="fa-solid fa-user-plus"></i> <span> Add Customer </span> </a>
+                
             </div>
 
             <!-- SEARCH + FILTERS-->

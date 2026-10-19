@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="my">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QuickFix Project — လုပ်ငန်းစဉ်နှင့် ရှင်းလင်းချက်</title>
+  <style>
+    :root{--ink:#172033;--muted:#586579;--blue:#155eef;--pale:#edf4ff;--line:#dce3ee;--paper:#fff;--bg:#f4f7fb;--green:#13795b}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.85 system-ui,"Noto Sans Myanmar",sans-serif}
+    header{background:linear-gradient(125deg,#102a56,#155eef);color:#fff;padding:54px 22px}header .wrap,main{max-width:1050px;margin:auto}header p{max-width:800px;color:#e4edff}h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.45;margin:0 0 8px}h2{font-size:1.55rem;margin:0 0 14px}h3{font-size:1.12rem;margin:20px 0 6px}main{padding:25px 18px 60px}.card{background:var(--paper);border:1px solid var(--line);border-radius:15px;padding:25px;margin:18px 0;box-shadow:0 5px 20px #13294b08}.lead{font-size:1.08rem}.tag{display:inline-block;background:#ffffff22;border:1px solid #ffffff55;border-radius:99px;padding:4px 12px;margin-top:12px}.toc{display:flex;gap:9px;flex-wrap:wrap}.toc a{color:var(--blue);background:var(--pale);border-radius:8px;padding:5px 10px;text-decoration:none}.flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:16px 0}.step{background:#f8faff;border:1px solid var(--line);border-radius:12px;padding:14px}.step b{color:var(--blue);display:block}.note{border-left:4px solid var(--blue);background:var(--pale);padding:12px 16px;border-radius:5px;margin:14px 0}.caution{border-left-color:#d97706;background:#fff7e8}.muted{color:var(--muted)}code{font-family:ui-monospace,Consolas,monospace;background:#f0f2f6;padding:2px 5px;border-radius:4px;font-size:.92em}table{border-collapse:collapse;width:100%;margin:12px 0}th,td{text-align:left;vertical-align:top;border:1px solid var(--line);padding:10px}th{background:#f3f6fb}details{border:1px solid var(--line);border-radius:10px;margin:10px 0;padding:12px 15px;background:#fff}summary{font-weight:700;cursor:pointer}.en{font-family:system-ui,sans-serif;color:#334155}ul,ol{padding-left:26px}footer{text-align:center;color:var(--muted);padding:24px}
+    @media print{body{background:white;font-size:13px}header{padding:24px}.card{box-shadow:none;break-inside:avoid}a{color:inherit}.toc{display:none}}
+  </style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1>QuickFix Project</h1>
+  <p class="lead">အိမ်သုံးနှင့် နေ့စဉ်ဝန်ဆောင်မှုများကို Customer နှင့် Service Provider တို့ ချိတ်ဆက်ပေးသော ဝဘ်အက်ပလီကေးရှင်း။ ဤစာတမ်းတွင် စနစ်၏ရည်ရွယ်ချက်၊ အသုံးပြုသူအခန်းကဏ္ဍ၊ အဓိကလုပ်ငန်းစဉ်များနှင့် နည်းပညာဖွဲ့စည်းပုံကို တင်ပြရှင်းပြနိုင်ရန် အသေးစိတ်ဖော်ပြထားသည်။</p>
+  <span class="tag">Presentation guide · မြန်မာဘာသာ</span>
+</div></header>
+<main>
+  <section class="card"><h2>မာတိကာ</h2><nav class="toc">
+    <a href="#overview">စီမံကိန်းအကျဉ်း</a><a href="#roles">အသုံးပြုသူများ</a><a href="#workflow">အဓိက Workflow</a><a href="#modules">Module များ</a><a href="#tech">နည်းပညာ</a><a href="#data">Database</a><a href="#demo">Demo အစီအစဉ်</a><a href="#qa">မေးခွန်းနှင့်အဖြေ</a>
+  </nav></section>
+
+  <section class="card" id="overview"><h2>၁။ စီမံကိန်းအကျဉ်း</h2>
+    <p>QuickFix သည် ဖောက်သည်တစ်ဦးက လိုအပ်သော ဝန်ဆောင်မှုကို ရှာဖွေ၊ အလုပ်အပ်နှံ၊ အခြေအနေကြည့်ရှု၊ ငွေပေးချေပြီး အလုပ်ပြီးနောက် သုံးသပ်ချက်ပေးနိုင်စေသည်။ Provider ဘက်တွင် အလုပ်တောင်းဆိုမှုများကို လက်ခံ/ငြင်းပယ်ခြင်း၊ အလုပ်အဆင့်တစ်ဆင့်ချင်း ပြောင်းခြင်း၊ ငွေလက်ခံမှုနှင့် ဝင်ငွေကို စီမံခြင်းတို့ ပြုလုပ်နိုင်သည်။ Admin ဘက်ကတော့ စာရင်းသွင်းအသုံးပြုသူများနှင့် စနစ်အတွင်းရှိ ဝန်ဆောင်မှုအချက်အလက်များကို စီမံခန့်ခွဲနိုင်သည်။</p>
+    <div class="note"><b>တင်ပြရာတွင် တစ်ကြောင်းတည်းဖြင့်</b><br>“QuickFix က Customer တွေကို သင့်တော်တဲ့ ဝန်ဆောင်မှုပေးသူနဲ့ ချိတ်ဆက်ပေးပြီး booking ကနေ payment၊ review အထိ လုပ်ငန်းစဉ်ကို တစ်နေရာတည်းမှာ စီမံပေးတဲ့ platform ဖြစ်ပါတယ်။”</div>
+    <p><b>ဖြေရှင်းပေးသည့်အရာများ</b></p><ul><li>ဖုန်းဆက်ရှာဖွေမှုအစား ဝန်ဆောင်မှုနှင့် Provider ကို စနစ်တကျကြည့်ရှုနိုင်ခြင်း။</li><li>Booking ၏အခြေအနေကို မှတ်တမ်းနှင့်တကွ လိုက်ကြည့်နိုင်ခြင်း။</li><li>ဖောက်သည်နှင့် Provider တို့အကြား စာတိုပေးပို့နိုင်ခြင်း။</li><li>ငွေပေးချေမှု၊ ငွေပြန်အမ်းမှုနှင့် review အချက်အလက်များကို ချိတ်ဆက်သိမ်းဆည်းခြင်း။</li></ul>
+  </section>
+
+  <section class="card" id="roles"><h2>၂။ အသုံးပြုသူအခန်းကဏ္ဍ</h2>
+    <table><thead><tr><th>အခန်းကဏ္ဍ</th><th>အဓိကတာဝန်</th><th>ဝင်ရောက်နိုင်သော လုပ်ဆောင်ချက်များ</th></tr></thead><tbody>
+      <tr><td><b>Customer</b></td><td>ဝန်ဆောင်မှုလိုအပ်သူ</td><td>ဝန်ဆောင်မှုရှာရန်၊ Booking တင်ရန်၊ Booking နှင့် payment အခြေအနေကြည့်ရန်၊ Provider နှင့် chat လုပ်ရန်၊ အလုပ်ပြီးလျှင် review ပေးရန်။</td></tr>
+      <tr><td><b>Provider</b></td><td>ဝန်ဆောင်မှုပေးသူ</td><td>Profile နှင့် ဝန်ဆောင်မှုများသတ်မှတ်ရန်၊ availability ပြောင်းရန်၊ Booking ကိုလက်ခံ/ငြင်းပယ်ရန်၊ အလုပ်အဆင့်များတင်ရန်၊ payment slip စစ်ဆေးရန်၊ ဝင်ငွေနှင့် review ကြည့်ရန်။</td></tr>
+      <tr><td><b>Admin / Superadmin</b></td><td>စနစ်စီမံခန့်ခွဲသူ</td><td>Customer၊ Provider၊ Booking၊ service၊ category၊ city၊ service area နှင့် payment များကို စီမံကြည့်ရှုရန်။ Provider approval ကို ဆုံးဖြတ်ရန်။</td></tr>
+    </tbody></table>
+    <p>အကောင့်များအားလုံးတွင် အခြေခံအချက်အလက်များကို <code>users</code> ဇယား၌ သိမ်းထားပြီး အခန်းကဏ္ဍအလိုက် <code>customers</code>၊ <code>providers</code> သို့မဟုတ် <code>admins</code> profile နှင့် ဆက်စပ်ထားသည်။ Route များတွင် <code>auth</code> နှင့် <code>role</code> middleware သုံးထားသောကြောင့် login ဝင်ထားသူနှင့် သတ်မှတ်အခန်းကဏ္ဍကို စစ်ပြီးမှ သက်ဆိုင်ရာစာမျက်နှာကို ဝင်ခွင့်ပေးသည်။</p>
+  </section>
+
+  <section class="card" id="workflow"><h2>၃။ အဓိကလုပ်ငန်းစဉ် (End-to-end Workflow)</h2>
+    <h3>အဆင့် A — အကောင့်ဖွင့်ခြင်းနှင့် ဝင်ရောက်ခြင်း</h3>
+    <ol><li>အသုံးပြုသူက အမည်၊ email၊ ဖုန်း၊ password နှင့် Customer သို့မဟုတ် Provider အခန်းကဏ္ဍကို ဖြည့်သည်။</li><li>Server က လိုအပ်သော field များ၊ email မထပ်မှု၊ password အတည်ပြုမှုနှင့် role ကို စစ်ဆေးသည်။ Password ကို hash လုပ်ပြီး သိမ်းသည်။</li><li>Provider ဖြစ်ပါက မြို့/ဧရိယာ၊ အတွေ့အကြုံနှင့် ဝန်ဆောင်မှုများကို profile နှင့်ချိတ်သည်။ စာရင်းသွင်းချိန်တွင် approval အခြေအနေ <code>pending</code> ဖြစ်သည်။</li><li>Provider ကို Admin က အတည်ပြုပြီးမှ login ဝင်နိုင်သည်။ Login အောင်မြင်လျှင် role အလိုက် customer၊ provider သို့မဟုတ် admin dashboard သို့ပို့သည်။</li></ol>
+    <h3>အဆင့် B — Customer က Booking တင်ခြင်း</h3>
+    <ol><li>Customer က active category နှင့် service များကို browse လုပ်ပြီး လိုချင်သော service ကို ရွေးသည်။</li><li>Booking form တွင် service တစ်ခု/တစ်ခုထက်ပို၊ မြို့နှင့် service area၊ Provider၊ ASAP သို့မဟုတ် အချိန်ချိန်း booking အမျိုးအစား၊ လိပ်စာ၊ မှတ်ချက်တို့ကို ထည့်သည်။ ပြဿနာဓာတ်ပုံကို optional အဖြစ် တင်နိုင်သည်။</li><li>Server က service၊ city၊ area၊ provider ဆက်စပ်မှုနှင့် booking အချက်အလက်များကို validate လုပ်ပြီး စုစုပေါင်းပမာဏနှင့် ကြိုတင်ပေးချေ/ကျန်ငွေကို တွက်ချက်သည့် flow ကို ဆောင်ရွက်သည်။</li><li>Database transaction အတွင်း Booking၊ Payment နှင့် ပထမဆုံး status history ကို ဖန်တီးသည်။ Transaction သည် ဆက်စပ်ရေးသားမှုများကို တစ်စုတစ်စည်းတည်း သိမ်းရန် အသုံးပြုသည်။</li><li>Provider ထံ Booking အသိပေးချက်သွားပြီး Booking သည် Provider ၏တုံ့ပြန်မှုကို စောင့်နေသည်။</li></ol>
+    <h3>အဆင့် C — Provider ၏တုံ့ပြန်မှု</h3>
+    <div class="flow"><div class="step"><b>Pending</b>Booking တင်ပြီး Provider ၏ဆုံးဖြတ်ချက်ကို စောင့်သည်။</div><div class="step"><b>Accepted</b>Provider လက်ခံလျှင် ကြိုတင်ငွေပေးချေမှုအဆင့်သို့ သွားသည်။</div><div class="step"><b>Rejected / Cancelled</b>Provider ငြင်းပယ်ခြင်း သို့မဟုတ် ခွင့်ပြုထားသော အခြေအနေတွင် ပယ်ဖျက်ခြင်း။</div><div class="step"><b>Timeout</b>သတ်မှတ်တုံ့ပြန်ချိန် ကျော်လွန်ပါက အချိန်ကုန်အခြေအနေကို မှတ်တမ်းတင်နိုင်သည်။</div></div>
+    <p>လက်ခံ/ငြင်းပယ်ခြင်းမတိုင်မီ စနစ်က Booking ၏ လက်ရှိအခြေအနေကို စစ်သည်။ ခွင့်မပြုသောအခြေအနေမှ ထပ်မံပြောင်းလဲမှု မဖြစ်စေရန် ထိန်းထားသည်။ အခြေအနေပြောင်းတိုင်း <code>booking_status_history</code> တွင် မှတ်တမ်းတင်ပြီး သက်ဆိုင်ရာ Customer ကို notification ပို့သည်။</p>
+    <h3>အဆင့် D — ကြိုတင်ငွေနှင့် အလုပ်ဆောင်ရွက်မှု</h3>
+    <ol><li>Provider လက်ခံပြီးနောက် Customer က ကြိုတင်ငွေပေးချေမှုအတွက် payment method နှင့် slip အချက်အလက်ကို တင်သွင်းသည်။</li><li>ဤ codebase တွင် Provider က payment slip ကို စစ်ဆေးအတည်ပြု သို့မဟုတ် အကြောင်းပြချက်နှင့်အတူ ငြင်းပယ်သည့် လုပ်ငန်းစဉ်ရှိသည်။ စနစ်တွင် ပြင်ပ payment gateway တစ်ခုကို ချိတ်ထားသည်ဟု မဖော်ပြထားပါ။</li><li>ကြိုတင်ငွေ အတည်ပြုပြီးနောက် Provider သည် အလုပ်အဆင့်ကို <code>accepted → on_the_way → arrived → in_progress</code> အစဉ်အတိုင်း တိုးမြှင့်သည်။</li><li>ဝန်ဆောင်မှုပြီးဆုံးသောအခါ Provider က <code>complete</code> လုပ်ဆောင်ချက်ကို ပြုလုပ်ပြီး Booking အခြေအနေသည် <code>completed</code> ဖြစ်သွားသည်။ ကျန်ငွေပေးချေမှုအဆင့်ကို ဖွင့်ပေးပြီး Customer က နောက်ဆုံးငွေပေးချေမှုအထောက်အထားကို တင်သွင်းသည်။</li><li>Provider သည် နောက်ဆုံးငွေပေးချေမှုကို စစ်ဆေးအတည်ပြုနိုင်သလို ငြင်းပယ်နိုင်သည်။ ကြိုတင်ငွေနှင့် နောက်ဆုံးငွေ အတည်ပြုမှုကို Payment record တွင် သီးခြားစီ သိမ်းသည်။</li></ol>
+    <div class="note caution"><b>အခြေအနေအစဉ်ကို သတိပြုရန်</b><br>Booking status နှင့် payment status သည် မတူညီသော field များဖြစ်သည်။ ဥပမာ Booking သည် <code>completed</code> ဖြစ်နိုင်သော်လည်း final payment သည် စစ်ဆေးဆဲဖြစ်နိုင်သည်။</div>
+    <h3>အဆင့် E — ပယ်ဖျက်ခြင်းနှင့် refund</h3>
+    <p>ပယ်ဖျက်သည့်သူ၊ အကြောင်းပြချက်နှင့် အချိန်ကို Booking တွင် သိမ်းသည်။ ကြိုတင်ငွေကို အတည်ပြုပြီးသားဖြစ်ပါက refund လိုအပ်မှုကို payment record နှင့် refund status ဖြင့် ကိုင်တွယ်နိုင်သည်။ Provider က refund အထောက်အထားတင်ပြီး Customer က အတည်ပြု/ပြန်လည်တုံ့ပြန်သည့် field များလည်း ပါရှိသည်။ ခွင့်ပြုနိုင်သည့် ပယ်ဖျက်မှုအဆင့်များကို controller က စစ်ဆေးသည်။</p>
+    <h3>အဆင့် F — ပြီးဆုံးပြီးနောက်</h3>
+    <p>Customer က ပြီးဆုံးသော Booking အတွက် rating နှင့် review ပေးသည်။ Provider သည် ရရှိထားသော review များကို ကြည့်နိုင်သည်။ Booking ၏ payment၊ chat၊ review နှင့် status history တို့က သက်ဆိုင်ရာ Booking နှင့် ချိတ်ဆက်ထားသည်။</p>
+  </section>
+
+  <section class="card" id="modules"><h2>၄။ စနစ် Module များ</h2>
+    <table><thead><tr><th>Module</th><th>အလုပ်လုပ်ပုံ</th><th>အဓိကဖိုင်/နေရာ</th></tr></thead><tbody>
+      <tr><td>Authentication</td><td>Register၊ login၊ logout နှင့် role အလိုက် redirect။ Provider approval ကို စစ်သည်။</td><td><code>app/Http/Controllers/Auth</code></td></tr>
+      <tr><td>Customer</td><td>Dashboard၊ service browsing၊ profile၊ booking၊ payment၊ review၊ chat နှင့် notification။</td><td><code>CustomerBookingController</code> နှင့် <code>Customer*</code> controllers</td></tr>
+      <tr><td>Provider</td><td>Dashboard၊ အလုပ်တောင်းဆိုမှု၊ Booking အဆင့်၊ profile/availability၊ payment စစ်ဆေးမှု၊ ဝင်ငွေ၊ review နှင့် chat။</td><td><code>BookingController</code>၊ <code>Provider*Controller</code></td></tr>
+      <tr><td>Admin</td><td>Customer/Provider စီမံခန့်ခွဲမှု၊ Provider approval၊ ဝန်ဆောင်မှု/အမျိုးအစား/မြို့/ဧရိယာနှင့် Booking/payment ကြည့်ရှုမှု။</td><td><code>app/Http/Controllers/Admin</code></td></tr>
+      <tr><td>Notifications & Chat</td><td>Booking/payment ဖြစ်ရပ်များကို notification အဖြစ် သိမ်း/ပြသပြီး Customer နှင့် Provider ကြား message များကို သိမ်းသည်။</td><td><code>app/Notifications</code>၊ <code>Chat</code> model၊ role-specific controllers</td></tr>
+    </tbody></table>
+    <p>UI ကို Blade template များဖြင့် တည်ဆောက်ထားပြီး <code>resources/views/customer</code>၊ <code>provider</code>၊ <code>admin</code> နှင့် <code>auth</code> အောက်တွင် အုပ်စုခွဲထားသည်။ Front-end interaction များတွင် <code>public/js</code>၊ ပုံစံများတွင် <code>public/css</code> ကို သုံးထားသည်။</p>
+  </section>
+
+  <section class="card" id="tech"><h2>၅။ နည်းပညာနှင့် Architecture</h2>
+    <ul><li><b>Backend:</b> PHP 8.2 နှင့် Laravel 12။</li><li><b>Frontend:</b> Laravel Blade၊ HTML/CSS၊ JavaScript၊ Bootstrap/Tailwind နှင့် Vite build tool များ။</li><li><b>Database:</b> Laravel migration များဖြင့် schema ကို သတ်မှတ်ထားသည်။ မည်သည့် database ကို အသုံးပြုမည်ကို project ၏ local <code>.env</code> setting က ဆုံးဖြတ်သည်။ Secret ပါနိုင်သဖြင့် .env တန်ဖိုးများကို မျှဝေမပြသင့်ပါ။</li><li><b>Request flow:</b> Browser → <code>routes/web.php</code> → authentication/role middleware → Controller (validation + business rule) → Eloquent Model/Database → Blade view သို့မဟုတ် JSON response။</li></ul>
+    <div class="flow"><div class="step"><b>Route</b>URL နှင့် HTTP method ကို controller action သို့ ချိတ်သည်။</div><div class="step"><b>Middleware</b>Login နှင့် role ကို စစ်ဆေးသည်။</div><div class="step"><b>Controller</b>Input စစ်ပြီး လုပ်ငန်းစည်းမျဉ်းကို ဆောင်ရွက်သည်။</div><div class="step"><b>Model</b>Database relation နှင့် query များကို ကိုင်တွယ်သည်။</div><div class="step"><b>View</b>ရလဒ်ကို အသုံးပြုသူမြင်နိုင်သော စာမျက်နှာအဖြစ် ပြသည်။</div></div>
+    <p><b>လုံခြုံရေး/တိကျမှုဆိုင်ရာ ရှင်းပြချက်:</b> Laravel authentication နှင့် session ကို သုံးသည်။ Form input များကို validation လုပ်ထားပြီး password ကို hash လုပ်သည်။ Role route များကို middleware ဖြင့် ကာကွယ်ထားသည်။ အရေးကြီးသော multi-record write များတွင် database transaction ကို သုံးထားသည်။</p>
+  </section>
+
+  <section class="card" id="data"><h2>၆။ အဓိက Database Entity များ</h2>
+    <table><thead><tr><th>ဇယား/Model</th><th>သိမ်းဆည်းသည့်အချက်အလက်နှင့် ဆက်စပ်မှု</th></tr></thead><tbody>
+      <tr><td><code>users</code></td><td>အကောင့်၊ login နှင့် role ၏ အခြေခံအချက်အလက်။ Customer/Provider/Admin profile များ၏ မိခင်အကောင့်။</td></tr>
+      <tr><td><code>customers</code>, <code>providers</code>, <code>admins</code></td><td>Role သီးသန့် profile အချက်အလက်များ။ Provider တွင် approval၊ availability၊ service area၊ experience စသည် ပါဝင်သည်။</td></tr>
+      <tr><td><code>service_categories</code>, <code>services</code></td><td>ဝန်ဆောင်မှုအမျိုးအစားနှင့် ရွေးချယ်နိုင်သော service များ။ Provider-service ချိတ်ဆက်မှုအတွက် pivot ဇယားရှိသည်။</td></tr>
+      <tr><td><code>cities</code>, <code>service_areas</code></td><td>တည်နေရာနှင့် ဝန်ဆောင်မှုပေးနိုင်သည့် နယ်မြေများ။ Area သည် City နှင့် ဆက်စပ်သည်။</td></tr>
+      <tr><td><code>bookings</code></td><td>Customer၊ Provider၊ နယ်မြေ၊ ရွေးထားသော service များ (JSON)၊ အချိန်၊ လိပ်စာ၊ စုစုပေါင်းနှင့် လက်ရှိ status။</td></tr>
+      <tr><td><code>payments</code></td><td>Booking ၏ကြိုတင်/နောက်ဆုံးငွေ၊ slip၊ verification၊ rejection နှင့် refund အခြေအနေများ။</td></tr>
+      <tr><td><code>booking_status_history</code></td><td>Booking status ပြောင်းလဲမှု၊ ပြောင်းလဲသူနှင့် အချိန်ကို ခြေရာခံသည်။</td></tr>
+      <tr><td><code>chats</code>, <code>reviews</code>, notifications</td><td>Booking ဆိုင်ရာစကားပြောမှတ်တမ်း၊ Customer အကဲဖြတ်ချက်နှင့် အသုံးပြုသူထံပို့သော အသိပေးချက်များ။</td></tr>
+    </tbody></table>
+    <p>Migration ဖိုင်များသည် <code>database/migrations</code> ထဲတွင်ရှိပြီး schema ပြောင်းလဲမှုကို အချိန်လိုက် မှတ်တမ်းတင်သည်။ Model များရှိ Eloquent relationship များက Booking မှ Customer/Provider/Payment/Review/Chat/History သို့ ဆက်သွယ်နိုင်စေသည်။</p>
+  </section>
+
+  <section class="card" id="demo"><h2>၇။ တင်ပြပွဲအတွက် Demo အစီအစဉ်</h2>
+    <ol><li>Project ရည်ရွယ်ချက်နှင့် Customer–Provider–Admin အခန်းကဏ္ဍ ၃ မျိုးကို မိတ်ဆက်ပါ။</li><li>Customer အဖြစ် service ရှာပြီး booking form တွင် service၊ တည်နေရာ၊ အချိန်နှင့် မှတ်ချက်ဖြည့်ပါ။</li><li>Provider dashboard တွင် တောင်းဆိုမှုကို လက်ခံပြီး booking detail/status history ကို ပြပါ။</li><li>Payment စာမျက်နှာတွင် prepayment နှင့် final payment ကို သီးခြားစီ စစ်ဆေးကြောင်း ရှင်းပြပါ။</li><li>Provider ၏ အလုပ်အဆင့်ပြောင်းလဲမှု၊ Customer notification၊ chat တို့ကို ပြပါ။</li><li>အလုပ်ပြီးနောက် review နှင့် Admin ၏ data management/Provider approval ကို အဆုံးသတ်အဖြစ် ပြပါ။</li></ol>
+    <p class="muted">Demo အတွင်း အမှန်တကယ်ငွေပေးချေမှုလုပ်မည်ဆိုပါက သတ်မှတ်ထားသော development/test data ကိုသာ အသုံးပြုပါ။</p>
+  </section>
+
+  <section class="card" id="qa"><h2>၈။ အခြားသူများ မေးနိုင်သော မေးခွန်းများနှင့် အဖြေများ</h2>
+    <details><summary>ဒီ project က ဘာပြဿနာကို ဖြေရှင်းပေးတာလဲ?</summary><p>Customer က လိုအပ်သော service နှင့် Provider ကို ရှာပြီး တောင်းဆိုမှုတင်နိုင်စေတယ်။ Provider က အလုပ်ကို စနစ်တကျတုံ့ပြန်နိုင်ပြီး booking၊ payment၊ communication နဲ့ review မှတ်တမ်းတွေကို တစ်နေရာမှာ ချိတ်ဆက်ပေးတယ်။</p></details>
+    <details><summary>အသုံးပြုသူ role များကို ဘယ်လိုခွဲထားသလဲ?</summary><p><code>users.role</code> ဖြင့် customer၊ provider၊ admin သို့မဟုတ် superadmin အဖြစ် ခွဲထားတယ်။ Route တွေမှာ <code>auth</code> နဲ့ ကိုယ်ပိုင် <code>role</code> middleware ကို အသုံးပြုပြီး ခွင့်ပြုထားတဲ့ role သာ ဝင်နိုင်တယ်။</p></details>
+    <details><summary>Provider တစ်ယောက်က စာရင်းသွင်းပြီးတာနဲ့ အလုပ်လက်ခံနိုင်သလား?</summary><p>မရပါ။ Registration အချိန် approval status က pending ဖြစ်ပြီး Admin အတည်ပြုမှ Provider အဖြစ် ဝင်ရောက်လုပ်ဆောင်နိုင်တယ်။</p></details>
+    <details><summary>Booking တင်ပြီးရင် ဘာတွေဖြစ်သလဲ?</summary><p>Booking နဲ့ payment ဆိုင်ရာ record တွေကို ဖန်တီးတယ်၊ status history မှတ်တမ်းတင်တယ်၊ Provider ကို အသိပေးတယ်။ Provider က လက်ခံ/ငြင်းပယ်ပြီး လက်ခံခဲ့ရင် ကြိုတင်ငွေနဲ့ အလုပ်ဆောင်ရွက်မှုအဆင့်တွေ ဆက်သွားတယ်။</p></details>
+    <details><summary>Booking status နဲ့ payment status က ဘာကွာသလဲ?</summary><p>Booking status က အလုပ်၏တိုးတက်မှုကို ပြတယ်။ Payment status က ငွေတင်သွင်းမှု၊ စစ်ဆေးမှုနဲ့ refund ကို ပြတယ်။ နှစ်မျိုးကို သီးခြားစီ ထိန်းသိမ်းတာကြောင့် အလုပ်ပြီးပေမယ့် final payment စစ်ဆေးနေဆဲ ဖြစ်နိုင်တယ်။</p></details>
+    <details><summary>Payment က ဘယ်လိုအတည်ပြုသလဲ? Online payment gateway ပါသလား?</summary><p>လက်ရှိ code flow မှာ Customer က payment အချက်အလက်/slip တင်ပြီး Provider က verify သို့မဟုတ် reject လုပ်တဲ့ပုံစံကို တွေ့ရတယ်။ ပြင်ပ gateway/API တစ်ခုနဲ့ အလိုအလျောက်ငွေလွှဲခြင်းကို ဒီ project code မှာ အတည်ပြုမတွေ့ရဘူး။</p></details>
+    <details><summary>Booking history ကို ဘယ်လိုစစ်ဆေးနိုင်သလဲ?</summary><p>Status ပြောင်းတိုင်း သက်ဆိုင်ရာ history record ကို သိမ်းထားပြီး customer/provider view တွင် အခြေအနေကို ပြန်ကြည့်နိုင်တယ်။ Controller များက လက်ရှိ status ကို စစ်ပြီး ခွင့်ပြုသောအဆင့်အလိုက်သာ ပြောင်းခွင့်ပေးတယ်။</p></details>
+    <details><summary>Database ကို ဘယ်လိုချိတ်ဆက်သလဲ?</summary><p>Laravel database configuration ကို <code>.env</code> မှ ဖတ်တယ်။ Local machine ၏ connection အတိအကျကို project configuration က ဆုံးဖြတ်တာကြောင့် မိမိစက်ရှိ environment setting ကို စစ်ပြီးမှ ရှင်းပြသင့်တယ်။</p></details>
+    <details><summary>Project မှာ ဘယ် architecture pattern ကို သုံးထားသလဲ?</summary><p>Laravel ၏ MVC ပုံစံကို အခြေခံတယ်။ Route က Controller ကိုခေါ်တယ်၊ Controller က Model နဲ့ data/business rules ကို ကိုင်တွယ်ပြီး Blade View က ရလဒ်ကို ပြသတယ်။</p></details>
+    <details><summary>Input ကို ဘယ်လိုစစ်ပြီး account ကို ကာကွယ်သလဲ?</summary><p>Laravel validation ဖြင့် required field၊ email၊ password၊ ရှိပြီးသား ID စတဲ့အချက်တွေကို စစ်တယ်။ Password ကို hash လုပ်တယ်။ Authentication နှင့် role middleware တွေက ဝင်ရောက်ခွင့်ကို ထိန်းတယ်။</p></details>
+    <details><summary>Transaction ကို ဘာကြောင့် သုံးသလဲ?</summary><p>Booking တင်ရာမှာ Booking၊ Payment၊ history တို့က ဆက်စပ်နေတယ်။ တစ်ခုရေးပြီး နောက်တစ်ခုမအောင်မြင်လျှင် မပြည့်စုံတဲ့ data မကျန်စေရန် transaction ဖြင့် အစုလိုက်အပြုံလိုက် commit/rollback လုပ်တယ်။</p></details>
+    <details><summary>Project ရဲ့ နောက်ထပ်တိုးတက်စေနိုင်သည့်အပိုင်းက ဘာလဲ?</summary><p>Project အခြေအနေနှင့်လိုအပ်ချက်အပေါ်မူတည်ပြီး payment gateway၊ automated test coverage၊ audit/reporting၊ map/location UX၊ real-time message/notification တို့ကို နောက်ထပ်အဆင့်တွင် ထည့်စဉ်းစားနိုင်တယ်။ လက်ရှိရှိပြီးသား feature လို့ မပြောဘဲ အနာဂတ်တိုးချဲ့မှုအဖြစ် ရှင်းပြပါ။</p></details>
+  </section>
+
+  <section class="card"><h2>၉။ ၁ မိနစ်ခန့် မိတ်ဆက်ပြောဆိုရန်</h2>
+    <p>“ကျွန်တော့် project က QuickFix လို့ခေါ်တဲ့ service booking web application ဖြစ်ပါတယ်။ Customer တွေက ဝန်ဆောင်မှုအမျိုးအစားနဲ့ Provider ကိုရွေးပြီး လိပ်စာ၊ အချိန်နဲ့ လိုအပ်ချက်တွေထည့်ကာ booking တင်နိုင်ပါတယ်။ Provider တွေက Admin အတည်ပြုချက်ရပြီးမှ စနစ်ထဲဝင်ပြီး request ကို လက်ခံ/ငြင်းပယ်ကာ အလုပ်အဆင့်တွေကို update လုပ်နိုင်ပါတယ်။ Payment မှာ ကြိုတင်ငွေနဲ့ အလုပ်ပြီးနောက် နောက်ဆုံးငွေကို သီးခြားမှတ်တမ်းတင်ပြီး Provider က slip ကို စစ်ဆေးနိုင်ပါတယ်။ Customer နဲ့ Provider အတွက် dashboard၊ chat၊ notification၊ review တွေလည်း ပါဝင်ပါတယ်။ Admin က အသုံးပြုသူ၊ Provider approval၊ service နဲ့ တည်နေရာဆိုင်ရာ data တွေကို စီမံပါတယ်။ နည်းပညာအနေနဲ့ Laravel/PHP backend၊ Blade/JavaScript frontend နဲ့ relational database ကို အသုံးပြုထားပြီး role-based access နဲ့ validation တွေက လုပ်ဆောင်ချက်များကို ကာကွယ်ပေးပါတယ်။”</p>
+  </section>
+  <footer>QuickFix Project · ရှင်းလင်းတင်ပြရန် လမ်းညွှန်</footer>
+</main>
+</body>
+</html>

@@ -858,8 +858,10 @@
                         >{{ $provider->bio ?? 'No information provided.' }}</textarea>
 
                     </div>
+                    
 
                 </div>
+                
 
 
                 <!-- =================================================
@@ -885,7 +887,143 @@
             <!-- END PROFILE CARD -->
 
 
-            
+            <!-- =====================================================
+     NRC DOCUMENTS - VIEW ONLY
+====================================================== -->
+
+<div class="provider-profile-section provider-nrc-section">
+
+    <!-- NRC Section Header -->
+
+    <div class="provider-section-heading">
+
+        <div>
+
+            <span class="provider-section-label">
+                IDENTITY VERIFICATION
+            </span>
+
+            <h3>
+                NRC Documents
+            </h3>
+
+            <p>
+                View your submitted NRC documents.
+                Only an administrator can update these documents.
+            </p>
+
+        </div>
+
+        <span class="badge bg-light text-dark border">
+            <i class="fa-solid fa-lock me-1"></i>
+            View Only
+        </span>
+
+    </div>
+
+
+    <!-- NRC Documents Card -->
+
+    <div class="provider-nrc-card">
+
+        <div class="row g-4">
+
+            <!-- NRC FRONT -->
+
+            <div class="col-12 col-md-6">
+
+                <div class="provider-nrc-item">
+
+                    <h5>
+                        <i class="fa-regular fa-id-card me-2"></i>
+                        NRC Front
+                    </h5>
+
+                    @if ($provider->nrc_front_image)
+
+                        <a
+                            href="{{ route('provider.profile.nrc-image', ['side' => 'front']) }}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="View NRC front image"
+                        >
+                            <img
+                                src="{{ route('provider.profile.nrc-image', ['side' => 'front']) }}"
+                                alt="NRC Front"
+                                class="provider-nrc-image"
+                            >
+                        </a>
+
+                        <p class="provider-nrc-hint">
+                            <i class="fa-solid fa-magnifying-glass-plus me-1"></i>
+                            Click the image to view it larger.
+                        </p>
+
+                    @else
+
+                        <div class="provider-nrc-unavailable">
+                            <i class="fa-regular fa-image"></i>
+                            <p>NRC front image is not available.</p>
+                        </div>
+
+                    @endif
+
+                </div>
+
+            </div>
+
+
+            <!-- NRC BACK -->
+
+            <div class="col-12 col-md-6">
+
+                <div class="provider-nrc-item">
+
+                    <h5>
+                        <i class="fa-regular fa-id-card me-2"></i>
+                        NRC Back
+                    </h5>
+
+                    @if ($provider->nrc_back_image)
+
+                        <a
+                            href="{{ route('provider.profile.nrc-image', ['side' => 'back']) }}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="View NRC back image"
+                        >
+                            <img
+                                src="{{ route('provider.profile.nrc-image', ['side' => 'back']) }}"
+                                alt="NRC Back"
+                                class="provider-nrc-image"
+                            >
+                        </a>
+
+                        <p class="provider-nrc-hint">
+                            <i class="fa-solid fa-magnifying-glass-plus me-1"></i>
+                            Click the image to view it larger.
+                        </p>
+
+                    @else
+
+                        <div class="provider-nrc-unavailable">
+                            <i class="fa-regular fa-image"></i>
+                            <p>NRC back image is not available.</p>
+                        </div>
+
+                    @endif
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- END NRC DOCUMENTS -->
+
 
 
             <!-- =================================================

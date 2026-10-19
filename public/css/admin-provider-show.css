@@ -1471,3 +1471,93 @@ body.dark-mode .timeline-icon {
     }
 
 }
+
+/* =========================================
+   PROVIDER NRC DOCUMENTS
+========================================= */
+
+.admin-provider-nrc-card {
+    margin-bottom: 24px;
+}
+
+.admin-provider-nrc-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.admin-provider-nrc-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    min-width: 0;
+}
+
+.admin-provider-nrc-item h4 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.admin-provider-nrc-image-link {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    background: #f8fafc;
+}
+
+.admin-provider-nrc-image {
+    display: block;
+    width: 100%;
+    height: 240px;
+    object-fit: contain;
+}
+
+.admin-provider-nrc-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 180px;
+    padding: 20px;
+    border: 1px dashed #d1d5db;
+    border-radius: 10px;
+    color: #6b7280;
+    text-align: center;
+}
+
+.admin-provider-nrc-empty i {
+    font-size: 28px;
+}
+
+.admin-provider-nrc-empty p {
+    margin: 0;
+}
+
+.admin-provider-nrc-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 20px 0 0;
+    color: #6b7280;
+    font-size: 13px;
+}
+
+.admin-provider-nrc-note i {
+    margin-top: 3px;
+}
+
+@media (max-width: 600px) {
+    .admin-provider-nrc-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-provider-nrc-image {
+        height: 200px;
+    }
+}

@@ -386,12 +386,20 @@ class BookingController extends Controller
         // AJAX RESPONSE
         // =====================================================
 
-        return response()->json([
-            'success' => true,
-            'status' => 'accepted',
-            'message' =>
-                'Booking accepted successfully. Prepayment is required separately if applicable.',
-        ]);
+        // return response()->json([
+        //     'success' => true,
+        //     'status' => 'accepted',
+        //     'message' =>
+        //         'Booking accepted successfully. Prepayment is required separately if applicable.',
+        // ]);
+       
+return response()->json([
+    'success' => true,
+    'status' => 'accepted',
+    'booking_id' => $booking->id,
+    'message' => 'Booking accepted successfully. Prepayment is required separately if applicable.',
+]);
+
     }
 
     public function verifyPayment(string $id)

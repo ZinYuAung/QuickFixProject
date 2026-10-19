@@ -32,9 +32,19 @@
 
                 <h2 class="auth-title">Register</h2>
                 <p class="auth-subtitle">Create your account</p>
+                {{-- Registration error message section --}}
+@if ($errors->any())
+    <div class="custom-alert custom-alert-danger" role="alert">
+        <i class="fa-solid fa-circle-exclamation custom-alert-icon"></i>
+        <span>{{ $errors->first() }}</span>
+    </div>
+@endif
 
                 <!-- REGISTER FORM START -->
-                <form method="POST" action="{{ route('register') }}">
+                <form method="POST"
+      action="{{ route('register') }}"
+      enctype="multipart/form-data"
+      novalidate>
                     @csrf
 
                     <!-- Full Name -->
@@ -101,9 +111,7 @@
                                     </option>
                                 @endforeach
                             </select>
-                            @error('city_id')
-                                <span class="invalid-feedback text-danger" role="alert"><small>{{ $message }}</small></span>
-                            @enderror
+                          
                         </div>
 
                         <!-- 2. Service Area Selection -->
@@ -117,9 +125,7 @@
                                     </option>
                                 @endforeach
                             </select>
-                            @error('area_id')
-                                <span class="invalid-feedback text-danger" role="alert"><small>{{ $message }}</small></span>
-                            @enderror
+                           
                         </div>
 
                         <!-- 3. Experience Years -->
@@ -131,9 +137,7 @@
                                    value="{{ old('experience_years', 0) }}" 
                                    min="0" max="50" 
                                    placeholder="e.g. 3">
-                            @error('experience_years')
-                                <span class="invalid-feedback text-danger" role="alert"><small>{{ $message }}</small></span>
-                            @enderror
+                          
                         </div>
 
                         <!-- 4. Services Selection (Grouped by Category or Listed cleanly) -->
@@ -157,22 +161,49 @@
                                     </div>
                                 @endforeach
                             </div>
-                            @error('services')
-                                <span class="text-danger" role="alert"><small>{{ $message }}</small></span>
-                            @enderror
+                          
                         </div>
 
                         <!-- 5. Bio / Expertise -->
                         <div class="auth-form-group">
                             <label class="auth-form-label">Bio / Expertise Summary</label>
                             <textarea name="bio" class="auth-form-control @error('bio') is-invalid @enderror" rows="3" placeholder="Briefly describe your experience">{{ old('bio') }}</textarea>
-                            @error('bio')
-                                <span class="invalid-feedback text-danger" role="alert"><small>{{ $message }}</small></span>
-                            @enderror
-                        </div>
+                           
                     </div>
+                    <!-- NRC Front Image -->
+<div class="auth-form-group">
+    <label class="auth-form-label" for="nrc_front_image">
+        NRC Front Photo
+    </label>
+    <input
+        type="file"
+        name="nrc_front_image"
+        id="nrc_front_image"
+        class="auth-form-control @error('nrc_front_image') is-invalid @enderror"
+        accept="image/jpeg,image/png,image/webp"
+    >
+    @error('nrc_front_image')
+        <small class="text-danger">{{ $message }}</small>
+    @enderror
+</div>
 
-                    <!-- REGISTER BUTTON (Form ထဲမှာ ရှိရပါမယ်) -->
+<!-- NRC Back Image -->
+<div class="auth-form-group">
+    <label class="auth-form-label" for="nrc_back_image">
+        NRC Back Photo
+    </label>
+    <input
+        type="file"
+        name="nrc_back_image"
+        id="nrc_back_image"
+        class="auth-form-control @error('nrc_back_image') is-invalid @enderror"
+        accept="image/jpeg,image/png,image/webp"
+    >
+    @error('nrc_back_image')
+        <small class="text-danger">{{ $message }}</small>
+    @enderror
+</div>
+                    </div>
                     <button type="submit" class="auth-btn mt-3">
                         Register
                     </button>

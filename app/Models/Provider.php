@@ -18,6 +18,8 @@ class Provider extends Model
         'availability_status',
         'approve_by',
         'approval_status',
+        'nrc_front_image',
+        'nrc_back_image',
     ];
 
     protected $casts = [

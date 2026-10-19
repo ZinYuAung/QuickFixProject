@@ -10,6 +10,7 @@ use Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 
+
 class LoginController extends Controller
 {
     /*
@@ -24,7 +25,13 @@ class LoginController extends Controller
     */
 
     use AuthenticatesUsers;
-
+protected function validateLogin(Request $request)
+{
+    $request->validate([
+        'email' => ['required', 'email'],
+        'password' => ['required', 'string'],
+    ]);
+}
     /**
      * Where to redirect users after login.
      *

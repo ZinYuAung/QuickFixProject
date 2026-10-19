@@ -52,8 +52,8 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->name('customer
     Route::get('/profile/edit', [CustomerProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [CustomerProfileController::class, 'update'])->name('profile.update');
     // Customer Change Password
-Route::post('/profile/password', [CustomerProfileController::class, 'changePassword'])
-    ->name('profile.password');
+    Route::post('/profile/password', [CustomerProfileController::class, 'changePassword'])
+        ->name('profile.password');
     Route::get('/chats', [CustomerChatController::class, 'index'])->name('chats');
     Route::get(
         '/chats/unread-counts',
@@ -140,14 +140,14 @@ Route::post('/profile/password', [CustomerProfileController::class, 'changePassw
         [CustomerNotificationController::class, 'unread']
     )->name('notifications.unread');
     Route::get('/browse-services', [
-    CustomerServiceController::class,
-    'browse'
-])->name('services.browse');
+        CustomerServiceController::class,
+        'browse'
+    ])->name('services.browse');
 
-Route::get('/providers/{id}', [
-    CustomerServiceController::class,
-    'providerShow'
-])->name('providers.show');
+    Route::get('/providers/{id}', [
+        CustomerServiceController::class,
+        'providerShow'
+    ])->name('providers.show');
 });
 
 //provider routes
@@ -177,6 +177,9 @@ Route::middleware(['auth', 'role:provider'])->prefix('provider')->name('provider
     Route::post('/bookings/{id}/complete', [BookingController::class, 'complete'])->name('bookings.complete');
 
     Route::get('/profile', [ProviderDashboardController::class, 'profile'])->name('profile');
+    Route::get('/profile/nrc/{side}', [ProviderDashboardController::class, 'nrcImage'])
+    ->where('side', 'front|back')
+    ->name('profile.nrc-image');
     Route::get('/profile/edit', [ProviderDashboardController::class, 'editProfile'])->name('profile.edit');
     Route::put('/profile', [ProviderDashboardController::class, 'updateProfile'])->name('profile.update');
     // Change password
@@ -260,6 +263,13 @@ Route::middleware(['auth', 'role:admin,superadmin'])->prefix('admin')->name('adm
     Route::resource('customers', AdminCustomerController::class);
     Route::post('/customers/{id}/reactivate', [AdminCustomerController::class, 'reactivate'])->name('customers.reactivate');
     //provider
+    Route::get(
+        '/providers/{id}/nrc/{side}',
+        [AdminProviderController::class, 'nrcImage']
+    )->where([
+                'id' => '[0-9]+',
+                'side' => 'front|back',
+            ])->name('providers.nrc-image');
     Route::resource('providers', AdminProviderController::class);
     Route::post('/providers/{id}/reactivate', [AdminProviderController::class, 'reactivate'])->name('providers.reactivate');
     Route::post('/providers/{id}/approve', [AdminProviderController::class, 'approve'])->name('providers.approve');
